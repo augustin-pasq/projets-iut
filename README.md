@@ -21,6 +21,7 @@ The two players type their names. The first to type his name plays first. The pl
 File : MarienbadMachine.java
 
 The player chooses his name, and decide if him or the machine starts. Then, when it's the player's turn, he chooses the row and the amount of matches to take
+
 *Pro tip 2: if the machine starts, the player will lose (do not try to contradict me :))*
 
 ## How to launch a game?
