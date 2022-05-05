@@ -1,0 +1,89 @@
+/* Catégorie Formateurs */
+#formateurs {
+  padding: 120px 200px 0px 200px;
+}
+
+/* Table pour les formateurs */
+#table-formateurs {
+ text-align: center;
+ vertical-align: middle;
+ width: 75%;
+ margin: 0% auto 0% auto;
+ border-spacing: 60px;
+}
+
+/* Cellue de la table des formateurs */
+.cell-formateur {
+  border-radius: 60px;
+  width: 33%;
+  transition: 0.4s;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+  background: linear-gradient(to right bottom, #5fa4d7, #00b7d5, #00c3a9, #5bc761, #bebd00);
+  padding: 2px;
+}
+
+/* Effets sur les cellules formateurs */
+.cell-formateur:hover {
+  box-shadow: 0px 17px 34px rgba(0,0,0,0.2);
+  transform: translate(0px, -10px);
+  cursor: pointer;
+}
+
+/* Centre des cellules des formateurs */ 
+.background-formateurs {
+  display: flow-root;
+  background-color: white;
+  border-radius: 60px;
+}
+
+/* Nom des formateurs */
+.nom-formateurs {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Positionnement de la pop-up */
+.login-popup {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+
+/* Cacher la pop-up */
+.form-popup {
+  display: none;
+  position: fixed;
+  z-index: 6;
+  left: 48%;
+  top: 22%;
+  transform: translate(-45%,5%);
+}
+
+/* Styles de la pop-up */
+.form-container {
+  position: relative;
+  max-width: 600px;
+  padding: 30px 50px 0px 50px;
+  background-color: #fff;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+/* Fenêtre sombre qui s'active quand on ouvre la pop-up */
+#overlay {
+  display: none;
+  position: fixed;
+  top : -5000px;
+  left : -5000px;
+  right: -5000px;
+  bottom: -5000px;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Bouton de fermeture de la pop-up */
+.bouton-close-popup {
+  margin-top: 57px;
+  display: block;
+}

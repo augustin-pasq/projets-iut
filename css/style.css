@@ -1,0 +1,133 @@
+/* Scroll de la page */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Police + Suppression des marges */
+body {
+  font-family: 'Lato';
+  margin: 0px;
+}
+
+/* Style des liens */
+a {
+  color: inherit;
+  text-decoration: none;
+} 
+
+/* Modification du curseur lorsque la souris passe sur un lien */
+a:hover {
+  cursor: pointer;
+}
+
+/* Titre des catégories */
+h1 {
+  margin: 30px 0px 0px 0px;
+  font-size: 36px;
+  transition-duration: 1s;
+}
+
+/* Animation des titres quand la souris passe dessus */
+h1:hover{
+  letter-spacing: 6px;
+}
+
+/* Soulignement des titres */
+hr {
+  margin: 4px 0px 30px 0px;
+  border: 1px solid #F18E00;
+  width: 17%
+}
+
+/* Taille de l'image d'illustration */
+#banner {
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+
+/* Texte d'accorche sous l'image d'illustration */
+#presentation {
+  text-align: center;
+  padding: 40px 200px 0px 200px;
+  font-size: 17px;
+  line-height: 150%
+}
+
+/* Textes de présentations dans les catégories Formations et Ticothèques */
+.description-categorie {
+  text-align: justify; 
+  line-height: 150%;
+}
+
+/* Style des tables */
+table {
+  text-align: center;
+  vertical-align: middle;
+  margin: 0% auto 0% auto;
+}
+
+/* Style des cellules des tableaux */
+td {
+  padding: 10px;
+}
+
+/* Marges des images */
+.icon {
+  margin: 5px;
+}
+
+/* Taille des images dans les cellules des tables des catégories Formations et Ticothèques */
+.small-size {
+ width: 40px;
+}
+
+/* Boutons */
+.bouton {
+  border-color: #F18E00;
+  border: 2px solid #F18E00;
+  background-color: white;
+  cursor: pointer;
+  padding: 20px 35px 20px 35px;
+  font-family: "Lato";
+  font-size: 15px;
+  border-radius: 4em;
+  transition: 0.2s;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Animation des boutons lorsque la souris passe dessus */
+.bouton:hover {
+  box-shadow: 0px 9px 18px rgba(0,0,0,0.2);
+}
+
+/* Animation des boutons lorsqu'on clique dessus */
+.bouton:active {
+  background-color: #F18E00;
+  color: white;
+  box-shadow: 0px 0px 0px rgba(0,0,0,0.2);
+}
+
+/* Centrage des boutons sur la page */
+.download-catalogue {
+  display: inline-block;
+}
+
+/* Division en colonnes */
+.column {
+	float: left;
+	width: 50%;
+	text-align: justify;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}

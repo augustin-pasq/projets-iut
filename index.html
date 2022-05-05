@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Collège Numérique 56</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <link href="css/contact.css" rel="stylesheet" type="text/css">
+    <link href="css/footer.css" rel="stylesheet" type="text/css">
+    <link href="css/formateurs.css" rel="stylesheet" type="text/css">
+    <link href="css/formations.css" rel="stylesheet" type="text/css">
+    <link href="css/header.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/ticotheque.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+
+    <!-- Navbar -->
+    <header class="main-header">
+        <div class="header-inner">
+            <div class="header-logo">
+                <a href="#"><img src="img/logo.png" alt="Collège Numérique 56" width="179" height="66"></a>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#formations">Formations</a></li>
+                    <li><a href="#formateurs">Formateurs</a></li>
+                    <li><a href="#ticotheque">Ticothèque</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="https://www.morbihan.fr/" target="_blank"><img id="morbihan-header" src="img/Morbihanc.jpg"
+                    alt="Logo du département du Morbihan"></a>
+        </div>
+    </header>
+
+    <!-- Illustration + Phrase de présentation -->
+    <img id="banner" src="img/banner.jpg" alt="Illustration">
+    <p id="presentation"> « Collège Numérique 56 » est une opération destinée à développer l’usage des équipements
+        numériques à des fins pédagogiques, menée par le Conseil Départemental du Morbihan, en partenariat avec
+        l’Éducation Nationale.</p>
+
+    <!-- Catégorie Formations -->
+    <div id="formations">
+
+        <!-- Titre + Description -->
+        <h1>Formations</h1>
+        <hr>
+        <p class="description-categorie"> Les enseignants des collèges publics et privés du département peuvent
+            bénéficier de formations dans le cadre de l’opération « Collège Numérique 56 ». Elles ont lieu dans les
+            collèges à la demande du chef d’établissement.</p>
+
+        <!-- Cases -->
+        <table id="table-formations">
+            <tr>
+                <td class="type-formation">
+                    <a href="https://formation.collegenumerique56.fr/course/view.php?id=23" target="_blank">
+                        <div>
+                            <p>Enseigner dans un collège avec le pack nomadisme</p>
+                            <img class="icon small-size" src="img/tablet.png" alt="Tablette">
+                        </div>
+                    </a>
+                </td>
+                <td class="type-formation">
+                    <a href="https://formation.collegenumerique56.fr/course/view.php?id=29" target="_blank">
+                        <div>
+                            <p>Aménagement<br>flexible</p>
+                            <img class="icon small-size" src="img/amenagement_flexible.png" alt="Aménagement flexible">
+                        </div>
+                    </a>
+                </td>
+                <td class="type-formation">
+                    <a href="https://formation.collegenumerique56.fr/course/view.php?id=19" target="_blank">
+                        <div>
+                            <p>Parcours tablette sciences</p>
+                            <img class="icon small-size" src="img/tablet_math.png" alt="Tablette (Maths)">
+                        </div>
+                    </a>
+                </td>
+                <td class="type-formation">
+                    <a href="https://formation.collegenumerique56.fr/course/view.php?id=16" target="_blank">
+                        <div>
+                            <p>Parcours tablette lettres</p>
+                            <img class="icon small-size" src="img/tablet_lettres.png" alt="Tablette (Lettres)">
+                        </div>
+                    </a>
+                </td>
+                <td class="type-formation">
+                    <a href="https://formation.collegenumerique56.fr/course/index.php?categoryid=3" target="_blank">
+                        <div>
+                            <p>Autres</p>
+                            <img class="icon small-size" src="img/more.svg" alt="Plus">
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Bouton de téléchagrement du catalogue -->
+        <a href="https://www.collegenumerique56.fr/wp-content/uploads/sites/12/2021/06/catalogue-formation.pdf"
+            target="_blank"><span id="catalogue-formations" class="bouton download-catalogue">Télécharger le catalogue</span></a>
+    </div>
+
+    <!-- Catégorie Formateurs -->
+    <div id="formateurs">
+        <h1>Formateurs</h1>
+        <hr>
+
+        <!-- Formateurs -->
+        <table id="table-formateurs">
+            <tr>
+                <td class="cell-formateur">
+                    <div onclick="openForm()">
+                        <div class="background-formateurs">
+                            <img class="icon" src="img/melanie.png" alt="Mélanie Auriel">
+                            <p class="nom-formateurs">Mélanie Auriel</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="cell-formateur">
+                    <div onclick="openForm2()">
+                        <div class="background-formateurs">
+                            <img class="icon" src="img/ronan.png" alt="Ronan Lucas">
+                            <p class="nom-formateurs">Ronan Lucas</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="cell-formateur">
+                    <div onclick="openForm3()">
+                        <div class="background-formateurs">
+                            <img class="icon" src="img/mathilde.png" alt="Mathilde Hervy">
+                            <p class="nom-formateurs">Mathilde Hervy</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Pop-ups des formateurs -->
+        <div>
+
+            <!-- Pop-up Mélanie -->
+            <div class="login-popup">
+                <div class="form-popup" id="popupForm">
+                    <div class="overlay"></div>
+                    <form class="form-container">
+                        <p> Je suis chargée de mission Collège Numérique 56 depuis le 1er septembre 2011. J’accompagne
+                            les enseignants dans la prise en main des outils numériques et je participe à la création de
+                            jeux virtuels.<br><br>Professeur d’anglais pendant 15 ans, j’ai enseigné en lycées général,
+                            technique et professionnel ainsi qu’à l’IUFM de Clermont-Ferrand en formation initiale
+                            (didactique de l’anglais) et continue (outils web 2.0). J’ai beaucoup utilisé les outils
+                            numériques dans mon enseignement.<br><br>J’ai animé des conférences sur les usages des
+                            tablettes (comme lors du colloque Cyberlangues de Rennes) et plus généralement sur
+                            l’utilisation des outils numériques dans l’enseignement. J’ai participé à l’ouvrage
+                            multilingue Guide des bonnes pratiques du web 2.0 en classe de langues ainsi qu’à la
+                            rédaction du manuel de 6e So English !</p>
+                        <button type="button" class="bouton bouton-close-popup" onclick="closeForm()">Fermer</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pop-up Ronan -->
+            <div class="login-popup">
+                <div class="form-popup" id="popupForm2">
+                    <div class="overlay"></div>
+                    <form class="form-container">
+                        <p>Chargé de mission depuis le 1er juin 2011. Professeur certifié de mathématiques. J’ai
+                            enseigné 8 ans dans un collège de zone sensible à Mantes-la-Jolie puis je suis revenu en
+                            Bretagne où j’ai enseigné 3 ans dans le petit collège rural de Mauron avant d’intégrer
+                            l’équipe de "Collège numérique 56".<br><br>Voici différentes pistes pédagogiques que j’ai pu
+                            explorer : pédagogie de projets, évaluation par compétence (création d’un outil en ligne
+                            pour la gestion des livrets de compétences), travaux de groupes, évaluations par contrat de
+                            confiance, usage régulier et approfondi des TICEs, prise en charge des élèves en grandes
+                            difficultés, formation pour adulte, usage des tablettes en classe.<br><br>Je me suis aussi
+                            construit un solide bagage technique : Formation approfondie d’administrateur réseau et
+                            personne ressource TICE en établissement, déploiement de station Windows, serveurs et
+                            stations Linux. Je me suis ensuite spécialisé dans de déploiement, la gestion à distance et
+                            l’intégration des iPads dans les réseaux d’établissement.
+                        <p>
+                            <button type="button" class="bouton bouton-close-popup"
+                                onclick="closeForm()">Fermer</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pop-up Mathilde -->
+            <div class="login-popup">
+                <div class="form-popup" id="popupForm3">
+                    <div class="overlay"></div>
+                    <form class="form-container">
+                        <p>Je m’appelle Mathilde Hervy, j’ai 22 ans et j’ai intégré l’équipe du Collège Numérique en
+                            octobre 2020. Mon poste s’inscrit au cœur du projet "Pack Nomadisme", dont l’objectif est de
+                            déployer le wifi dans les collèges et de former et d'accompagner les enseignants des
+                            collèges aux outils et aux usages numériques en classe.<br><br>Comme études, je suis
+                            diplômée d’un Deust et d’une Licence professionnelle USETIC (usages socio éducatifs des
+                            technologies de l’information et de la communication) où j’ai pu former différents publics
+                            aux outils numériques, en tant que médiatrice numérique : personnes retraités à l’OPAR à
+                            Rennes, étudiants en master TEF à l’université de Rennes 2 et des jeunes de la mission
+                            locale du pays de Vitré.<br><br>Enfin, j'ai déployé le wifi dans les collèges et former les
+                            enseignants des collèges aux outils et aux usages numériques en classe.</p>
+                        <button type="button" class="bouton bouton-close-popup" onclick="closeForm()">Fermer</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Arrière-plan foncé derrière les pop-ups -->
+        <div id="overlay"></div>
+        
+    </div>
+
+    <!-- Catégorie Ticothèque -->
+    <div id="ticotheque">
+        <div class="row">
+            <h1>Ticothèque</h1>
+            <hr>
+
+            <!-- Colonne de gauche : description + bouton de téléchargement -->
+            <div class="column" id="colonne-gauche-tico">
+                <p class="description-categorie">Les enseignants des collèges publics et privés du département peuvent
+                    emprunter du materiel numérique gratuitement pour réaliser leurs projets pédagogiques.</p>
+                <a href="https://www.collegenumerique56.fr/wp-content/uploads/sites/12/2021/06/Catalogue-TICOTHEQUE-2021.pdf"
+                    target="_blank"><span class="bouton download-catalogue" id="catalogue-ticotheque">Télécharger le catalogue</span></a>
+            </div>
+
+            <!-- Colonne de droite : table ticothèque-->
+            <div class="column" id="colonne-droite-tico">
+
+                <!-- Table ticothèque (partie supérieure) -->
+                <table id="table-ticotheque">
+                    <tr>
+                        <td class="materiel">
+                            <div>
+                                <p>Tablettes et accessoires</p>
+                                <img src="img/tablet.png" class="icon small-size" alt="Tablette">
+                            </div>
+                        </td>
+                        <td class="materiel">
+                            <div>
+                                <p>Robots et drones</p>
+                                <img src="img/robot.png" class="icon small-size" alt="Robot">
+                            </div>
+                        </td>
+                        <td class="materiel">
+                            <div>
+                                <p>Imprimantes 3D</p>
+                                <img src="img/3D.png" class="icon small-size" alt="3D">
+                            </div>
+                        </td>
+                        <td class="materiel">
+                            <a href="https://formation.collegenumerique56.fr/course/view.php?id=25" target="_blank">
+                                <div>
+                                    <p>Valises de balado-diffusion</p>
+                                    <img src="img/micro.png" class="icon small-size" alt="Micro">
+                                </div>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Table ticothèque (partie inférieure) -->
+                <table id="table-ticotheque2">
+                    <tr>
+                        <td class="materiel2">
+                            <a href="https://formation.collegenumerique56.fr/enrol/index.php?id=22" target="_blank">
+                                <div>
+                                    <p>
+                                        Valises d'escape games
+                                    </p>
+                                    <img src="img/escape.png" class="icon small-size" alt="Sortie">
+                                </div>
+                            </a>
+                        </td>
+                        <td class="materiel2">
+                            <div>
+                                <p>
+                                    Valises webradio
+                                </p>
+                                <img src="img/radio.png" class="icon small-size" alt="Radio">
+                            </div>
+                        </td>
+                        <td class="materiel2">
+                            <div>
+                                <p>
+                                    Autres
+                                </p>
+                                <img src="img/more.svg" class="icon small-size" alt="Plus">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Espacement entre les catégories Ticothèque et Contact pour la navbar -->
+    <div id="contact"></div>
+    
+    <!-- Catégorie Contact -->
+    <div id="contact-contenu">
+        <h1>Contact</h1>
+        <hr>
+        <div class="row">
+
+            <!-- Colonne de gauche : formulaire de contact -->
+            <div class="column" id="colonne-gauche-contact">
+                <b class="sous-titre">Contactez-nous par message</b>
+                <form>
+                    <label for="nom">Nom :</label><br>
+                    <input class="form-style" type="text" id="nom" placeholder="Nom et prénom" name="nom" required>
+                    <label for="email">Adresse mail :</label>
+                    <input class="form-style" type="email" id="email" placeholder="exemple@exemple.com"
+                        name="adresse mail" required>
+                    <label for="phone">Téléphone :</label>
+                    <input class="form-style" type="tel" id="phone" placeholder="0123456789 (Optionnel)" name="phone"
+                        pattern="[0]{1}[0-9]{9}">
+                    <label for="message">Message :</label>
+                    <textarea rows="7" class="form-style" id="message" placeholder="Tapez votre message"
+                        required></textarea>
+                    <button type="submit" class="bouton contact-send">Envoyer</button>
+                </form>
+            </div>
+
+            <!-- Colonne de droite : coordonnées + carte -->
+            <div class="column" id="colonne-droite-contact">
+                <b class="sous-titre">Retrouvez-nous</b>
+                <p class="texte-contact">Collège Numérique 56, Conseil Départemental du Morbihan, Direction de
+                    l’Éducation, de la Jeunesse et des Sports.</p>
+                <p class="texte-contact">Téléphone : 02 97 69 50 00</p>
+                <p class="texte-contact">31 Impasse Joseph Loth<br>56000 Vannes</p>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6638.2926586629455!2d-2.751584384969108!3d47.65627906787939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48101e80b9aea753%3A0xfe547631f2d9ca3f!2s31%20Imp.%20Joseph%20Loth%2C%2056000%20Vannes!5e1!3m2!1sfr!2sfr!4v1635188939638!5m2!1sfr!2sfr"
+                    id="maps" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+        <table id="table-footer">
+            <tr>
+                <td class="cell-footer">
+                    <b class="titre-footer">Collège Numérique 56</b><br>
+                    <a class="contenu-footer" href="https://www.collegenumerique56.fr/mentions-legales-2/">Mentions
+                        légales</a><br>
+                    <a class="contenu-footer" href="https://www.collegenumerique56.fr/donnees-personnelles/">Données
+                        personnelles</a>
+                </td>
+                <td class="cell-footer">
+                    <b class="titre-footer">Retrouvez-nous ailleurs sur internet</b><br>
+                    <a class="contenu-footer" href="https://twitter.com/college56?lang=fr"
+                        target="_blank">Twitter</a><br>
+                    <a class="contenu-footer"
+                        href="https://www.morbihan.fr/les-services/education-colleges/des-equipements-high-tech/des-equipements-high-tech"
+                        target="_blank">Site du Morbihan</a>
+                </td>
+                <td class="contenu-footer">
+                    <a href="https://www.morbihan.fr/" target="_blank"><img id="logo-morbihan-footer"
+                            src="img/Morbihanb.png" alt="Logo Morbihan"></a>
+                </td>
+            </tr>
+        </table>
+        <p id="rights">© 2021 IUT de Vannes - BUT INFO 1. All rights reserved.</p>
+    </div>
+
+</body>
+
+</html>

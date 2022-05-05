@@ -1,0 +1,57 @@
+/* Catégorie Ticothèque */
+#ticotheque {
+ padding: 120px 200px 10px 200px;
+}
+
+/* Colonne de gauche */
+#colonne-gauche-tico {
+  width: 30%;
+  padding-right: 25px;
+}
+
+/* Bouton de téléchargement */
+#catalogue-ticotheque {
+  margin-top: 80px;
+}
+
+/* Colonne de droite */
+#colonne-droite-tico {
+  width: 70%;
+  padding-left: 25px;
+}
+
+/* Table supérieure des équipements */
+#table-ticotheque {
+ border-spacing: 12px;
+}
+
+/* Table inférieure des équipements */
+#table-ticotheque2 {
+  border-spacing: 12px 0px;
+}
+
+/* Cellules de la table supérieure */
+.materiel {
+  background-color: #EEEFEF;
+  border-radius: 10px;
+  width: 25%;
+  transition: 0.4s;
+}
+
+/* Changement de la couleur des cellules de la table supérieure lorsque la souris passe dessus */
+.materiel:hover {
+  background-color: rgb(190, 189, 0, .9);
+}
+
+/* Cellules de la table inférieure */
+.materiel2 {
+  background-color: #EEEFEF;
+  border-radius: 10px;
+  width: 29%;
+  transition: 0.4s;
+}
+
+/* Changement de la couleur des cellules de la table inférieure lorsque la souris passe dessus */
+.materiel2:hover {
+  background-color: rgb(190, 189, 0, .9);
+}

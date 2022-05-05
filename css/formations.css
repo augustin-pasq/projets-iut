@@ -1,0 +1,29 @@
+/* Catégorie Formations */
+#formations {
+  padding: 120px 200px 0px 200px;
+}
+
+/* Table des formations */
+#table-formations {
+  width: 75%;
+  border-spacing: 40px;
+}
+
+/* Style pour les cases de la table des formations */
+.type-formation {
+  background-color: #EEEFEF;
+  border-radius: 10px;
+  width: 20%;
+  height: 20%;
+  transition: 0.4s;
+}
+
+/* Modification de la couleur lorsque la souris passe sur les cases */ 
+.type-formation:hover {
+  background-color: rgb(95, 164, 215, .9);
+}
+
+/* Bouton de téléchargment */
+#catalogue-formations {
+  margin-top: 15px;
+}
