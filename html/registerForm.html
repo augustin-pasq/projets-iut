@@ -10,16 +10,34 @@
 <body>
 
   <h1>Inscription</h1>
-    <form action="/action_page.php" method="post" autocomplete="on">
-        <label>Adresse mail</label><br>
-        <input type="email" name="email" placeholder="exemple@exemple.com" required><br>
-        <br>        
+    <form action="../php/register.php" method="post" autocomplete="on">
+        <label>Nom</label><br>
+        <input type="text" name="lname" placeholder="Dupont" required><br>
+        <br>
+        <label>Prénom</label><br>
+        <input type="text" name="fname" placeholder="Pierre" required><br>
+        <br>
+        <label>Date de naissance</label><br>
+        <input type="date" name="birthdate" required><br>
+        <br>
+        <label>Sexe</label><br>
+        <input type="radio" name="sex" value="male" required>
+        <label>Homme</label><br>
+        <input type="radio" name="sex" value="female" required>
+        <label>Femme</label><br>
+        <br>
+        <label>Taille (cm)</label><br>
+        <input type="number" name="size" placeholder="176" required><br>
+        <br>
+        <label>Poids (kg)</label><br>
+        <input type="numer" name="weight" placeholder="65" required><br>
+        <br>
         <label>Adresse mail</label><br>
         <input type="email" name="email" placeholder="exemple@exemple.com" required><br>
         <br>
         <label>Mot de passe</label><br>
-        <input type="password" name="password" required><br><br>
-        <input type="submit" value="Se connecter">
+        <input type="password" name="password" placeholder="Taper le mot de passe" required><br><br>
+        <input type="submit" value="S'inscrire">
       </form> 
 </body>
 
