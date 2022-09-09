@@ -1,0 +1,17 @@
+Utilisateur (
+    nom: String,
+    prenom: String,
+    datenaissance: Date,
+    sexe: char,
+    taille: int,
+    poids: int,
+    email: String (1),
+    password: String    
+)
+
+Activite (
+    id: int (1),
+    date: Date,
+    description: String
+)
+
