@@ -12,10 +12,10 @@
   <h1>Modifier mon profil</h1>
     <form action="../php/register.php" method="post" autocomplete="on">
         <label>Nom</label><br>
-        <input type="text" name="lname" placeholder="Dupont" pattern="[A-Za-z]{3}" required><br>
+        <input type="text" name="lname" placeholder="Dupont" pattern="[a-zA-Z -]" required><br>
         <br>
         <label>Prénom</label><br>
-        <input type="text" name="fname" placeholder="Pierre" required><br>
+        <input type="text" name="fname" placeholder="Pierre" pattern="[a-zA-Z -]" required><br>
         <br>
         <label>Date de naissance</label><br>
         <input type="date" name="birthdate" required><br>
@@ -27,13 +27,13 @@
         <label>Femme</label><br>
         <br>
         <label>Taille (cm)</label><br>
-        <input type="number" name="size" placeholder="176" required><br>
+        <input type="range" name="size" value="180" min="0" max="250" oninput="this.nextElementSibling.value = this.value" required><output>176</output><br>
         <br>
         <label>Poids (kg)</label><br>
-        <input type="numer" name="weight" placeholder="65" required><br>
+        <input type="range" name="size" value="75" min="0" max="150" oninput="this.nextElementSibling.value = this.value" required><output>75</output><br>
         <br>
         <label>Adresse mail</label><br>
-        <input type="email" name="email" placeholder="exemple@exemple.com" required><br>
+        <input type="email" name="email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" placeholder="exemple@exemple.com" required><br>
         <br>
         <label>Mot de passe</label><br>
         <input type="password" name="password" placeholder="Taper le mot de passe" required><br><br>
