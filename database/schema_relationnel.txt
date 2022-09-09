@@ -1,31 +1,29 @@
-Utilisateur (
-    nom: String,
-    prenom: String,
-    datenaissance: Date,
-    sexe: char,
-    taille: int,
-    poids: int,
+User (
+    lname: String,
+    fname: String,
+    birthdate: Date,
+    sex: char,
+    height: int,
+    weight: int,
     email: String (1),
     password: String    
 )
 
-Activite (
+Activity (
     id: int (1),
     date: Date,
     description: String
-    @ActiviteUtilisateur String :  REF Utilisateur(email) (NN)
 )
 
-DonneeActivité (
+DataActivity (
     time : time (1),
     cardio_frequency : int,
     latitude : double,
     longitude : double,
-    altitude : int
-
-)
-
-AssociationActiviteDonneeActivite (
-    @uneActivite : int REF Activite(id) (1), 
-    @uneDonneActivite : time REF DonneeActivité(time) (1)
+    altitude : int,
+    /duration : double,
+    /distance : double,
+    /cardio_frequency_max : int,
+    /cardio_frequency_min : int,
+    @IidActivity int :  REF Activity(id) (NN)
 )
