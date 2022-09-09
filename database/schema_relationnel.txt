@@ -13,5 +13,19 @@ Activite (
     id: int (1),
     date: Date,
     description: String
+    @ActiviteUtilisateur String :  REF Utilisateur(email) (NN)
 )
 
+DonneeActivité (
+    time : time (1),
+    cardio_frequency : int,
+    latitude : double,
+    longitude : double,
+    altitude : int
+
+)
+
+AssociationActiviteDonneeActivite (
+    @uneActivite : int REF Activite(id) (1), 
+    @uneDonneActivite : time REF DonneeActivité(time) (1)
+)
