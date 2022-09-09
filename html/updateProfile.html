@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SportTrack</title>
+  <script src="../javascript/index.js"></script>
+</head>
+
+<body>
+
+  <h1>Modifier mon profil</h1>
+  <form action="../php/register.php" method="post" autocomplete="on">
+    <label>Nom</label><br>
+    <input type="text" id="lname" name="lname" placeholder="Dupont" pattern="^[A-Za-z0-9-\s]*$" required><br>
+    <br>
+    <label>Prénom</label><br>
+    <input type="text" id="fnmae" name="fname" placeholder="Pierre" pattern="^[A-Za-z0-9-\s]*$" required><br>
+    <br>
+    <label>Date de naissance</label><br>
+    <input type="date" id="birthdate" name="birthdate" required><br>
+    <br>
+    <label>Sexe</label><br>
+    <input type="radio" id="male" name="sex" required>
+    <label>Homme</label><br>
+    <input type="radio" id="female" name="sex" required>
+    <label>Femme</label><br>
+    <br>
+    <label>Taille</label><br>
+    <input type="range" id="size" name="size" value="180" min="0" max="250"
+      oninput=this.nextElementSibling.value=this.value" required><output>176</output> cm<br>
+    <br>
+    <label>Poids</label><br>
+    <input type="range" id="weight" name="weight" value="75" min="0" max="150"
+      oninput="this.nextElementSibling.value = this.value" required><output>75</output> kg<br>
+    <br>
+    <label>Adresse mail</label><br>
+    <input type="email" id="email" name="email" placeholder="exemple@exemple.com" required><br>
+    <br>
+    <label>Mot de passe</label><br>
+    <input type="password" id="password" name="password" placeholder="Taper le mot de passe" required><br><br>
+    <input type="submit" value="Modifier">
+  </form>
+  <br>
+  <a href="./importData.html">Importer des données</a>
+</body>
+
+</html>
