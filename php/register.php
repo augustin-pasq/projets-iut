@@ -1,27 +1,30 @@
-
 <?php
 
-$lname = $_POST['lname'];
-$fname = $_POST['fname'];
-$birthdate = $_POST['birthdate'];
-$sex = $_POST['sex'];
-$height = $_POST['value'];
-$weight = $_POST['value'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-echo ("$lname, $fname, $birthdate, $sex, $height, $weight, $email, $password");
+use SQLiteConnection;
+use SQLiteInsert;
 
+$pdo = (new SQLiteConnection())->connect();
+$sqlite = new SQLiteInsert($pdo);
 
-class MyDB extends SQLite3
-{
-    function __construct()
-    {
-        $this->open('..database/sport_track.db');
-    }
-}
+/*
+$lname = 'lname';
+$fname = 'fname';
+$birthdate = 'birthdate';
+$sex = 'sex';
+$height = 'height';
+$weight = 'weight';
+$email = 'email';
+$password = hash('sha512', 'password');*/
+$projectId = $sqlite->insertProject('PHP SQLite Demo');
+$lname = 'lname';
+$fname = 'fname';
+$birthdate = '2022-01-01';
+$sex = 'F';
+$height = 1;
+$weight = 2;
+$email = 'email';
+$password = 'password';
 
-$db = new MyDB();
-$db->exec("INSERT INTO User (lname, fname, birthdate, sex, height, weight, email, password) VALUES ($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password)");
-var_dump($result->fetchArray());
+$pdo->insertTask($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password, $projectId);
 
 ?>

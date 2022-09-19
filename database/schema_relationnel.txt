@@ -13,6 +13,7 @@ Activity (
     id: int (1),
     date: Date,
     description: String
+    @ActivityUser String :  REF User(email) (NN)
 )
 
 DataActivity (

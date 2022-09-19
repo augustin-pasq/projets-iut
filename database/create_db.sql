@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS User(
    lname            TEXT         NOT NULL,
    fname            TEXT         NOT NULL,
-   birthdate        TEXT         NOT NULL
-   CHECK (birthdate < DATE('now')),
+   birthdate        TEXT         NOT NULL,
    sex              CHAR(1)      NOT NULL
    CHECK (sex = 'M' OR sex = 'F'),
    height           INT          NOT NULL
