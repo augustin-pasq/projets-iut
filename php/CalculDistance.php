@@ -10,7 +10,7 @@ class CalculDistance {
      */
     public function calculDistance2PointsGPS(float $lat1, float $long1, float $lat2, float $long2): float 
     {
-        
+        return 6378137 * acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($long1 - $long2)));
     }
 
     /**
@@ -21,7 +21,12 @@ class CalculDistance {
      */
     public function calculDistanceTrajet(Array $parcours): float
     {
+        $distance = 0;
+        for($i = 0; $i < count($parcours); $i+=4) {
+            $distance += ($this->calculDistance2PointsGPS($parcours[$i], $parcours[$i+2], $parcours[$i+1], $parcours[$i+3]));
+        }
 
+        return $distance;
     }
 }
 ?>
