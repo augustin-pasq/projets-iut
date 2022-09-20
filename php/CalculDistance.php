@@ -22,8 +22,8 @@ class CalculDistance {
     public function calculDistanceTrajet(Array $parcours): float
     {
         $distance = 0;
-        for($i = 0; $i < count($parcours); $i+=4) {
-            $distance += ($this->calculDistance2PointsGPS($parcours[$i], $parcours[$i+2], $parcours[$i+1], $parcours[$i+3]));
+        for($i = 2; $i < count($parcours); $i+=2) {
+            $distance += $this->calculDistance2PointsGPS($parcours[$i-2], $parcours[$i-1], $parcours[$i], $parcours[$i+1]);
         }
 
         return $distance;
