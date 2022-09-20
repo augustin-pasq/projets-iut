@@ -23,7 +23,7 @@ class Utilisateur{
 
     }
 
-    public fonction register() {
+    public function register() {
         // Vérifier si le formulaire est soumis 
         if ( isset( $_POST['submit'] ) ) {
             /* récupérer les données du formulaire en utilisant 
@@ -39,15 +39,16 @@ class Utilisateur{
             $password = $_POST['password'];  
     }
 
-    public function getlName(): string { return $this->lname; }
-    public function getfName(): string { return $this->fname; }
-    public function getBirthdate(): string { return $this->birthdate; }
-    public function getSex(): string { return $this->sex; }
-    public function getHeight(): string { return $this->height; }
-    public function getWeight(): string { return $this->weight; }
-    public function getEmail(): string { return $this->email; }
-    public function getPassword(): string { return $this->password; }
+    function getlName(): string { return $this->lname; }
+    function getfName(): string { return $this->fname; }
+    function getBirthdate(): string { return $this->birthdate; }
+    function getSex(): string { return $this->sex; }
+    function getHeight(): string { return $this->height; }
+    function getWeight(): string { return $this->weight; }
+    function getEmail(): string { return $this->email; }
+    function getPassword(): string { return $this->password; }
 
     // public function  __toString(): string { return $this->nom. " ". $this->prenom; }
+    }
 }
 ?>
