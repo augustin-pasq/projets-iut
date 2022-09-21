@@ -5,13 +5,13 @@ include('UtilisateurDAO.php');
 
 $db = SqliteConnection::getInstance()->getConnection();
         
-// Si vous êtes déjà connecté à SQLite, vous pouvez savoir de quelle version il s'agit avec la fonction version_number()
-$query = "SELECT sqlite_version();";
+// Affichage du nom de la première table de la base de données pour vérifier la bonne connexion à la base
+$query = "SELECT name FROM sqlite_master WHERE type='table'";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $affichage = $stmt->fetch(PDO::FETCH_ASSOC);
 foreach ($affichage as $value) {
-    echo "Version du SQLite : ".$value, "\n";
+    echo "Première table : ".$value, "\n";
 }
 
 // Test de l'insertion
@@ -37,8 +37,5 @@ $gestionUser->update($user);
 
 // Test du delete
 $gestionUser ->delete($user);
-
-
-
 
 ?>
