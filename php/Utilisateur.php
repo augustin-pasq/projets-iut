@@ -3,7 +3,7 @@ class Utilisateur{
     private string $lname;
     private string $fname;
     private string $birthdate;
-    private chr $sex;
+    private string $sex;
     private int $height;
     private int $weight;
     private string $email;
@@ -31,12 +31,13 @@ class Utilisateur{
             */
             $lname = $_POST['lname']; 
             $fname = $_POST['fname']; 
-            $birthdate = $_POST['sex'];
+            $birthdate = $_POST['birthdate'];
             $sex = $_POST['sex']; 
             $height = $_POST['height']; 
             $weight = $_POST['weight'];
             $email = $_POST['email']; 
             $password = $_POST['password'];  
+        }
     }
 
     function getlName(): string { return $this->lname; }
@@ -48,7 +49,14 @@ class Utilisateur{
     function getEmail(): string { return $this->email; }
     function getPassword(): string { return $this->password; }
 
-    // public function  __toString(): string { return $this->nom. " ". $this->prenom; }
+    /**
+     * Permet de modifier un attribut de l'utilisateur afin de tester une requête Update dans la base de donnée
+     */
+    function setWeight(int $newWeight) {
+        $this->weight = $newWeight;
     }
+
+    public function  __toString(): string { return "Nom : ".$this->lname." | Prenom : ". $this->fname." | Anniversaire : ". $this->birthdate." | Sexe : ". $this->sex." | Taille : ". $this->height." | Poids : ". $this->weight." | Email : ". $this->email."\n"; }
+
 }
 ?>

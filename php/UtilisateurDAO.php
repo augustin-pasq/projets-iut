@@ -23,8 +23,11 @@ class UtilisateurDAO {
     public final function insert(Utilisateur $st): void{
         if($st instanceof Utilisateur){
             $dbc = SqliteConnection::getInstance()->getConnection();
-            // prepare the SQL statement
-            $query = "INSERT INTO User VALUES (:l, :f, :b; :s, :h, :h, :w; :e; :p)";
+            /* prepare the SQL statement
+             * The above example shows that no column list have been specified after the table name. 
+             * In such a cases, values for all columns have to supply.
+            */
+            $query = "INSERT INTO User VALUES (:l, :f, :b; :s, :h, :w; :e; :p)";
             $stmt = $dbc->prepare($query);
 
             // bind the paramaters
