@@ -44,8 +44,8 @@ class Utilisateur{
     function getfName(): string { return $this->fname; }
     function getBirthdate(): string { return $this->birthdate; }
     function getSex(): string { return $this->sex; }
-    function getHeight(): string { return $this->height; }
-    function getWeight(): string { return $this->weight; }
+    function getHeight(): int { return $this->height; }
+    function getWeight(): int { return $this->weight; }
     function getEmail(): string { return $this->email; }
     function getPassword(): string { return $this->password; }
 

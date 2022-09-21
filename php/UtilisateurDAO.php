@@ -35,11 +35,12 @@ class UtilisateurDAO {
             $stmt->bindValue(':f',$st->getfName(),PDO::PARAM_STR);
             $stmt->bindValue(':b',$st->getBirthdate(),PDO::PARAM_STR);
             $stmt->bindValue(':s',$st->getSex(),PDO::PARAM_STR);
-            $stmt->bindValue(':h',$st->getHeight(),PDO::PARAM_STR);
-            $stmt->bindValue(':w',$st->getWeight(),PDO::PARAM_STR);
+            $stmt->bindValue(':h',$st->getHeight(),PDO::PARAM_INT);
+            $stmt->bindValue(':w',$st->getWeight(),PDO::PARAM_INT);
             $stmt->bindValue(':e',$st->getEmail(),PDO::PARAM_STR);
             $stmt->bindValue(':p',$st->getPassword(),PDO::PARAM_STR);
 
+           
             // execute the prepared statement
             $stmt->execute();
         }
