@@ -1,4 +1,5 @@
 <?php
+
 interface CalculDistance {
     /**
      * Retourne la distance en mètres entre 2 points GPS exprimés en degrés.
@@ -18,4 +19,5 @@ interface CalculDistance {
      */
     public function calculDistanceTrajet(Array $parcours): float;
 }
+
 ?>

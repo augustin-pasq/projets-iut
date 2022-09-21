@@ -1,5 +1,7 @@
 <?php
-class Utilisateur{
+
+class Utilisateur {
+    
     private string $lname;
     private string $fname;
     private string $birthdate;
@@ -9,9 +11,9 @@ class Utilisateur{
     private string $email;
     private string $password;
 
-
-    public function  __construct() { }
-    public function init($l, $f, $b, $s, $h, $w, $e, $p){
+    public function  __construct() {}
+    
+    public function init($l, $f, $b, $s, $h, $w, $e, $p) {
         $this->lname = $l;
         $this->fname = $f;
         $this->birthdate = $b;
@@ -20,24 +22,6 @@ class Utilisateur{
         $this->weight = $w;
         $this->email = $e;
         $this->password = $p;
-
-    }
-
-    public function register() {
-        // Vérifier si le formulaire est soumis 
-        if ( isset( $_POST['submit'] ) ) {
-            /* récupérer les données du formulaire en utilisant 
-            la valeur des attributs name comme clé 
-            */
-            $lname = $_POST['lname']; 
-            $fname = $_POST['fname']; 
-            $birthdate = $_POST['birthdate'];
-            $sex = $_POST['sex']; 
-            $height = $_POST['height']; 
-            $weight = $_POST['weight'];
-            $email = $_POST['email']; 
-            $password = $_POST['password'];  
-        }
     }
 
     function getlName(): string { return $this->lname; }
@@ -49,14 +33,18 @@ class Utilisateur{
     function getEmail(): string { return $this->email; }
     function getPassword(): string { return $this->password; }
 
-    /**
-     * Permet de modifier un attribut de l'utilisateur afin de tester une requête Update dans la base de donnée
-     */
-    function setWeight(int $newWeight) {
-        $this->weight = $newWeight;
+    function setlName(string $lname) { $this->lname = $lname; }
+    function setfName(string $fname) { $this->fname = $fname; }
+    function setBirthdate(string $birthdate) { $this->birthdate = $birthdate; }
+    function setSex(string $sex) { $this->sex = $sex; }
+    function setHeight(int $height) { $this->height = $height; }
+    function setWeight(int $weight) { $this->weight = $weight; }
+    function setEmail(string $email) { $this->email = $email; }
+    function setPassword(string $password) { $this->password = $password; }
+
+    public function  __toString(): string {
+        return "Nom : " . $this->lname . " | Prenom : " . $this->fname . " | Anniversaire : " . $this->birthdate . " | Sexe : " . $this->sex . " | Taille : " . $this->height . " | Poids : " . $this->weight . " | Email : " . $this->email . "\n";
     }
-
-    public function  __toString(): string { return "Nom : ".$this->lname." | Prenom : ". $this->fname." | Anniversaire : ". $this->birthdate." | Sexe : ". $this->sex." | Taille : ". $this->height." | Poids : ". $this->weight." | Email : ". $this->email."\n"; }
-
 }
+
 ?>
