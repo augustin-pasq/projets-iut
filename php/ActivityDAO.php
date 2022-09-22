@@ -24,50 +24,42 @@ class ActivityDAO {
     public final function insert(Activity $st): void {
         if($st instanceof Activity) {
             
-            $l = $st->getlName();
-            $f = $st->getfName();
-            $b = $st->getBirthdate();
-            $s = $st->getSex();
-            $h = $st->getHeight();
-            $w = $st->getWeight();
-            $e = $st->getEmail();
-            $p = $st->getPassword();
+            $da = $st->getDate();
+            $ds = $st->getDescription();
+            $m = $st->getMailUser();
 
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "INSERT INTO User (lname, fname, birthdate, sex, height, weight, email, password) VALUES ('$l', '$f', '$b', '$s', $h, $w, '$e', '$p')";
+            $query = "INSERT INTO Activity (date, description, activityUser) VALUES ('$da', '$de', '$m')";
             $stmt = $dbc->prepare($query);
             $stmt->execute();
         }
     }
 
-    public function update(Utilisateur $st): void {
-        if($st instanceof Utilisateur) {
+    public function update(Activity $st): void {
+        if($st instanceof Activity) {
 
-            $l = $st->getlName();
-            $f = $st->getfName();
-            $b = $st->getBirthdate();
-            $s = $st->getSex();
-            $h = $st->getHeight();
-            $w = $st->getWeight();
-            $e = $st->getEmail();
-            $p = $st->getPassword();
+            $da = $st->getDate();
+            $ds = $st->getDescription();
+            $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "UPDATE User SET lname = '$l', fname = '$f', birthdate = '$b', sex = '$s', height = $h, weight = $w, password = '$p' WHERE email='$e'";
+            $query = "UPDATE Activity SET date = '$da', description = '$de', activityUser = '$m'";
             $stmt = $dbc->prepare($query); 
             $stmt->execute();
         }
     }
     
-    public function delete(Utilisateur $st): void { 
-        if($st instanceof Utilisateur){
+    public function delete(Activity $st): void { 
+        if($st instanceof Activity){
+
+            
+            $da = $st->getDate();
+            $ds = $st->getDescription();
+            $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "DELETE FROM User WHERE email=(:e)";
+            $query = "DELETE FROM User WHERE date = '$da', description = '$de', activityUser = '$m'";
             $stmt = $dbc->prepare($query);
-    
-            $stmt->bindValue(':e',$st->getEmail(),PDO::PARAM_STR);
-    
             $stmt->execute();
         }
     }

@@ -1,30 +1,31 @@
 <?php
 
-class Utilisateur {
+class Activity {
     
-    private int $id;
     private string $date;
     private string $description;
+    private string $mailUser;
 
     public function  __construct() {}
     
-    public function init($i, $da, $de) {
-        $this->id = $i;
+    public function init($da, $de, $a) {
         $this->date = $da;
         $this->description = $de;
+        $this->mailUser = $a;
 
     }
 
-    function getId(): int { return $this->id; }
     function getDate(): string { return $this->date; }
     function getDescription(): string { return $this->description; }
+    function getMailUser(): string { return $this->MailUser; }
 
-    function setId(int $id) { $this->id = $id; }
-    function setDate(string $date) { $this->date = $date; }
-    function setDescription(string $description) { $this->description = $description; }
+   
+    function setDate(string $date) { $this->date = $date; } 
+    function setDescription(int $id) { $this->id = $id; }
+    function setMailUser(string $mailUser) { $this->mailUser = $mailUser; }
 
     public function  __toString(): string {
-        return "Id : " . $this->id . " | Date : " . $this->date . " | Description : " . $this->description . "\n";
+        return " | Date : " . $this->date . " | Description : " . $this->description . " | Mail de l'utilisateur : " . $this->MailUser . "\n";
     }
 }
 
