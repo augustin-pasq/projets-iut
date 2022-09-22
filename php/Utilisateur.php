@@ -22,6 +22,13 @@ class Utilisateur {
         $this->weight = $w;
         $this->email = $e;
         $this->password = $p;
+        /*
+         PASSWORD_DEFAULT - Utilise l'algorithme bcrypt (par défaut depuis PHP 5.5.0). 
+         Cette constante est conçue pour changer avec le temps, au fur et à mesure que de nouveaux algorithmes 
+         plus puissants sont ajoutés à PHP. Pour cette raison, la longueur du résultat de l'utilisation de cet identifiant 
+         peut changer dans le temps.
+        */
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     function getlName(): string { return $this->lname; }
@@ -40,7 +47,7 @@ class Utilisateur {
     function setHeight(int $height) { $this->height = $height; }
     function setWeight(int $weight) { $this->weight = $weight; }
     function setEmail(string $email) { $this->email = $email; }
-    function setPassword(string $password) { $this->password = $password; }
+    function setPassword(string $password) { $this->password = password_hash($password, PASSWORD_DEFAULT); }
 
     public function  __toString(): string {
         return "Nom : " . $this->lname . " | Prenom : " . $this->fname . " | Anniversaire : " . $this->birthdate . " | Sexe : " . $this->sex . " | Taille : " . $this->height . " | Poids : " . $this->weight . " | Email : " . $this->email . "\n";
