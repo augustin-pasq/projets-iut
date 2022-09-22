@@ -29,7 +29,7 @@ class ActivityDAO {
             $m = $st->getMailUser();
 
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "INSERT INTO Activity (date, description, activityUser) VALUES ('$da', '$de', '$m')";
+            $query = "INSERT INTO Activity (date, description, activityUser) VALUES ('$da', '$ds', '$m')";
             $stmt = $dbc->prepare($query);
             $stmt->execute();
         }
@@ -43,7 +43,7 @@ class ActivityDAO {
             $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "UPDATE Activity SET date = '$da', description = '$de', activityUser = '$m'";
+            $query = "UPDATE Activity SET date = '$da', description = '$ds', activityUser = '$m'";
             $stmt = $dbc->prepare($query); 
             $stmt->execute();
         }
@@ -52,13 +52,12 @@ class ActivityDAO {
     public function delete(Activity $st): void { 
         if($st instanceof Activity){
 
-            
             $da = $st->getDate();
             $ds = $st->getDescription();
             $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "DELETE FROM User WHERE date = '$da', description = '$de', activityUser = '$m'";
+            $query = "DELETE FROM User WHERE date = '$da', description = '$ds', activityUser = '$m'";
             $stmt = $dbc->prepare($query);
             $stmt->execute();
         }

@@ -33,6 +33,8 @@ On utilisera la colonne rowid comme clé primaire et comme clé étrangère de D
     CONSTRAINT fk_Activite
     FOREIGN KEY (activityUser)
     REFERENCES User(email)
+    CONSTRAINT unique_DateDesc
+    UNIQUE(date, description)
 );
 
 

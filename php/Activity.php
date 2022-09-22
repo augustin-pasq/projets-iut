@@ -17,9 +17,8 @@ class Activity {
 
     function getDate(): string { return $this->date; }
     function getDescription(): string { return $this->description; }
-    function getMailUser(): string { return $this->MailUser; }
+    function getMailUser(): string { return $this->mailUser; }
 
-   
     function setDate(string $date) { $this->date = $date; } 
     function setDescription(int $id) { $this->id = $id; }
     function setMailUser(string $mailUser) { $this->mailUser = $mailUser; }

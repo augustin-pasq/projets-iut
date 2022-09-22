@@ -2,6 +2,8 @@
 include('SqliteConnection.php');
 include('Utilisateur.php');
 include('UtilisateurDAO.php');
+include('Activity.php');
+include('ActivityDAO.php');
 
 $db = SqliteConnection::getInstance()->getConnection();
         
@@ -71,16 +73,14 @@ foreach ($affichage as $value) {
 echo("\n\n");
 
 
-
-
 // Activité de test
+echo("[+] Test de la classe Activity\n");
 $activity = new Activity;
 $activity->init("21/04/2018", "Petit entraînement tranquille au soleil", "johndoe@test.com");
-echo("[+] Test de la classe Activity\n");
 
 // Insertion de données puis on les affiche pour vérifier la bonne insertion
 echo("[+] Test de l'insertion :\t");
-$gestionActivity =  UtilisateurDAO::getInstance();
+$gestionActivity =  ActivityDAO::getInstance();
 $gestionActivity->insert($activity);
 
 $query = "SELECT * FROM Activity";
@@ -112,7 +112,7 @@ echo("\n");
 
 // Suppression de données puis on affiche la table pour vérifier la bonne suppression
 echo("[+] Test de la suppression :\t");
-$gestionUser ->delete($activity);
+$gestionActivity ->delete($activity);
 
 $query = "SELECT * FROM Activity";
 $stmt = $db->prepare($query);
