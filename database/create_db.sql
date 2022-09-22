@@ -15,7 +15,18 @@ CREATE TABLE IF NOT EXISTS User(
 
 
 CREATE TABLE IF NOT EXISTS Activity(
-    id              INTEGER     NOT NULL        PRIMARY KEY     AUTOINCREMENT,
+/*  id              INTEGER     NOT NULL        PRIMARY KEY     AUTOINCREMENT,
+
+SQLite recommande de ne pas utiliser l'attribut AUTOINCREMENT car :
+- Le mot-clé AUTOINCREMENT impose une surcharge de CPU, de mémoire, d'espace disque et d'E/S disque et doit être évité s'il n'est pas strictement nécessaire. 
+- De plus, la manière dont SQLite attribue une valeur à la colonne AUTOINCREMENT est légèrement différente de celle utilisée pour la colonne rowid.
+
+Lorsque vous créez une table sans spécifier l'option WITHOUT ROWID, vous obtenez une colonne auto-incrémentée implicite appelée rowid.
+La colonne rowid stocke un entier signé de 64 bits qui identifie de manière unique une ligne de la table.
+
+On utilisera la colonne rowid comme clé primaire et comme clé étrangère de DataActivity
+*/
+    rowid           INTEGER     NOT NULL    PRIMARY KEY,
     date            TEXT        NOT NULL,
     description     TEXT        NOT NULL,
     activityUser    TEXT        NOT NULL,
@@ -34,6 +45,6 @@ CREATE TABLE IF NOT EXISTS DataActivity(
     altitude                INTEGER      NOT NULL,
     idActivity              INTEGER      NOT NULL,
     CONSTRAINT fk_DataActivity
-    FOREIGN KEY (idActivity)
+    FOREIGN KEY (rowid)
     REFERENCES Activity(id)
 );
