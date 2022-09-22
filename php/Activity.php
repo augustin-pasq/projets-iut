@@ -20,7 +20,7 @@ class Activity {
     function getMailUser(): string { return $this->mailUser; }
 
     function setDate(string $date) { $this->date = $date; } 
-    function setDescription(int $id) { $this->id = $id; }
+    function setDescription(string $description) { $this->description = $description; }
     function setMailUser(string $mailUser) { $this->mailUser = $mailUser; }
 
     public function  __toString(): string {

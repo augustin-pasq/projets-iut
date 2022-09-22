@@ -74,6 +74,11 @@ echo("\n\n");
 
 
 // Activité de test
+// SCRIPT POUR VIDER LA TABLE ET BYPASS LA CONTRAINE D'UNICITE
+$query = "DELETE FROM Activity";
+$stmt = $db->prepare($query);
+$stmt->execute();
+
 echo("[+] Test de la classe Activity\n");
 $activity = new Activity;
 $activity->init("21/04/2018", "Petit entraînement tranquille au soleil", "johndoe@test.com");
