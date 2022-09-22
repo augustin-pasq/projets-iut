@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS User(
 
 
 CREATE TABLE IF NOT EXISTS Activity(
-    id              INT         NOT NULL        PRIMARY KEY,
+    id              INT         NOT NULL        PRIMARY KEY     AUTOINCREMENT,
     date            TEXT        NOT NULL,
     description     TEXT        NOT NULL,
     activityUser    TEXT        NOT NULL,
