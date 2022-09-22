@@ -24,7 +24,7 @@ class Activity {
     function setMailUser(string $mailUser) { $this->mailUser = $mailUser; }
 
     public function  __toString(): string {
-        return " | Date : " . $this->date . " | Description : " . $this->description . " | Mail de l'utilisateur : " . $this->MailUser . "\n";
+        return " | Date : " . $this->date . " | Description : " . $this->description . " | Mail de l'utilisateur : " . $this->mailUser . "\n";
     }
 }
 

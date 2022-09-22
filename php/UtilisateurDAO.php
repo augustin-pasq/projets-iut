@@ -17,7 +17,7 @@ class UtilisateurDAO {
         $dbc = SqliteConnection::getInstance()->getConnection();
         $query = "SELECT * FROM User ORDER BY lname,fname";
         $stmt = $dbc->query($query);
-        $results = $stmt->fetchALL(PDO::FETCH_CLASS, 'User');
+        $results = $stmt->fetchALL(PDO::FETCH_CLASS, 'Utilisateur');
         return $results;
     }
 
