@@ -18,8 +18,9 @@ CREATE TABLE IF NOT EXISTS Activity(
     id              INT         NOT NULL        PRIMARY KEY,
     date            TEXT        NOT NULL,
     description     TEXT        NOT NULL,
+    activityUser    TEXT        NOT NULL,
     CONSTRAINT fk_Activite
-    FOREIGN KEY (id)
+    FOREIGN KEY (activityUser)
     REFERENCES User(email)
 );
 
@@ -31,7 +32,8 @@ CREATE TABLE IF NOT EXISTS DataActivity(
     latitude                REAL         NOT NULL,   
     longitude               REAL         NOT NULL,
     altitude                INT          NOT NULL,
+    idActivity              INT          NOT NULL,
     CONSTRAINT fk_DataActivity
-    FOREIGN KEY (time)
+    FOREIGN KEY (idActivity)
     REFERENCES Activity(id)
 );
