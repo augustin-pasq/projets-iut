@@ -62,6 +62,26 @@ class ActivityDAO {
             $stmt->execute();
         }
     }
+
+    /**
+     * Permet de connaître tous les activités d'un utilisateur en particulier
+     */
+    public function findAllActivity(Utilisateur $st): array { 
+        if($st instanceof Utilisateur){
+
+            $e = $st->getEmail();
+
+            $dbc = SqliteConnection::getInstance()->getConnection();
+            $query = "SELECT * FROM Activity WHERE activityUser = '$e'";
+            $stmt = $dbc->prepare($query);
+            $stmt->execute();
+
+            $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            
+        }
+        return $affichage;
+    }
 }
 
 ?>

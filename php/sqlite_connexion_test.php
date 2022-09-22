@@ -128,6 +128,36 @@ foreach ($affichage as $value) {
         echo($name . " | ");
     }
 }
+echo("\n");
+
+// Obtention de toutes les activités sportives d'un utilisateur en particulier
+echo("[+] Test de l'affichage de toutes les activités liés à l'utilisateur John Doe :\n");
+
+
+$activity2 = new Activity;
+$activity2->init("22/04/2018", "Il a plu, il y avait beaucoup de grenouilles près de la mare", "johndoe@test.com");
+$gestionActivity->insert($activity2);
+
+$activity3 = new Activity;
+$activity3->init("21/04/2018", "Sortie avec le club", "rolland@aol.com");
+$gestionActivity->insert($activity3);
+
+$activity4 = new Activity;
+$activity4->init("22/04/2018", "Une éclaircie maintenant, faut profiter pour sortir", "johndoe@test.com");
+$gestionActivity->insert($activity4);
+
+$activity5 = new Activity;
+$activity5->init("22/04/2018", "Un arc-en-ciel au dessus de moi", "thomas@test.com");
+$gestionActivity->insert($activity5);
+
+$affichage = $gestionActivity->findAllActivity($user);
+foreach ($affichage as $value) {
+    foreach ($value as $key => $name) {
+        echo($name . " | ");
+    }
+    echo("\n");
+}
+
 echo("\n\n");
 
 
