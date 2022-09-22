@@ -45,6 +45,6 @@ CREATE TABLE IF NOT EXISTS DataActivity(
     altitude                INTEGER      NOT NULL,
     idActivity              INTEGER      NOT NULL,
     CONSTRAINT fk_DataActivity
-    FOREIGN KEY (rowid)
-    REFERENCES Activity(id)
+    FOREIGN KEY (idActivity)
+    REFERENCES Activity(rowid)
 );
