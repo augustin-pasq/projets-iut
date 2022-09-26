@@ -12,7 +12,7 @@ require_once (CONTROLLERS_DIR.'/ApplicationController.php');
 
 // Add routes here
 ApplicationController::getInstance()->addRoute('apropos', CONTROLLERS_DIR.'/apropos.php');
-ApplicationController::getInstance()->addRoute('user_add_form', CONTROLLERS_DIR.'/user_add.php');
+ApplicationController::getInstance()->addRoute('user_add', CONTROLLERS_DIR.'/user_add.php');
 ApplicationController::getInstance()->addRoute('connect', CONTROLLERS_DIR.'/connect.php');
 
 // Process the request
