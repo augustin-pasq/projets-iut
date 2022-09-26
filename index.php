@@ -9,7 +9,6 @@ require_once (__ROOT__.'/config.php');
 // ApplicationController
 require_once (CONTROLLERS_DIR.'/ApplicationController.php');
 
-
 // Add routes here
 ApplicationController::getInstance()->addRoute('apropos', CONTROLLERS_DIR.'/apropos.php');
 ApplicationController::getInstance()->addRoute('connect', CONTROLLERS_DIR.'/connect.php');

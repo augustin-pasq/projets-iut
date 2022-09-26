@@ -1,5 +1,7 @@
 <?php
 require(__ROOT__.'/controllers/Controller.php');
+require(__ROOT__.'/php/Utilisateur.php');
+require(__ROOT__.'/php/UtilisateurDAO.php');
 
 class AddUserController extends Controller{
 
@@ -8,8 +10,22 @@ class AddUserController extends Controller{
     }
 
     public function post($request){
-        $this->render('user_add_valid',['lname' => $request['lname'], 'fname' => $request['fname'], 'birthdate' => $request['birthdate'], 'sex' => $request['sex'], 'height' => $request['height'], 'weight' => $request['weight'], 'email' => $request['email'], 'password' => $request['password']]);
+
+        $lname = $request['lname'];
+        $fname = $request['fname'];
+        $birthdate = $request['birthdate'];
+        $sex = $request['sex'];
+        $height = $request['height'];
+        $weight = $request['weight'];
+        $email = $request['email'];
+        $password = $request['password'];
+
+        $user = new Utilisateur;
+        $user->init($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password);
+        $gestionUser =  UtilisateurDAO::getInstance();
+        $gestionUser->insert($user);
+
+        $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'birthdate' => $birthdate, 'sex' => $sex, 'height' => $height, 'weight' => $weight, 'email' => $email, 'password' => $password]);
+
     }
 }
-
-?>
