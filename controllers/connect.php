@@ -8,8 +8,9 @@ class ConnectController extends Controller{
     }
 
     public function post($request){
-        $this->render('user_connect_form',['email' => $request['email'], 'email' => $request['email']]);
+        $this->render('user_connect_valid',['email' => $request['email'], 'email' => $request['email']]);
 
+        /*
 
         $email = $data['email'];
         $password = $data['password'];
@@ -25,7 +26,7 @@ class ConnectController extends Controller{
             echo "Connexion réussi";
         } else {
             echo "Le mot de passe et/ou le mot de passe est erronée. Veuillez retenter.";
-        }
+        }*/
     }
 }
 
