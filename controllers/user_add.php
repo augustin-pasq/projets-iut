@@ -22,9 +22,9 @@ class AddUserController extends Controller{
 
         $user = new Utilisateur;
         $user->init($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password);
-        $gestionUser =  UtilisateurDAO::getInstance();
+        $gestionUser = UtilisateurDAO::getInstance();
 
-        if ($gestionUser->findUser($user) != null) { $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'email' => $email, 'hasAccount' => true]); }
+        if ($gestionUser->findUser($email) != null) { $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'email' => $email, 'hasAccount' => true]); }
         else {
             $gestionUser->insert($user);
             $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'email' => $email, 'hasAccount' => false]); }
