@@ -6,7 +6,7 @@ class SqliteConnection {
 
     private function __construct() {
         /* Connexion à une base MySQL avec l'invocation de pilote */
-        $dsn = 'sqlite:../database/sport_track.db';
+        $dsn = 'sqlite:'.dirname(__DIR__).'/database/sport_track.db';
 
         $db = new PDO($dsn);
         // Permettre à l'API PDO de pouvoir lancer des exception
