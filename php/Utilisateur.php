@@ -21,13 +21,7 @@ class Utilisateur {
         $this->height = $h;
         $this->weight = $w;
         $this->email = $e;
-        /*
-         PASSWORD_DEFAULT - Utilise l'algorithme bcrypt (par défaut depuis PHP 5.5.0). 
-         Cette constante est conçue pour changer avec le temps, au fur et à mesure que de nouveaux algorithmes 
-         plus puissants sont ajoutés à PHP. Pour cette raison, la longueur du résultat de l'utilisation de cet identifiant 
-         peut changer dans le temps.
-        */
-        $this->password = password_hash($p, PASSWORD_DEFAULT);
+        $this->password = $p;
     }
 
     function getlName(): string { return $this->lname; }

@@ -1,8 +1,25 @@
-<?php include __ROOT__."/views/header.html"; ?>
+<?php
 
-<h1>Vous êtes bien connecté à l'application</h1>
+include __ROOT__."/views/header.html";
 
-<a href="/activities">Liste des activités</a>
-<a href="/upload">Importer des données</a>
-<a href="/disconnect">Se déconnecter</a>
 
+
+if( $_SESSION["id"] != null) {
+    echo "Vous êtes connecté à l'application";
+    
+    echo '<html>
+    <br>
+    <br>
+    <a href="/activities">Liste des activités</a>
+    <a href="/upload">Importer des données</a>
+    <a href="/disconnect">Se déconnecter</a>
+    </html>';
+}
+
+
+
+
+?>
+
+
+<?php if( $_SESSION["id"] == null) echo "Vous n'êtes pas connecté à l'application"; ?>
