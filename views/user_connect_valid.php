@@ -22,4 +22,8 @@ if( $_SESSION["id"] != null) {
 ?>
 
 
-<?php if( $_SESSION["id"] == null) echo "Vous n'êtes pas connecté à l'application"; ?>
+<?php if( $_SESSION["id"] == null) {
+    echo "Vous n'êtes pas connecté à l'application.";
+    echo "L'adresse mail et/ou le mot de passe est incorrect.";
+    
+}?>

@@ -18,6 +18,8 @@ class ConnectUserController extends Controller{
 
     public function post($request){
 
+        $_SESSION["id"] = null;
+
         $email = $request['email'];
         $password = $request['password'];
 
@@ -37,8 +39,6 @@ class ConnectUserController extends Controller{
              */
             if (password_verify($password, $mdpUser)) {
                 $_SESSION["id"] = $email;
-            } else {
-                session_destroy();
             }
         }
         
