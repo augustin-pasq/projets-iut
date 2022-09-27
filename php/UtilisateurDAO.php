@@ -21,6 +21,19 @@ class UtilisateurDAO {
         return $results;
     }
 
+    public final function findUser(Utilisateur $st): Array {
+        $result = null;
+
+        if($st instanceof Utilisateur) {
+            $e = $st->getEmail();
+            $dbc = SqliteConnection::getInstance()->getConnection();
+            $query = "SELECT * FROM User WHERE email = '$e'";
+            $stmt = $dbc->query($query);
+            $result = $stmt->fetchALL(PDO::FETCH_CLASS, 'Utilisateur');
+        }
+        return $result;
+    }
+
     public final function insert(Utilisateur $st): void {
         if($st instanceof Utilisateur) {
             
