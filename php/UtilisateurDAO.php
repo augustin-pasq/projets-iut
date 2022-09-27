@@ -21,7 +21,7 @@ class UtilisateurDAO {
         return $results;
     }
 
-    public final function findUser(string $email): Array {
+    public final function findUser($email): Array {
         $result = null;
 
         $dbc = SqliteConnection::getInstance()->getConnection();
