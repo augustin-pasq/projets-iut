@@ -29,6 +29,7 @@ On utilisera la colonne rowid comme clé primaire et comme clé étrangère de D
     rowid           INTEGER     NOT NULL    PRIMARY KEY,
     date            TEXT        NOT NULL,
     description     TEXT        NOT NULL,
+    distance        REAL        NOT NULL,
     activityUser    TEXT        NOT NULL,
     CONSTRAINT fk_Activite
     FOREIGN KEY (activityUser)

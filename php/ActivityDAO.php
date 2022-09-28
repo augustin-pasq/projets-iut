@@ -26,10 +26,11 @@ class ActivityDAO {
             
             $da = $st->getDate();
             $de = $st->getDescription();
+            $di = $st->getDistance();
             $m = $st->getMailUser();
 
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "INSERT INTO Activity (date, description, activityUser) VALUES ('$da', '$de', '$m')";
+            $query = "INSERT INTO Activity (date, description, distance, activityUser) VALUES ('$da', '$de', '$di', '$m')";
             $stmt = $dbc->prepare($query);
             $stmt->execute();
         }
@@ -40,10 +41,11 @@ class ActivityDAO {
 
             $da = $st->getDate();
             $de = $st->getDescription();
+            $di = $st->getDistance();
             $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "UPDATE Activity SET date = '$da', description = '$de', activityUser = '$m'";
+            $query = "UPDATE Activity SET date = '$da', description = '$de', distance = '$di', activityUser = '$m'";
             $stmt = $dbc->prepare($query); 
             $stmt->execute();
         }
@@ -54,10 +56,11 @@ class ActivityDAO {
 
             $da = $st->getDate();
             $de = $st->getDescription();
+            $di = $st->getDistance();
             $m = $st->getMailUser();
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "DELETE FROM Activity WHERE date = '$da' AND description = '$de' AND activityUser = '$m'";
+            $query = "DELETE FROM Activity WHERE date = '$da' AND description = '$de' AND distance = '$di' AND activityUser = '$m'";
             $stmt = $dbc->prepare($query);
             $stmt->execute();
         }

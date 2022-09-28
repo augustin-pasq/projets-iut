@@ -29,7 +29,7 @@ class CalculDistance {
         return $distance;
     }
 
-    public function readJSON(String $pathToFile) : Array {
+    public function getAllCoordinates(String $pathToFile) : Array {
         $data = json_decode(file_get_contents($pathToFile), true);
         $parcours = [];
     

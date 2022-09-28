@@ -83,7 +83,7 @@ $stmt->execute();
 
 echo("[+] Test de la classe Activity\n");
 $activity = new Activity;
-$activity->init("21/04/2018", "Petit entraînement tranquille au soleil", "johndoe@test.com");
+$activity->init("21/04/2018", "Petit entraînement tranquille au soleil", 4596, "johndoe@test.com");
 
 // Insertion de données puis on les affiche pour vérifier la bonne insertion
 echo("[+] Test de l'insertion :\t");
@@ -137,19 +137,19 @@ echo("[+] Test de l'affichage de toutes les activités liés à l'utilisateur Jo
 
 
 $activity2 = new Activity;
-$activity2->init("22/04/2018", "Il a plu, il y avait beaucoup de grenouilles près de la mare", "johndoe@test.com");
+$activity2->init("22/04/2018", "Il a plu, il y avait beaucoup de grenouilles près de la mare", 770, "johndoe@test.com");
 $gestionActivity->insert($activity2);
 
 $activity3 = new Activity;
-$activity3->init("21/04/2018", "Sortie avec le club", "rolland@aol.com");
+$activity3->init("21/04/2018", "Sortie avec le club", 1265, "rolland@aol.com");
 $gestionActivity->insert($activity3);
 
 $activity4 = new Activity;
-$activity4->init("22/04/2018", "Une éclaircie maintenant, faut profiter pour sortir", "johndoe@test.com");
+$activity4->init("22/04/2018", "Une éclaircie maintenant, faut profiter pour sortir", 9842, "johndoe@test.com");
 $gestionActivity->insert($activity4);
 
 $activity5 = new Activity;
-$activity5->init("22/04/2018", "Un arc-en-ciel au dessus de moi", "thomas@test.com");
+$activity5->init("22/04/2018", "Un arc-en-ciel au dessus de moi", 12789, "thomas@test.com");
 $gestionActivity->insert($activity5);
 
 $affichage = $gestionActivity->findAllActivity($user);
