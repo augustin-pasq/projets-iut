@@ -1,4 +1,5 @@
 <?php include __ROOT__ . "/views/header.html"; ?>
+<link rel="stylesheet" href="../css/register.css">
 
 <h1>Inscription</h1>
 <div id="parent">
