@@ -23,7 +23,6 @@ class ConnectUserController extends Controller{
         $email = $request['email'];
         $password = $request['password'];
 
-        $dbc = SqliteConnection::getInstance()->getConnection();
         $gestionUser =  UtilisateurDAO::getInstance();
 
         $arrayUser = $gestionUser->findUser($email);
@@ -38,11 +37,10 @@ class ConnectUserController extends Controller{
              * - le mot de passe hashé
              */
             if (password_verify($password, $mdpUser)) {
+                session_start();
                 $_SESSION["id"] = $email;
             }
         }
-        
-
         
         $this->render('user_connect_valid', []);
 

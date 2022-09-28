@@ -1,7 +1,7 @@
 <?php include __ROOT__."/views/header.html"; ?>
 
 <h1>Importer des données</h1>
-  <form action="/upload" method="post">
+  <form action="/upload" method="post" enctype="multipart/form-data">
     <label>Fichier de données</label><br>
     <input type="file" id="file" name="file" accept=".json" required><br><br>
     <input type="submit" value="Importer">
