@@ -1,10 +1,11 @@
 <?php include __ROOT__ . "/views/header.html"; ?>
 <link rel="stylesheet" href="../css/register.css">
 
-<h1>Inscription</h1>
+
 <div id="parent">
   <div id="formulaire-responsive" class="clearfix">
     <form id="form_login" action="/user_add" method="post" autocomplete="on">
+      <h1>Inscription</h1>
       <div class="rang-form">
         <div class="demi-colonne">
           <label>Nom</label><br>

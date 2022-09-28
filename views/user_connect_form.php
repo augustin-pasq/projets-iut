@@ -1,9 +1,10 @@
 <?php include __ROOT__."/views/header.html"; ?>
 <link rel="stylesheet" href="../css/login.css">
 
-  <h1>Connexion</h1>
+
 <div id="parent">
-  <form id="form_login" action="/connect" method="post" autocomplete="on">
+  <form id="form_login" action="/connect" method="post" autocomplete="on"> 
+    <h1>Connexion</h1>
     <label>Adresse mail</label><br>
     <input type="email" id="email" name="email" placeholder="exemple@exemple.com" required><br><br>
     <label>Mot de passe</label><br>
