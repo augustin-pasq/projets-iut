@@ -1,4 +1,5 @@
 <?php
+session_start();
 require(__ROOT__.'/controllers/Controller.php');
 require(__ROOT__.'/php/CalculDistance.php');
 require(__ROOT__.'/php/Activity.php');
