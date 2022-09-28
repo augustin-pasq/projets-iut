@@ -37,7 +37,6 @@ class ConnectUserController extends Controller{
              * - le mot de passe hashé
              */
             if (password_verify($password, $mdpUser)) {
-                session_start();
                 $_SESSION["id"] = $email;
             }
         }
