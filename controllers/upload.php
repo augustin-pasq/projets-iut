@@ -28,16 +28,13 @@ class UploadActivityController extends Controller{
         $stmt = $db->prepare($query);
         $stmt->execute();
         $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        print_r($affichage);
 
-        /*
         foreach($data['data'] as $activityPart) {
             $activityEntry = new ActivityEntry;
-            $activityEntry->init($activityPart["time"], $activityPart["cardio_frequency"], $activityPart["latitude"], $activityPart["longitude"], $activityPart["altitude"], 1);
+            $activityEntry->init($activityPart["time"], $activityPart["cardio_frequency"], $activityPart["latitude"], $activityPart["longitude"], $activityPart["altitude"], $affichage[0]['MAX(rowid)']);
+            $gestionActivityEntry =  ActivityEntryDAO::getInstance();
+            $gestionActivityEntry->insert($activityEntry);
         }
-
-        $gestionActivityEntry =  ActivityEntryDAO::getInstance();
-        $gestionActivityEntry->insert($activityEntry);*/
 
         $this->render('upload_activity_form',['message' => 'Les données ont été correctement importées']);
     }
