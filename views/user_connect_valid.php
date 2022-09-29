@@ -13,6 +13,7 @@ if( $_SESSION["id"] != null) {
     <a href="/activities">Liste des activités</a>
     <a href="/upload">Importer des données</a>
     <a href="/disconnect">Se déconnecter</a>
+    <a href="/user_update">Modification du profil</a>
     </html>';
 }
 
