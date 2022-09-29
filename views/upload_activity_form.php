@@ -1,4 +1,13 @@
-<?php include __ROOT__."/views/header.html"; ?>
+<?php include __ROOT__."/views/header.html"; 
+
+if( $_SESSION["id"] == null) {
+  header("location:connect");
+  exit();
+}
+
+
+
+?>
 
 <h1>Importer des données</h1>
   <form action="/upload" method="post" enctype="multipart/form-data">
