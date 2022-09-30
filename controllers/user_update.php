@@ -7,7 +7,17 @@ require(__ROOT__.'/php/UtilisateurDAO.php');
 class AddUserController extends Controller{
 
     public function get($request){
-        $this->render('user_update_form',['lname' => "Test"]);
+        $gestionUser = UtilisateurDAO::getInstance();
+        $user_info = $gestionUser->findUser($_SESSION['id']);
+        $lname = $user_info["0"]->getlname();
+        $fname = $user_info["0"]->getfname();
+        $birthdate = $user_info["0"]->getBirthdate();
+        $sex = $user_info["0"]->getSex();
+        $height = $user_info["0"]->getHeight();
+        $weight = $user_info["0"]->getWeight();
+
+
+        $this->render('user_update_form',['lname' => $lname, 'fname' => $fname, 'birthdate' => $birthdate, 'sex' => $sex, 'height' => $height, 'weight' => $weight]);
     }
 
     public function post($request){
@@ -19,17 +29,14 @@ class AddUserController extends Controller{
         $sex = $request['sex'];
         $height = $request['height'];
         $weight = $request['weight'];
-        $email = $request['email'];
-        $password = $request['password'];
+        $email = $_SESSION['id'];
+        $password = "";
 
         $gestionUser = UtilisateurDAO::getInstance();
-        $user_info = $gestionUser->findUser($_SESSION['id']);
-        $lname = $user_info[0];
-
         $user = new Utilisateur;
         $user->init($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password);
-        $gestionUser = UtilisateurDAO::getInstance();
+        $gestionUser->update($user);
 
-        $this->render('user_update_form',['lname' => $lname]); 
+        $this->render('user_update_form',['lname' => $lname, 'fname' => $fname, 'birthdate' => $birthdate, 'sex' => $sex, 'height' => $height, 'weight' => $weight]); 
     }
 }

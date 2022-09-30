@@ -69,12 +69,10 @@ class UtilisateurDAO {
             $h = $st->getHeight();
             $w = $st->getWeight();
             $e = $st->getEmail();
-            $p = $st->getPassword();
 
-            $p = password_hash($p, PASSWORD_DEFAULT);
             
             $dbc = SqliteConnection::getInstance()->getConnection();
-            $query = "UPDATE User SET lname = '$l', fname = '$f', birthdate = '$b', sex = '$s', height = $h, weight = $w, password = '$p' WHERE email='$e'";
+            $query = "UPDATE User SET lname = '$l', fname = '$f', birthdate = '$b', sex = '$s', height = $h, weight = $w WHERE email='$e'";
             $stmt = $dbc->prepare($query); 
             $stmt->execute();
         }
