@@ -45,16 +45,16 @@ $weight = $data['weight'];
       <div class="rang-form">
         <div class="demi-colonne">
           <label>Taille</label><br>
-          <input type="range" id="height" name="height" value=<?php echo $height;?> min="1" max="250" oninput="this.nextElementSibling.value=this.value" required><output>176</output> cm<br>
+          <input type="range" id="height" name="height" value=<?php echo $height;?> min="1" max="250" oninput="this.nextElementSibling.value=this.value" required><output><?php echo $height;?></output> cm<br>
           <br>
         </div>
         <div class="demi-colonne">
           <label>Poids</label><br>
-          <input type="range" id="weight" name="weight" value=<?php echo $weight;?> min="1" max="150" oninput="this.nextElementSibling.value = this.value" required><output>75</output> kg<br>
+          <input type="range" id="weight" name="weight" value=<?php echo $weight;?> min="1" max="150" oninput="this.nextElementSibling.value = this.value" required><output><?php echo $weight;?></output> kg<br>
           <br>
         </div>
       </div>
-        <input type="submit" name="submit" value="Mofifier">
+        <input type="submit" name="submit" value="Modifier">
     </form>
   </div>
 </div>
