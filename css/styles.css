@@ -5,7 +5,12 @@ html {
     font-size: medium;
 }
 
-a, a:visited {
+* {
+    box-sizing: border-box;
+}
+
+a,
+a:visited {
     text-decoration: none;
     color: black;
 }
@@ -14,7 +19,7 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 2.75vw;
-    padding: 5%;
+    padding: 2vw;
 }
 
 button {
@@ -34,12 +39,12 @@ button {
     border-radius: 3vw;
     width: 25%;
     text-align: center;
-    padding: 1%;
-    top:50%;
+    padding: 1vw;
+    top: 50%;
     left: 50%;
-    transform: translate3d(-50%,-50%, 0);
+    transform: translate3d(-50%, -50%, 0);
     position: absolute;
-    box-shadow: 0px 17px 34px rgba(0,0,0,0.2);
+    box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
 }
 
 #about {
@@ -49,11 +54,10 @@ button {
 
 #about-page {
     width: 75%;
-
 }
 
 #about-page h1 {
-    padding: 2vw; 
+    padding: 2vw;
 }
 
 .info {
@@ -64,7 +68,10 @@ button {
     margin: 2.5vw;
 }
 
-input[type="email"], input[type="password"] {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
     width: 75%;
     padding: 0.5vw;
     border: none;
@@ -74,7 +81,10 @@ input[type="email"], input[type="password"] {
     margin-bottom: 2.25vw;
 }
 
-input[type="email"]:focus, input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus {
     outline: none;
     border-bottom: 1.75px solid #E5646E;
 }
@@ -82,7 +92,7 @@ input[type="email"]:focus, input[type="password"]:focus {
 label {
     font-size: 110%;
     font-weight: 500;
-    padding: 1vw 0vw 0.75vw 3.5vw;
+    padding: 1vw 0vw 0.75vw 3vw;
     display: block;
     text-align: left;
 }
@@ -99,7 +109,7 @@ input[type="submit"] {
     font-weight: 500;
 }
 
-#register {
+#redirect {
     text-decoration: underline;
     color: #E5646E;
 }
@@ -108,4 +118,54 @@ input[type="submit"] {
     font-weight: 500;
     color: red;
     margin-bottom: 2vw;
+}
+
+.column {
+    float: left;
+    width: 33%;
+}
+
+.main-container:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#register-page {
+    width: 60%;
+}
+
+#register-page label {
+    padding: 1vw 3vw 0.75vw 2.5vw;
+}
+
+input[type="number"] {
+    width: 18%;
+    padding: 0.5vw;
+    border: none;
+    border-bottom: 1.75px solid #B5B5B5;
+    font-size: 105%;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 2.25vw;
+    text-align: center;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-bottom: 1.75px solid #E5646E;
+}
+
+input[type="range"] {
+    width: 50%;
+    margin-bottom: 2.25vw;
+}
+
+#sex label {
+    display: inline;
+    padding: 0vw 2vw 0vw 0.25vw;
+}
+
+#sex {
+    margin-bottom: 2.5vw;
+    padding: 0.5vw;   
 }

@@ -13,5 +13,4 @@
   <p>
   <p class="info">Créé par Liam Le Ny et Augustin Pasquier</p>
   <button id="to-menu" onclick="location.href='/'">Accéder à SportTrack</a>
-
 </div>

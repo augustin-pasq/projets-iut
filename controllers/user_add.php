@@ -11,6 +11,8 @@ class AddUserController extends Controller{
 
     public function post($request){
 
+        $redirect = "user_add_form";
+
         $lname = $request['lname'];
         $fname = $request['fname'];
         $birthdate = $request['birthdate'];
@@ -24,9 +26,11 @@ class AddUserController extends Controller{
         $user->init($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password);
         $gestionUser = UtilisateurDAO::getInstance();
 
-        if ($gestionUser->findUser($email) != null) { $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'email' => $email, 'hasAccount' => true]); }
-        else {
+        if ($gestionUser->findUser($email) == null) {
             $gestionUser->insert($user);
-            $this->render('user_add_valid',['lname' => $lname, 'fname' => $fname, 'email' => $email, 'hasAccount' => false]); }
+            $redirect = "user_add_valid";
+        }
+
+        $this->render($redirect,['lname' => $lname, 'fname' => $fname, 'email' => $email]);
     }
 }
