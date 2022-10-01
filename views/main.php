@@ -1,6 +1,15 @@
-<?php include __ROOT__."/views/header.html"; ?>
-<h1>Bienvenue !</h1>
+<html lang="fr">
 
-<a href="/connect">Connexion</a>
-<a href="/user_add">Créer un compte</a>
-<a href="/apropos">A propos de SportTrack</a>
+<head>
+  <meta charset="UTF-8" />
+  <title>SportTrack Web App</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/sporttrack_icon.png">
+  <link href="../css/styles.css" rel="stylesheet">
+</head>
+
+<div class="main-container">
+  <h1>SportTrack</h1>
+  <button onclick="location.href='/connect'">Connexion</a></button><br>
+  <button onclick="location.href='/user_add'">Inscription</a></button><br>
+  <p id="about"><a href="/apropos">A propos de SportTrack</a></p>
+</div>

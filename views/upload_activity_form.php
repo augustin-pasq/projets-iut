@@ -5,8 +5,6 @@ if( $_SESSION["id"] == null) {
   exit();
 }
 
-
-
 ?>
 
 <h1>Importer des données</h1>

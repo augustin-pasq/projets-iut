@@ -26,12 +26,12 @@ class ListActivityController extends Controller{
             $end = strtotime(date("m-d-Y", strtotime($activities[$i]['date'])) . ' ' . $dataActivities[$i]['MAX(time)']);
 
             $data[] = [
+                'description' => $activities[$i]['description'],
                 'date' => $activities[$i]['date'],
                 'start' => date('H:i:s', $start),
-                'description' => $activities[$i]['description'],
                 'time' => date("H:i:s", $end - $start),
                 'distance' => $activities[$i]['distance'],
-                'avg_cf' => $dataActivities[$i]['AVG(cardio_frequency)'],
+                'avg_cf' => round($dataActivities[$i]['AVG(cardio_frequency)']),
                 'min_cf' => $dataActivities[$i]['MIN(cardio_frequency)'],
                 'max_cf' => $dataActivities[$i]['MAX(cardio_frequency)'],
             ];

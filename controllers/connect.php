@@ -13,10 +13,13 @@ require(__ROOT__.'/php/UtilisateurDAO.php');
 class ConnectUserController extends Controller{
 
     public function get($request){
-        $this->render('user_connect_form',[]);
+        $this->render('user_connect_form',['badCredentials' => true]);
     }
 
     public function post($request){
+
+        $pageToRender = "user_connect_form";
+        $badCredentials = false;
 
         $_SESSION["id"] = null;
 
@@ -38,10 +41,12 @@ class ConnectUserController extends Controller{
              */
             if (password_verify($password, $mdpUser)) {
                 $_SESSION["id"] = $email;
+                $badCredentials = true;
+                $pageToRender = "user_connect_valid";
             }
         }
         
-        $this->render('user_connect_valid', []);
+        $this->render($pageToRender, ['badCredentials' => $badCredentials]);
 
     }
 }
