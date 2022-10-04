@@ -11,7 +11,7 @@ require(__ROOT__.'/php/ActivityEntryDAO.php');
 class UploadActivityController extends Controller{
 
     public function get($request){
-        $this->render('upload_activity_form',[]);
+        $this->render('upload_activity_form',['isImported' => false]);
     }
 
     public function post($request){
@@ -36,6 +36,6 @@ class UploadActivityController extends Controller{
             $gestionActivityEntry->insert($activityEntry);
         }
 
-        $this->render('upload_activity_form',['message' => 'Les données ont été correctement importées']);
+        $this->render('upload_activity_form',['isImported' => true]);
     }
 }

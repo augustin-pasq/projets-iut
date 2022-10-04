@@ -2,15 +2,15 @@
 
 include __ROOT__."/views/header.html";
 
-
-
-if($data['hasAccount'] == true) echo "Vous avez déjà un compte";
-if($data['hasAccount'] == false) echo "Bienvenue";
-
-echo '<html>
-<br>
-<a href="/upload">Importer des données</a>
-<a href="/disconnect">Se déconnecter</a>
-<a href="/user_update">Modification du profil</a>
-</html>';
 ?>
+
+<div class="main-container" id="homepage">
+    <h1>Bienvenue <?php echo $data['fname']; ?> !</h1>
+    <p id="updated">Vous êtes désormais inscrit à SportTrack</p>
+</div>
+
+<div class="all-buttons" id="register">
+    <a href="/upload"><div class="buttons-menu" id="register-button-menu"><img src="images/upload.png"><br>Importer des données</div></a>
+    <a href="/user_update"><div class="buttons-menu" id="register-button-menu"><img src="images/profile.png"><br>Modifier mon profil</div></a>
+    <a href="/disconnect"><div class="buttons-menu" id="register-button-menu"><img src="images/disconnect.png"><br>Me déconnecter</div></a>
+</div>

@@ -37,6 +37,6 @@ class AddUserController extends Controller{
         $user->init($lname, $fname, $birthdate, $sex, $height, $weight, $email, $password);
         $gestionUser->update($user);
 
-        $this->render('user_update_form',['lname' => $lname, 'fname' => $fname, 'birthdate' => $birthdate, 'sex' => $sex, 'height' => $height, 'weight' => $weight]); 
+        $this->render('user_update_form',['lname' => $lname, 'fname' => $fname, 'birthdate' => $birthdate, 'sex' => $sex, 'height' => $height, 'weight' => $weight, 'isUpdated' => true]); 
     }
 }

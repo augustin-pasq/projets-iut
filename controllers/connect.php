@@ -46,7 +46,7 @@ class ConnectUserController extends Controller{
             }
         }
         
-        $this->render($pageToRender, ['badCredentials' => $badCredentials]);
+        $this->render($pageToRender, ['badCredentials' => $badCredentials, 'fname' => $arrayUser[0]->getfName()]);
 
     }
 }

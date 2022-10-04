@@ -1,30 +1,17 @@
 <?php
 
-include __ROOT__."/views/header.html";
-
-
-
-if( $_SESSION["id"] != null) {
-    echo "Vous êtes connecté à l'application";
-    
-    echo '<html>
-    <br>
-    <br>
-    <a href="/activities">Liste des activités</a>
-    <a href="/upload">Importer des données</a>
-    <a href="/disconnect">Se déconnecter</a>
-    <a href="/user_update">Modification du profil</a>
-    </html>';
-}
-
-
-
+include __ROOT__ . "/views/header.html";
 
 ?>
 
+<div class="main-container" id="homepage">
+    <h1>Bonjour <?php echo $data['fname']; ?> !</h1>
+    <p id="updated">Vous êtes connecté à SportTrack</p>
+</div>
 
-<?php if( $_SESSION["id"] == null) {
-    echo "Vous n'êtes pas connecté à l'application.";
-    echo "L'adresse mail et/ou le mot de passe est incorrect.";
-    
-}?>
+<div class="all-buttons">
+    <a href="/activities"><div class="buttons-menu"><img src="images/sports.png"><br>Afficher la liste de mes activités</div></a>
+    <a href="/upload"><div class="buttons-menu"><img src="images/upload.png"><br>Importer des données</div></a>
+    <a href="/user_update"><div class="buttons-menu"><img src="images/profile.png"><br>Modifier<br>mon profil</div></a>
+    <a href="/disconnect"><div class="buttons-menu"><img src="images/disconnect.png"><br>Me<br>déconnecter</div></a>
+</div>

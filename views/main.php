@@ -1,11 +1,4 @@
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8" />
-  <title>SportTrack Web App</title>
-  <link rel="icon" type="image/png" sizes="16x16" href="../images/sporttrack_icon.png">
-  <link href="../css/styles.css" rel="stylesheet">
-</head>
+<?php include __ROOT__."/views/header.html"; ?>
 
 <div class="main-container">
   <h1>SportTrack</h1>

@@ -97,7 +97,8 @@ label {
     text-align: left;
 }
 
-input[type="submit"] {
+input[type="submit"],
+input::file-selector-button {
     border: 2px solid #E5646E;
     background-color: white;
     cursor: pointer;
@@ -167,5 +168,122 @@ input[type="range"] {
 
 #sex {
     margin-bottom: 2.5vw;
-    padding: 0.5vw;   
+    padding: 0.5vw;
+}
+
+.menu {
+    background-color: white;
+    border-radius: 3vw;
+    text-align: center;
+    padding: 1.5vw;
+    box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
+    font-size: 105%;
+    font-weight: 500;
+    margin: 1vw 1vw 3.75vw 1vw;
+}
+
+.menu a {
+    margin: 6vw
+}
+
+#updated {
+    font-weight: 500;
+    color: green;
+    margin-bottom: 2vw;
+}
+
+#update-page {
+    width: 60%;
+    top: 66%;
+    left: 50%;
+    transform: translate3d(-50%, -66%, 0);
+    position: absolute;
+}
+
+input[type="file"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#list-activities {
+    width: 90%;
+}
+
+table {
+    text-align: center;
+    margin: 3vw;
+    border-collapse: collapse;
+    width: 93%;
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #E5646E;
+    color: white;
+}
+
+#homepage {
+    width: 50%;
+    top: 20%;
+    left: 50%;
+    transform: translate3d(-50%, -20%, 0);
+}
+
+.buttons-menu {
+    background-color: white;
+    border-radius: 3vw;
+    text-align: center;
+    padding: 3vw;
+    font-size: 130%;
+    font-weight: 500;
+    margin: 1.65vw;
+    border-spacing: 1vw;
+    height: 30%;
+    transition: 0.4s;
+    width: 20%;
+    display: inline-block;
+}
+
+.buttons-menu:hover {
+    box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
+    transform: translate(0px, -10px);
+}
+
+.all-buttons {
+    position: absolute;
+    margin-left: 11%;
+    margin-top: 27%;
+}
+
+img {
+    width: 2.5vw;
+    margin: 1vw;
+}
+
+#register {
+    width: 84%;
+    margin-left: 14%
+}
+
+#register-button-menu {
+    width: 24%;
+}
+
+input[type="email"]:read-only, input[type="password"]:read-only {
+    border-bottom: 1.75px solid #B5B5B5;
+}
+
+input[type="email"]:read-only:hover, input[type="password"]:read-only:hover {
+    cursor: default;
 }

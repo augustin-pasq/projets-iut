@@ -30,10 +30,10 @@ class ListActivityController extends Controller{
                 'date' => $activities[$i]['date'],
                 'start' => date('H:i:s', $start),
                 'time' => date("H:i:s", $end - $start),
-                'distance' => $activities[$i]['distance'],
-                'avg_cf' => round($dataActivities[$i]['AVG(cardio_frequency)']),
-                'min_cf' => $dataActivities[$i]['MIN(cardio_frequency)'],
-                'max_cf' => $dataActivities[$i]['MAX(cardio_frequency)'],
+                'distance' => $activities[$i]['distance'] >= 1000 ? round($activities[$i]['distance'] * 1000) . " km" : round($activities[$i]['distance']) . " m",
+                'avg_cf' => round($dataActivities[$i]['AVG(cardio_frequency)']) . " bpm",
+                'min_cf' => $dataActivities[$i]['MIN(cardio_frequency)'] . " bpm",
+                'max_cf' => $dataActivities[$i]['MAX(cardio_frequency)'] . " bpm",
             ];
         }
 
