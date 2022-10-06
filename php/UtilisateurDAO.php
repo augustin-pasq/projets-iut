@@ -44,12 +44,6 @@ class UtilisateurDAO {
             $e = $st->getEmail();
             $p = $st->getPassword();
 
-            /*
-             * PASSWORD_DEFAULT - Utilise l'algorithme bcrypt (par défaut depuis PHP 5.5.0). 
-             * Cette constante est conçue pour changer avec le temps, au fur et à mesure que de nouveaux algorithmes 
-             * plus puissants sont ajoutés à PHP. Pour cette raison, la longueur du résultat de l'utilisation de cet identifiant 
-             * peut changer dans le temps.
-             */
             $p = password_hash($p, PASSWORD_DEFAULT);
 
             $dbc = SqliteConnection::getInstance()->getConnection();
@@ -70,7 +64,6 @@ class UtilisateurDAO {
             $w = $st->getWeight();
             $e = $st->getEmail();
 
-            
             $dbc = SqliteConnection::getInstance()->getConnection();
             $query = "UPDATE User SET lname = '$l', fname = '$f', birthdate = '$b', sex = '$s', height = $h, weight = $w WHERE email='$e'";
             $stmt = $dbc->prepare($query); 

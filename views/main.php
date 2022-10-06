@@ -1,6 +1,8 @@
 <?php include __ROOT__."/views/header.html"; ?>
-<h1>Bienvenue !</h1>
 
-<a href="/connect">Connexion</a>
-<a href="/user_add">Créer un compte</a>
-<a href="/apropos">A propos de SportTrack</a>
+<div class="main-container">
+  <h1>SportTrack</h1>
+  <button onclick="location.href='/connect'">Connexion</a></button><br>
+  <button onclick="location.href='/user_add'">Inscription</a></button><br>
+  <p id="about"><a href="/apropos">A propos de SportTrack</a></p>
+</div>

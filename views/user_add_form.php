@@ -1,62 +1,45 @@
 <?php include __ROOT__ . "/views/header.html"; ?>
-<link rel="stylesheet" href="../css/register.css">
 
+<div class="main-container" id="register-page">
+  <form action="/user_add" method="post" autocomplete="on">
+    
+  <h1>Inscription</h1>
 
-<div id="parent">
-  <div id="formulaire-responsive" class="clearfix">
-    <form id="form_login" action="/user_add" method="post" autocomplete="on">
-      <h1>Inscription</h1>
-      <div class="rang-form">
-        <div class="demi-colonne">
-          <label>Nom</label><br>
-          <input type="text" id="lname" name="lname" placeholder="Dupont" pattern="^[A-Za-z0-9-\s]*$" required><br>
-          <br>
-        </div>
-        <div class="demi-colonne">
-          <label>Prénom</label><br>
-          <input type="text" id="fnmae" name="fname" placeholder="Pierre" pattern="^[A-Za-z0-9-\s]*$" required><br>
-          <br>
-        </div>
+    <?php if (isset($data['email'])) echo "<p class='error-message'>Un compte existe déjà pour cette adresse mail</p>"; ?>
+
+    <div class="column">
+      <label>Prénom</label>
+      <input type="text" id="fname" name="fname" placeholder="Pierre" pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
+      <label>Nom</label>
+      <input type="text" id="lname" name="lname" placeholder="Dupont" pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
+      <label>Date de naissance</label>
+      <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="<?php echo date('Y-m-d', strtotime('now')); ?>" required>
+    </div>
+
+    <div class="column">
+      <label>Sexe</label>
+      <div class="sex">
+        <input type="radio" id="male" name="sex" value="M" required>
+        <label for="male">Homme</label>
+        <input type="radio" id="female" name="sex" value="F" required>
+        <label for="female">Femme</label>
       </div>
-      <div class="rang-form">
-        <div class="demi-colonne">
-          <label>Date de naissance</label><br>
-          <input type="date" id="birthdate" name="birthdate" required><br>
-          <br>
-        </div>
-        <div class="demi-colonne">
-          <label>Sexe</label><br>
-          <input type="radio" id="male" name="sex" value="M" required>
-          <label>Homme</label><br>
-          <input type="radio" id="female" name="sex" value="F" required>
-          <label>Femme</label><br>
-          <br>
-        </div>
-      </div>
-      <div class="rang-form">
-        <div class="demi-colonne">
-          <label>Taille</label><br>
-          <input type="range" id="height" name="height" value="180" min="1" max="250" oninput="this.nextElementSibling.value=this.value" required><output>176</output> cm<br>
-          <br>
-        </div>
-        <div class="demi-colonne">
-          <label>Poids</label><br>
-          <input type="range" id="weight" name="weight" value="75" min="1" max="150" oninput="this.nextElementSibling.value = this.value" required><output>75</output> kg<br>
-          <br>
-        </div>
-      </div>
-      <div class="rang-form">
-        <div class="demi-colonne">
-          <label>Adresse mail</label><br>
-          <input type="mail" id="email" name="email" placeholder="exemple@exemple.com" required><br>
-          <br>
-        </div>
-        <div class="demi-colonne">
-          <label>Mot de passe</label><br>
-          <input type="password" id="password" name="password" placeholder="Taper le mot de passe" required><br>
-          <br>
-        </div>
-        <input type="submit" name="submit" value="S'inscrire">
-    </form>
-  </div>
+      <label>Taille</label>
+      <input type="range" name="heightRange" min="1" max="250" value="180" oninput="this.form.height.value=this.value">
+      <input type="number" name="height" min="1" max="250" value="180" oninput="this.form.heightRange.value=this.value">cm
+      <label>Poids</label>
+      <input type="range" name="weightRange" min="1" max="150" value="75" oninput="this.form.weight.value=this.value">
+      <input type="number" name="weight" min="1" max="150" value="75" oninput="this.form.weightRange.value=this.value">kg
+    </div>
+
+    <div class="column">
+      <label>Adresse mail</label>
+      <input type="email" id="email" name="email" placeholder="exemple@exemple.com" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" required>
+      <label>Mot de passe</label>
+      <input type="password" id="password" name="password" placeholder="Taper le mot de passe" required>
+      <input type="submit" name="submit" value="S'inscrire">
+      <p>Vous avez déjà un compte ? <a class="link" href="/connect">Se connecter</a></p>
+    </div>
+
+  </form>
 </div>
