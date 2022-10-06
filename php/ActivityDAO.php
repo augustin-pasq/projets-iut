@@ -71,7 +71,6 @@ class ActivityDAO {
      */
     public function findAllActivity(Utilisateur $st): array { 
         if($st instanceof Utilisateur){
-
             $e = $st->getEmail();
 
             $dbc = SqliteConnection::getInstance()->getConnection();
@@ -81,8 +80,8 @@ class ActivityDAO {
 
             $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            
         }
+
         return $affichage;
     }
 }

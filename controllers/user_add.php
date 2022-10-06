@@ -1,17 +1,18 @@
 <?php
+
 require(__ROOT__.'/controllers/Controller.php');
 require(__ROOT__.'/php/Utilisateur.php');
 require(__ROOT__.'/php/UtilisateurDAO.php');
 
 session_start();
 
-class AddUserController extends Controller{
+class AddUserController extends Controller {
 
-    public function get($request){
+    public function get($request) {
         $this->render('user_add_form',[]);
     }
 
-    public function post($request){
+    public function post($request) {
 
         $redirect = "user_add_form";
         $_SESSION["id"] = null;
@@ -38,3 +39,5 @@ class AddUserController extends Controller{
         $this->render($redirect,['lname' => $lname, 'fname' => $fname, 'email' => $email]);
     }
 }
+
+?>

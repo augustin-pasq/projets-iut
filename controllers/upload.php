@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
 require(__ROOT__.'/controllers/Controller.php');
 require(__ROOT__.'/php/CalculDistance.php');
 require(__ROOT__.'/php/Activity.php');
@@ -7,15 +9,15 @@ require(__ROOT__.'/php/ActivityDAO.php');
 require(__ROOT__.'/php/ActivityEntry.php');
 require(__ROOT__.'/php/ActivityEntryDAO.php');
 
+class UploadActivityController extends Controller {
 
-class UploadActivityController extends Controller{
-
-    public function get($request){
+    public function get($request) {
         $this->render('upload_activity_form',['isImported' => "not yet"]);
     }
 
-    public function post($request){
+    public function post($request) {
         $activityInfo = new CalculDistance();
+
         try {
             $data = json_decode(file_get_contents($_FILES['file']['tmp_name']), true);
             
@@ -24,7 +26,7 @@ class UploadActivityController extends Controller{
             $stmt = $db->prepare($query);
             $stmt->execute();
             $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            
             $basicData = [
                 'date' => $data["activity"]["date"],
                 'time' => $data["data"][0]["time"],
@@ -53,6 +55,7 @@ class UploadActivityController extends Controller{
             } else {
                 $isImported = "false";
             }
+
         } catch (Exception $e) {
             $isImported = "false";
         }
@@ -60,3 +63,5 @@ class UploadActivityController extends Controller{
         $this->render('upload_activity_form',['isImported' => $isImported]);
     }
 }
+
+?>

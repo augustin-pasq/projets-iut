@@ -78,8 +78,7 @@ class ActivityEntryDAO {
         $stmt->execute();
 
         $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            
+   
         return $affichage;
     }
 
@@ -106,9 +105,8 @@ class ActivityEntryDAO {
             $stmt->execute();
 
             $affichage = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            
         }
+        
         return $affichage;
     }
 }

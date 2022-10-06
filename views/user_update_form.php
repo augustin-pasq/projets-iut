@@ -1,15 +1,12 @@
 <?php
 
 include __ROOT__ . "/views/header.html";
-
-
 include __ROOT__."/views/menu.html";
 
 if ($_SESSION["id"] == null) {
   header("location:/");
   exit();
 }
-
 
 $lname = $data['lname'];
 $fname = $data['fname'];
@@ -25,7 +22,9 @@ $weight = $data['weight'];
 <div class="main-container" id="update-page">
   <form id="form_login" action="/user_update" method="post" autocomplete="on">
     <h1>Mon profil</h1>
-    <?php if (isset($data['isUpdated'])) echo "<p id='updated'>Votre profil a été mis à jour</p>" ?>
+
+    <?php if (isset($data['isUpdated'])) echo "<p class='success-message'>Votre profil a été mis à jour</p>"; ?>
+
     <div class="column">
       <label>Prénom</label>
       <input type="text" id="fname" name="fname" placeholder="Pierre" value=<?php echo $fname;?> pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
@@ -34,6 +33,7 @@ $weight = $data['weight'];
       <label>Date de naissance</label>
       <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="<?php echo date('Y-m-d', strtotime('now')); ?>" value=<?php echo $birthdate;?> required>
     </div>
+    
     <div class="column">
       <label>Sexe</label>
       <div id="sex">
@@ -49,6 +49,7 @@ $weight = $data['weight'];
       <input type="range" name="weightRange" min="1" max="150" value=<?php echo $weight;?> oninput="this.form.weight.value=this.value">
       <input type="number" name="weight" min="1" max="150" value=<?php echo $weight;?> oninput="this.form.weightRange.value=this.value">kg
     </div>
+
     <div class="column">
       <label>Adresse mail</label>
       <input type="email" id="email" name="email" placeholder=<?php echo $_SESSION["id"];?> pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" readonly required>
@@ -56,5 +57,6 @@ $weight = $data['weight'];
       <input type="password" id="password" name="password" placeholder="••••••••" readonly required>
       <input type="submit" name="submit" value="Modifier">
     </div>
+    
   </form>
 </div>

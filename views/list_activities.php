@@ -26,6 +26,7 @@ if ($_SESSION["id"] == null) {
         </tr>
 
         <?php
+        
         for ($i = 0; $i < count($data); $i++) {
             echo "<tr>";
 
@@ -35,7 +36,7 @@ if ($_SESSION["id"] == null) {
 
             echo "</tr>";
         }
-        ?>
 
+        ?>
     </table>
 </div>

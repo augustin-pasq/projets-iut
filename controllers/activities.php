@@ -1,13 +1,14 @@
 <?php
+
 session_start();
+
 require(__ROOT__.'/controllers/Controller.php');
 require(__ROOT__.'/php/SqliteConnection.php');
 
-class ListActivityController extends Controller{
+class ListActivityController extends Controller {
 
-    public function get($request){
+    public function get($request) {
         $db = SqliteConnection::getInstance()->getConnection();
-
         $query = "SELECT * FROM Activity WHERE activityUser='" . $_SESSION["id"] . "' ORDER BY Activity.rowid DESC;";
         $stmt = $db->prepare($query);
         $stmt->execute();

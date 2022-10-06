@@ -120,12 +120,12 @@ input::file-selector-button {
     margin: 0vw 0vw 1.5vw -2vw
 }
 
-#redirect {
+#link {
     text-decoration: underline;
     color: #E5646E;
 }
 
-#badCredentials {
+.error-message {
     font-weight: 500;
     color: red;
     margin-bottom: 2vw;
@@ -198,7 +198,7 @@ input[type="range"] {
     margin: 6vw
 }
 
-#updated {
+.success-message {
     font-weight: 500;
     color: green;
     margin-bottom: 2vw;
@@ -252,7 +252,7 @@ th {
     transform: translate3d(-50%, -20%, 0);
 }
 
-.buttons-menu {
+.all-buttons div {
     background-color: white;
     border-radius: 3vw;
     text-align: center;
@@ -267,7 +267,7 @@ th {
     display: inline-block;
 }
 
-.buttons-menu:hover {
+.all-buttons div:hover {
     box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
     transform: translate(0px, -10px);
 }
@@ -288,7 +288,7 @@ img {
     margin-left: 14%
 }
 
-#register-button-menu {
+#register div {
     width: 24%;
 }
 
