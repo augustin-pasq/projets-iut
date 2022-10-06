@@ -9,7 +9,7 @@ include('ActivityEntryDAO.php');
 
 $db = SqliteConnection::getInstance()->getConnection();
         
-// Affichage du des tables de la base de données pour vérifier la bonne connexion à la base
+// Affichage du nom des tables de la base de données pour vérifier la bonne connexion à la base
 echo("[+] Test de la connexion :\t");
 $query = "SELECT name FROM sqlite_master WHERE type='table';";
 $stmt = $db->prepare($query);
@@ -22,7 +22,7 @@ foreach ($affichage as $value) {
 }
 echo("\n\n");
 
-// Utilisateurs de test
+// Utilisateur de test
 $user = new Utilisateur;
 $user->init("John", "Doe", "12/01/1983", "M", 190, 95, "johndoe@test.com", "pass");
 echo("[+] Test de la classe Utilisateur\n");
@@ -76,7 +76,7 @@ echo("\n\n");
 
 
 // Activité de test
-// SCRIPT POUR VIDER LA TABLE ET BYPASS LA CONTRAINE D'UNICITE
+// SCRIPT POUR VIDER LA TABLE ET BYPASS LA CONTRAINTE D'UNICITE
 $query = "DELETE FROM Activity";
 $stmt = $db->prepare($query);
 $stmt->execute();
