@@ -24,7 +24,7 @@ SQLite recommande de ne pas utiliser l'attribut AUTOINCREMENT car :
 Lorsque vous créez une table sans spécifier l'option WITHOUT ROWID, vous obtenez une colonne auto-incrémentée implicite appelée rowid.
 La colonne rowid stocke un entier signé de 64 bits qui identifie de manière unique une ligne de la table.
 
-On utilisera la colonne rowid comme clé primaire et comme clé étrangère de DataActivity
+On utilisera la colonne rowid comme clé primaire de Activity et comme clé étrangère de DataActivity
 */
     rowid           INTEGER     NOT NULL    PRIMARY KEY,
     date            TEXT        NOT NULL,
