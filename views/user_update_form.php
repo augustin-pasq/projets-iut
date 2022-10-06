@@ -20,7 +20,7 @@ $weight = $data['weight'];
 ?>
 
 <div class="main-container" id="update-page">
-  <form id="form_login" action="/user_update" method="post" autocomplete="on">
+  <form action="/user_update" method="post" autocomplete="on">
     <h1>Mon profil</h1>
 
     <?php if (isset($data['isUpdated'])) echo "<p class='success-message'>Votre profil a été mis à jour</p>"; ?>
@@ -36,7 +36,7 @@ $weight = $data['weight'];
     
     <div class="column">
       <label>Sexe</label>
-      <div id="sex">
+      <div class="sex">
         <input type="radio" id="male" name="sex" <?php if($homme == "Vrai"){ echo "checked";} ?>  value="M" required>
         <label for="male">Homme</label>
         <input type="radio" id="female" name="sex"  <?php if($homme == "Faux"){ echo "checked";} ?> value="F" required>

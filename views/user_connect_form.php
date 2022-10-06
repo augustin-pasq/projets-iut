@@ -1,7 +1,7 @@
 <?php include __ROOT__ . "/views/header.html"; ?>
 
 <div class="main-container">
-  <form id="form_login" action="/connect" method="post" autocomplete="on">
+  <form action="/connect" method="post" autocomplete="on">
 
     <h1>Connexion</h1>
 
@@ -14,5 +14,5 @@
     <input type="submit" value="Se connecter">
   </form>
   
-  <p> Vous n'avez pas encore de compte ? <a id="link" href="/user_add">S'inscrire</a></P>
+  <p> Vous n'avez pas encore de compte ? <a class="link" href="/user_add">S'inscrire</a></P>
 </div>

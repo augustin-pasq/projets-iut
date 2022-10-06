@@ -1,7 +1,7 @@
 <?php include __ROOT__ . "/views/header.html"; ?>
 
 <div class="main-container" id="register-page">
-  <form id="form_login" action="/user_add" method="post" autocomplete="on">
+  <form action="/user_add" method="post" autocomplete="on">
     
   <h1>Inscription</h1>
 
@@ -18,7 +18,7 @@
 
     <div class="column">
       <label>Sexe</label>
-      <div id="sex">
+      <div class="sex">
         <input type="radio" id="male" name="sex" value="M" required>
         <label for="male">Homme</label>
         <input type="radio" id="female" name="sex" value="F" required>
@@ -38,7 +38,7 @@
       <label>Mot de passe</label>
       <input type="password" id="password" name="password" placeholder="Taper le mot de passe" required>
       <input type="submit" name="submit" value="S'inscrire">
-      <p>Vous avez déjà un compte ? <a id="link" href="/connect">Se connecter</a></p>
+      <p>Vous avez déjà un compte ? <a class="link" href="/connect">Se connecter</a></p>
     </div>
 
   </form>

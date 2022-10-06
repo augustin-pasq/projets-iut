@@ -1,56 +1,181 @@
-html {
-    background-image: url('../images/background.svg');
-    background-size: cover;
-    font-family: 'Montserrat', sans-serif;
-    font-size: medium;
-}
+/** Éléménts communs **/
 
 * {
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
-a,
-a:visited {
-    text-decoration: none;
-    color: black;
+html {
+    background-image: url('../images/background.svg');
+    background-size: cover;
+    font-size: medium;
 }
 
 h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
+
     font-size: 2.75vw;
+    font-weight: 900;
     padding: 2vw;
 }
 
 button {
-    border: 2px solid #E5646E;
     background-color: white;
-    cursor: pointer;
-    padding: 1.5vw 4vw;
-    margin: 0.75em;
+    border: 2px solid #E5646E;
     border-radius: 4em;
-    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
     font-size: 115%;
     font-weight: 500;
+    margin: 0.75em;
+    padding: 1.5vw 4vw;
 }
 
 .main-container {
     background-color: white;
     border-radius: 3vw;
-    width: 25%;
-    text-align: center;
-    padding: 1vw;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    position: absolute;
     box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
+    left: 50%;
+    padding: 1vw;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 25%;
     z-index: 1;
 }
 
+.main-container:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.menu {
+    background-color: white;
+    border-radius: 3vw;
+    box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
+    font-size: 105%;
+    font-weight: 500;
+    margin: 1vw 1vw 3.75vw 1vw;
+    padding: 1.5vw;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+.menu a {
+    margin: 6vw
+}
+
+.success-message {
+    color: green;
+    font-weight: 500;
+    margin-bottom: 2vw;
+}
+
+.error-message {
+    color: red;
+    font-weight: 500;
+    margin-bottom: 2vw;
+}
+
+
+/** Formulaires **/
+
+label {
+    display: block;
+    font-size: 110%;
+    font-weight: 500;
+    padding: 1vw 0vw 0.75vw 3vw;
+    text-align: left;
+}
+
+input[type="text"], input[type="date"], input[type="number"], input[type="email"], input[type="password"] {
+    border: none;
+    border-bottom: 1.75px solid #B5B5B5;
+    font-size: 105%;
+    margin-bottom: 2.25vw;
+    padding: 0.5vw;
+    width: 75%;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    border-bottom: 1.75px solid #E5646E;
+    outline: none;
+}
+
+input[type="range"] {
+    width: 50%;
+    margin-bottom: 2.25vw;
+}
+
+input[type="number"] {
+    text-align: center;
+    width: 18%;
+}
+
+input[type="file"] {
+    padding: 1vw 0vw 1.5vw 8vw;
+}
+
+input[type="submit"], input::file-selector-button {
+    background-color: white;
+    border: 2px solid #E5646E;
+    border-radius: 4em;
+    cursor: pointer;
+    font-size: 110%;
+    font-weight: 500;
+    padding: 1vw 2vw;
+}
+
+input::file-selector-button {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0vw 0vw 1.5vw -2vw;
+}
+
+input[type="submit"] {
+    margin: 0.5vw 0vw 3vw 0vw;
+}
+
+input[type="email"]:read-only, input[type="password"]:read-only {
+    border-bottom: 1.75px solid #B5B5B5;
+}
+
+input[type="email"]:read-only:hover, input[type="password"]:read-only:hover {
+    cursor: default;
+}
+
+.sex {
+    margin-bottom: 2.5vw;
+    padding: 0.5vw;
+}
+
+.sex label {
+    display: inline;
+    padding: 0vw 2vw 0vw 0.25vw;
+}
+
+.column {
+    float: left;
+    width: 33%;
+}
+
+a.link, a.link:visited {
+    text-decoration: underline;
+    color: #E5646E;
+}
+
+
+/** A propos **/
+
+a, a:visited {
+    color: black;
+    text-decoration: none;
+}
+
 #about {
-    text-align: right;
     margin: 2.75vw 1vw 0.5vw;
+    text-align: right;
 }
 
 #about-page {
@@ -65,206 +190,39 @@ button {
     font-size: 115%;
 }
 
-#to-menu {
+.back {
     margin: 2.5vw;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"] {
-    width: 75%;
-    padding: 0.5vw;
-    border: none;
-    border-bottom: 1.75px solid #B5B5B5;
-    font-size: 105%;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 2.25vw;
-}
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus {
-    outline: none;
-    border-bottom: 1.75px solid #E5646E;
-}
-
-label {
-    font-size: 110%;
-    font-weight: 500;
-    padding: 1vw 0vw 0.75vw 3vw;
-    display: block;
-    text-align: left;
-}
-
-input[type="submit"],
-input::file-selector-button {
-    border: 2px solid #E5646E;
-    background-color: white;
-    cursor: pointer;
-    padding: 1vw 2vw;
-    margin: 0.5vw 0vw 3vw;
-    border-radius: 4em;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 110%;
-    font-weight: 500;
-}
-
-input[type="file"] {
-    padding: 1vw 0vw 1.5vw 8vw;
-}
-
-input::file-selector-button {
-    display: block;
-    margin: 0vw 0vw 1.5vw -2vw
-}
-
-#link {
-    text-decoration: underline;
-    color: #E5646E;
-}
-
-.error-message {
-    font-weight: 500;
-    color: red;
-    margin-bottom: 2vw;
-}
-
-.column {
-    float: left;
-    width: 33%;
-}
-
-.main-container:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-#register-page {
-    width: 60%;
-}
-
-#register-page label {
-    padding: 1vw 3vw 0.75vw 2.5vw;
-}
-
-input[type="number"] {
-    width: 18%;
-    padding: 0.5vw;
-    border: none;
-    border-bottom: 1.75px solid #B5B5B5;
-    font-size: 105%;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 2.25vw;
-    text-align: center;
-}
-
-input[type="number"]:focus {
-    outline: none;
-    border-bottom: 1.75px solid #E5646E;
-}
-
-input[type="range"] {
-    width: 50%;
-    margin-bottom: 2.25vw;
-}
-
-#sex label {
-    display: inline;
-    padding: 0vw 2vw 0vw 0.25vw;
-}
-
-#sex {
-    margin-bottom: 2.5vw;
-    padding: 0.5vw;
-}
-
-.menu {
-    background-color: white;
-    border-radius: 3vw;
-    text-align: center;
-    padding: 1.5vw;
-    box-shadow: 0px 17px 34px rgba(0, 0, 0, 0.2);
-    font-size: 105%;
-    font-weight: 500;
-    margin: 1vw 1vw 3.75vw 1vw;
-    z-index: 2;
-    position: relative;
-}
-
-.menu a {
-    margin: 6vw
-}
-
-.success-message {
-    font-weight: 500;
-    color: green;
-    margin-bottom: 2vw;
-}
-
-#update-page {
-    width: 60%;
-    top: 66%;
-    left: 50%;
-    transform: translate3d(-50%, -66%, 0);
-    position: absolute;
-}
-
-input[type="file"] {
-    font-family: 'Montserrat', sans-serif;
-}
-
-#list-activities {
-    width: 90%;
-}
-
-table {
-    text-align: center;
-    margin: 3vw;
-    border-collapse: collapse;
-    width: 93%;
-}
-
-td,
-th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
-
-th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: #E5646E;
-    color: white;
-}
+/** Menu principal **/
 
 #homepage {
-    width: 50%;
-    top: 20%;
     left: 50%;
+    top: 20%;
     transform: translate3d(-50%, -20%, 0);
+    width: 50%;
+}
+
+.all-buttons {
+    margin-left: 11%;
+    margin-top: 27%;
+    position: absolute;
 }
 
 .all-buttons div {
     background-color: white;
     border-radius: 3vw;
-    text-align: center;
-    padding: 3vw;
+    border-spacing: 1vw;
+    display: inline-block;
     font-size: 130%;
     font-weight: 500;
-    margin: 1.65vw;
-    border-spacing: 1vw;
     height: 30%;
+    margin: 1.65vw;
+    padding: 3vw;
+    text-align: center;
     transition: 0.4s;
     width: 20%;
-    display: inline-block;
 }
 
 .all-buttons div:hover {
@@ -272,34 +230,68 @@ th {
     transform: translate(0px, -10px);
 }
 
-.all-buttons {
-    position: absolute;
-    margin-left: 11%;
-    margin-top: 27%;
-}
-
-img {
-    width: 2.5vw;
-    margin: 1vw;
-}
-
-#register {
+#registered {
     width: 84%;
     margin-left: 14%
 }
 
-#register div {
+#registered div {
     width: 24%;
 }
 
-input[type="email"]:read-only, input[type="password"]:read-only {
-    border-bottom: 1.75px solid #B5B5B5;
+img {
+    margin: 1vw;
+    width: 2.5vw;
 }
 
-input[type="email"]:read-only:hover, input[type="password"]:read-only:hover {
-    cursor: default;
+
+/** Inscription **/
+
+#register-page {
+    width: 60%;
 }
+
+
+/** Liste des activités **/
+
+#list-activities {
+    width: 90%;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 3vw;
+    text-align: center;
+    width: 93%;
+}
+
+td, th {
+    border: 1px solid #DDD;
+    padding: 8px;
+}
+
+th {
+    background-color: #E5646E;
+    color: white;
+    padding: 12px 0px;
+}
+
+tr:nth-child(odd) {
+    background-color: #F2F2F2;
+}
+
+
+/** Importer des données **/
 
 #upload-form {
     margin-top: 2%;
+}
+
+/** Profil **/
+#update-page {
+    left: 50%;
+    position: absolute;
+    top: 66%;
+    transform: translate3d(-50%, -66%, 0);
+    width: 60%;
 }

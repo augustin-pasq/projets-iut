@@ -5,8 +5,8 @@
     <p class="success-message">Vous êtes désormais inscrit à SportTrack</p>
 </div>
 
-<div class="all-buttons" id="register">
-    <a href="/upload"><div class="register-tile"><img src="images/upload.png"><br>Importer des données</div></a>
-    <a href="/user_update"><div class="register-tile"><img src="images/profile.png"><br>Modifier mon profil</div></a>
-    <a href="/disconnect"><div class="register-tile"><img src="images/disconnect.png"><br>Me déconnecter</div></a>
+<div class="all-buttons" id="registered">
+    <a href="/upload"><div><img src="images/upload.png"><br>Importer des données</div></a>
+    <a href="/user_update"><div><img src="images/profile.png"><br>Modifier mon profil</div></a>
+    <a href="/disconnect"><div><img src="images/disconnect.png"><br>Me déconnecter</div></a>
 </div>
