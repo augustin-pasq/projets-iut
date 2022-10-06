@@ -8,12 +8,12 @@ class ListActivityController extends Controller{
     public function get($request){
         $db = SqliteConnection::getInstance()->getConnection();
 
-        $query = "SELECT * FROM Activity WHERE activityUser='" . $_SESSION["id"] . "' ORDER BY rowid;";
+        $query = "SELECT * FROM Activity WHERE activityUser='" . $_SESSION["id"] . "' ORDER BY Activity.rowid DESC;";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        $query = "SELECT AVG(cardio_frequency), MIN(cardio_frequency), MAX(cardio_frequency), MIN(time), MAX(time) FROM DataActivity JOIN Activity ON rowid = idActivity WHERE activityUser='" . $_SESSION["id"] . "' GROUP BY rowid ORDER BY rowid;";
+        $query = "SELECT AVG(cardio_frequency), MIN(cardio_frequency), MAX(cardio_frequency), MIN(time), MAX(time) FROM DataActivity JOIN Activity ON Activity.rowid = DataActivity.idActivity WHERE activityUser='" . $_SESSION["id"] . "' GROUP BY Activity.rowid ORDER BY Activity.rowid DESC;";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $dataActivities = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -6,7 +6,7 @@ include __ROOT__ . "/views/header.html";
 include __ROOT__."/views/menu.html";
 
 if ($_SESSION["id"] == null) {
-  header("location:connect");
+  header("location:/");
   exit();
 }
 
@@ -28,9 +28,9 @@ $weight = $data['weight'];
     <?php if (isset($data['isUpdated'])) echo "<p id='updated'>Votre profil a été mis à jour</p>" ?>
     <div class="column">
       <label>Prénom</label>
-      <input type="text" id="fname" name="fname" placeholder="Pierre" value=<?php echo $fname;?> pattern="^[A-Za-z0-9-\s]*$" required>
+      <input type="text" id="fname" name="fname" placeholder="Pierre" value=<?php echo $fname;?> pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
       <label>Nom</label>
-      <input type="text" id="lname" name="lname" placeholder="Dupont" value=<?php echo $lname;?> pattern="^[A-Za-z0-9-\s]*$" required>
+      <input type="text" id="lname" name="lname" placeholder="Dupont" value=<?php echo $lname;?> pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
       <label>Date de naissance</label>
       <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="<?php echo date('Y-m-d', strtotime('now')); ?>" value=<?php echo $birthdate;?> required>
     </div>
@@ -38,9 +38,9 @@ $weight = $data['weight'];
       <label>Sexe</label>
       <div id="sex">
         <input type="radio" id="male" name="sex" <?php if($homme == "Vrai"){ echo "checked";} ?>  value="M" required>
-        <label>Homme</label>
+        <label for="male">Homme</label>
         <input type="radio" id="female" name="sex"  <?php if($homme == "Faux"){ echo "checked";} ?> value="F" required>
-        <label>Femme</label>
+        <label for="female">Femme</label>
       </div>
       <label>Taille</label>
       <input type="range" name="heightRange" min="1" max="250" value=<?php echo $height;?> oninput="this.form.height.value=this.value">
@@ -51,7 +51,7 @@ $weight = $data['weight'];
     </div>
     <div class="column">
       <label>Adresse mail</label>
-      <input type="email" id="email" name="email" placeholder=<?php echo $_SESSION["id"];?> readonly required>
+      <input type="email" id="email" name="email" placeholder=<?php echo $_SESSION["id"];?> pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" readonly required>
       <label>Mot de passe</label>
       <input type="password" id="password" name="password" placeholder="••••••••" readonly required>
       <input type="submit" name="submit" value="Modifier">

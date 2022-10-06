@@ -34,13 +34,12 @@ On utilisera la colonne rowid comme clé primaire et comme clé étrangère de D
     CONSTRAINT fk_Activite
     FOREIGN KEY (activityUser)
     REFERENCES User(email)
-    CONSTRAINT unique_DateDesc
-    UNIQUE(date, description)
 );
 
 
 CREATE TABLE IF NOT EXISTS DataActivity(
-    time                    TEXT         NOT NULL       PRIMARY KEY,
+    rowid           INTEGER     NOT NULL    PRIMARY KEY,
+    time                    TEXT         NOT NULL,
     cardio_frequency        INTEGER      NOT NULL
     CHECK (cardio_frequency >= 0 AND cardio_frequency <= 226),
     latitude                REAL         NOT NULL,   

@@ -7,6 +7,11 @@ require(__ROOT__.'/php/UtilisateurDAO.php');
 class AddUserController extends Controller{
 
     public function get($request){
+        if ($_SESSION["id"] == null) {
+            header("location:/");
+            exit();
+          }
+          
         $gestionUser = UtilisateurDAO::getInstance();
         $user_info = $gestionUser->findUser($_SESSION['id']);
         $lname = $user_info["0"]->getlname();

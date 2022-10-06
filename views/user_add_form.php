@@ -6,9 +6,9 @@
     <?php if (isset($data['email'])) echo "<p id='badCredentials'>Un compte existe déjà pour cette adresse mail</p>" ?>
     <div class="column">
       <label>Prénom</label>
-      <input type="text" id="fname" name="fname" placeholder="Pierre" pattern="^[A-Za-z0-9-\s]*$" required>
+      <input type="text" id="fname" name="fname" placeholder="Pierre" pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
       <label>Nom</label>
-      <input type="text" id="lname" name="lname" placeholder="Dupont" pattern="^[A-Za-z0-9-\s]*$" required>
+      <input type="text" id="lname" name="lname" placeholder="Dupont" pattern="^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$" required>
       <label>Date de naissance</label>
       <input type="date" id="birthdate" name="birthdate" min="1900-01-01" max="<?php echo date('Y-m-d', strtotime('now')); ?>" required>
     </div>
@@ -16,9 +16,9 @@
       <label>Sexe</label>
       <div id="sex">
         <input type="radio" id="male" name="sex" value="M" required>
-        <label>Homme</label>
+        <label for="male">Homme</label>
         <input type="radio" id="female" name="sex" value="F" required>
-        <label>Femme</label>
+        <label for="female">Femme</label>
       </div>
       <label>Taille</label>
       <input type="range" name="heightRange" min="1" max="250" value="180" oninput="this.form.height.value=this.value">
@@ -29,7 +29,7 @@
     </div>
     <div class="column">
       <label>Adresse mail</label>
-      <input type="email" id="email" name="email" placeholder="exemple@exemple.com" required>
+      <input type="email" id="email" name="email" placeholder="exemple@exemple.com" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" required>
       <label>Mot de passe</label>
       <input type="password" id="password" name="password" placeholder="Taper le mot de passe" required>
       <input type="submit" name="submit" value="S'inscrire">

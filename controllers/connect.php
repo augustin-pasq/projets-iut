@@ -19,7 +19,9 @@ class ConnectUserController extends Controller{
     public function post($request){
 
         $pageToRender = "user_connect_form";
-        $badCredentials = false;
+        $data = [
+            'badCredentials' => false
+        ];
 
         $_SESSION["id"] = null;
 
@@ -41,12 +43,13 @@ class ConnectUserController extends Controller{
              */
             if (password_verify($password, $mdpUser)) {
                 $_SESSION["id"] = $email;
-                $badCredentials = true;
+                $data['badCredentials'] = true;
+                $data += ['fname' => $arrayUser[0]->getfName()];
                 $pageToRender = "user_connect_valid";
             }
         }
         
-        $this->render($pageToRender, ['badCredentials' => $badCredentials, 'fname' => $arrayUser[0]->getfName()]);
+        $this->render($pageToRender, $data);
 
     }
 }
