@@ -1,46 +1,77 @@
 var db = require('./sqlite_connection').db;
 
-var ActivityDAO = function(){
-    this.insert = function(values, callback){
+var UserDAO = function () {
+    this.insert = function (values) {
         query = "INSERT INTO  Activity (date, description, distance, activityUser) VALUES (?, ?, ?, ?)";
-        db.run(query, values);
+        return new Promise(function (resolve, reject) {
+            db.run(query, values,
+                function (err) {
+                    if (err) reject(err.message)
+                    else resolve(true)
+                })
+        })
     };
 
-    this.update = function(key, values, callback){
-        values.push(key)
+    this.update = function (values, key) {
         query = "UPDATE Activity SET date = ?, description = ?, distance = ?, activityUser = ?";
-        db.run(query, values);
+        values.push(key);
+        return new Promise(function (resolve, reject) {
+            db.run(query, values,
+                function (err) {
+                    if (err) reject(err.message)
+                    else resolve(true)
+                })
+        })
     };
 
-    this.delete = function(key, callback){
-        values.push(key)
+    this.delete = function (values, key) {
         query = "DELETE FROM Activity WHERE date = ? AND description = ? AND distance = ? AND activityUser = ?";
-        db.run(query, key);
+        values.push(key);
+        return new Promise(function (resolve, reject) {
+            db.run(query, values,
+                function (err) {
+                    if (err) reject(err.message)
+                    else resolve(true)
+                })
+        })
     };
 
-    this.findAll = function(callback){
+    this.findAll = function () {
         query = "SELECT * FROM Activity";
-        callback(db.all(query, (err, data) => {
-            if (err)
-                throw err
-            console.log(data)
-    
-        }))
+        return new Promise(function (resolve, reject) {
+            db.all(query, function (err, rows) {
+                if (err) reject("Read error: " + err.message)
+                else {
+                    resolve(rows)
+                }
+            })
+        })
     };
 
-    /**
-     * Permet de connaître tous les activités d'un utilisateur en particulier
-     */
-    this.findAllActivity = function(key, callback){
-        values.push(key)
+    this.findByKey = function (key) {
         query = "SELECT * FROM Activity WHERE activityUser = ?";
-        callback(db.all(query, (err, data) => {
-            if (err)
-                throw err
-            console.log(data)
-    
-        }))
+        return new Promise(function (resolve, reject) {
+            db.get(query, key, function (err, row) {
+                if (err) reject("Read error: " + err.message)
+                else {
+                    resolve(row)
+                }
+            })
+        })
+    };
+
+    this.findActivitiesByUser = function (key) {
+        query = "SELECT * FROM Activity WHERE activityUser = ?";
+        return new Promise(function (resolve, reject) {
+            db.all(query, key, function (err, rows) {
+                if (err) reject("Read error: " + err.message)
+                else {
+                    resolve(rows)
+                }
+            })
+        })
     };
 };
-var dao = new ActivityDAO();
+
+var dao = new UserDAO();
 module.exports = dao;
