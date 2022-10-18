@@ -1,9 +1,4 @@
-const { activity_dao, activity_entry_dao } = require('./sport-track-db');
-
-var user_dao = require('./sport-track-db').user_dao;
-var db = require('./sqlite_connection').db;
-
-
+const { db, user_dao, activity_dao, activity_entry_dao } = require('./sport-track-db');
 
 // Affichage des nom des tables de la base de données pour vérifier la bonne connexion à la base
 function testConnexion() {

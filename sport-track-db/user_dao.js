@@ -23,7 +23,6 @@ var UserDAO = function(){
             if (err)
                 throw err
             console.log(data)
-    
         }))
     };
 
