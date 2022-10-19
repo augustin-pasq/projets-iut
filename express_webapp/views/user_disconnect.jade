@@ -2,6 +2,8 @@ include ./layout.jade
 
 .main-container
   h1 SportTrack
+  - if (isDisconnected)
+    p.success-message Vous avez été déconnecté de l'application
   button(onclick="location.href='/connect'") Connexion
   br
   button(onclick="location.href='/user_add'") Inscription
