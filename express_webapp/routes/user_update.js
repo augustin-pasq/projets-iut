@@ -19,19 +19,18 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function (req, res, next) {
   
-  var user = await user_dao.findByKey(req.session.userID);
-
   var lname = req.body.lname;
   var fname = req.body.fname;
   var birthdate = req.body.birthdate;
   var sex = req.body.sex;
   var height = req.body.height;
   var weight = req.body.weight;
+  var email = req.session.userID;
 
-  console.log([lname, fname, birthdate, sex, height, weight], req.session.userID)
-  await user_dao.update([lname, fname, birthdate, sex, height, weight], req.session.userID);
+  console.log([lname, fname, birthdate, sex, height, weight], email)
+  await user_dao.update([lname, fname, birthdate, sex, height, weight], email);
   
-  res.render("user_update_form", {'lname': lname, 'fname': fname, 'birthdate': birthdate, 'sex': sex, 'height': height, 'weight': weight, 'isUpdated': true});
+  res.render("user_update_form", {'lname': lname, 'fname': fname, 'birthdate': birthdate, 'sex': sex, 'height': height, 'weight': weight, 'email': email, 'isUpdated': true});
 });
 
 module.exports = router;
