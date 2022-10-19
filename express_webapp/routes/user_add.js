@@ -19,6 +19,7 @@ router.post('/', async function (req, res, next) {
   var password = req.body.password;
 
   if (await user_dao.findByKey(email) == undefined) {
+    req.session.userID = email;
     user_dao.insert([lname, fname, birthdate, sex, height, weight, email, password]);
     redirect = "user_add_valid"
   }

@@ -17,6 +17,7 @@ router.post('/', async function (req, res, next) {
 
   if (user != undefined) var userPassword = user.password;
   if (userPassword != undefined && bcrypt.compareSync(password, userPassword)) {
+    req.session.userID = email;
     data.badCredentials = true;
     data.fname = user.fname;
     redirect = "user_connect_valid";
