@@ -3,6 +3,8 @@ include ./layout.jade
 .main-container
   form(action='/connect' method='post' autocomplete='on')
     h1 Connexion
+    - if (!badCredentials)
+      p.error-message Identifiant ou mot de passe incorrect
     label Adresse mail
     input#email(type='email' name='email' placeholder='exemple@exemple.com' required='')
     label Mot de passe
