@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  delete req.session.userID;
+  req.session.destroy();
   res.render('user_disconnect', {'isDisconnected': true});
 });
 
