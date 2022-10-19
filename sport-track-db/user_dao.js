@@ -1,7 +1,9 @@
 var db = require('./sqlite_connection').db;
+const bcrypt = require('bcrypt')
 
 var UserDAO = function () {
     this.insert = function (values) {
+        values.push(bcrypt.hashSync(values.pop(), 10));
         query = "INSERT INTO User (lname, fname, birthdate, sex, height, weight, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         return new Promise(function (resolve, reject) {
             db.run(query, values,

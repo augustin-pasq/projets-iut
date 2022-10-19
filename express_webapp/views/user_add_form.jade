@@ -3,11 +3,13 @@ include ./layout.jade
 #register-page.main-container
   form(action='/user_add' method='post' autocomplete='on')
     h1 Inscription
+    - if (email != undefined)
+      p.error-message Un compte existe déjà pour cette adresse mail
     .column
       label Prénom
-      input#fname(type='text' name='fname' placeholder='Pierre' pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#fname(type='text' name='fname' placeholder='Pierre' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
       label Nom
-      input#lname(type='text' name='lname' placeholder='Dupont' pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#lname(type='text' name='lname' placeholder='Dupont' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
       label Date de naissance
       input#birthdate(type='date' name='birthdate' min='1900-01-01' required='')
     .column
