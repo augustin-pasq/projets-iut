@@ -4,7 +4,7 @@ include ./menu.jade
 #upload-form.main-container
   h1 Importer des données
   form(action='/upload' method='post' enctype='multipart/form-data')
-    input#file(type='file' name='file' accept='.json' required='')
+    input#file(type='file' name='file' accept='.json' required)
     br
     br
     input(type='submit' value='Importer')

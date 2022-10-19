@@ -27,7 +27,6 @@ router.post('/', async function (req, res, next) {
   var weight = req.body.weight;
   var email = req.session.userID;
 
-  console.log([lname, fname, birthdate, sex, height, weight], email)
   await user_dao.update([lname, fname, birthdate, sex, height, weight], email);
   
   res.render("user_update_form", {'lname': lname, 'fname': fname, 'birthdate': birthdate, 'sex': sex, 'height': height, 'weight': weight, 'email': email, 'isUpdated': true});

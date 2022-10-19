@@ -7,17 +7,18 @@ include ./layout.jade
       p.error-message Un compte existe déjà pour cette adresse mail
     .column
       label Prénom
-      input#fname(type='text' name='fname' placeholder='Pierre' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#fname(type='text' name='fname' placeholder='Pierre' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
       label Nom
-      input#lname(type='text' name='lname' placeholder='Dupont' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#lname(type='text' name='lname' placeholder='Dupont' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
       label Date de naissance
-      input#birthdate(type='date' name='birthdate' min='1900-01-01' required='')
+      - var maxDate = new Date().toLocaleDateString('en-CA');
+      input#birthdate(type='date' name='birthdate' min='1900-01-01' max=maxDate required)
     .column
       label Sexe
       .sex
-        input#male(type='radio' name='sex' value='M' required='')
+        input#male(type='radio' name='sex' value='M' required)
         label(for='male') Homme
-        input#female(type='radio' name='sex' value='F' required='')
+        input#female(type='radio' name='sex' value='F' required)
         label(for='female') Femme
       label Taille
       input(type='range' name='heightRange' min='1' max='250' value='180' oninput='this.form.height.value=this.value')
@@ -29,9 +30,9 @@ include ./layout.jade
       | kg
     .column
       label Adresse mail
-      input#email(type='email' name='email' placeholder='exemple@exemple.com' pattern="^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$" required='')
+      input#email(type='email' name='email' placeholder='exemple@exemple.com' pattern="^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$" required)
       label Mot de passe
-      input#password(type='password' name='password' placeholder='Taper le mot de passe' required='')
+      input#password(type='password' name='password' placeholder='Taper le mot de passe' required)
       input(type='submit' name='submit' value="S'inscrire")
       p
         | Vous avez déjà un compte ? 

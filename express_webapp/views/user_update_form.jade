@@ -8,18 +8,25 @@ include ./menu.jade
       p.success-message Votre profil a été mis à jour
     .column
       label Prénom
-      input#fname(type='text' name='fname' placeholder='Pierre' value=fname pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#fname(type='text' name='fname' placeholder='Pierre' value=fname pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
       label Nom
-      input#lname(type='text' name='lname' placeholder='Dupont' value=lname pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required='')
+      input#lname(type='text' name='lname' placeholder='Dupont' value=lname pattern='^[a-zA-Z0-9-\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
       label Date de naissance
-      input#birthdate(type='date' name='birthdate' min='1900-01-01' value=birthdate required='')
+      - var maxDate = new Date().toLocaleDateString('en-CA');
+      input#birthdate(type='date' name='birthdate' min='1900-01-01' max=maxDate value=birthdate required)
     .column
       label Sexe
       .sex
-        input#male(type='radio' name='sex' value='M' required='')
-        label(for='male') Homme
-        input#female(type='radio' name='sex' value='F' required='')
-        label(for='female') Femme
+        - if (sex == 'M')
+          input#male(type='radio' name='sex' value='M' checked required)
+          label(for='male') Homme
+          input#female(type='radio' name='sex' value='F' required)
+          label(for='female') Femme
+        - else 
+          input#male(type='radio' name='sex' value='M' required)
+          label(for='male') Homme
+          input#female(type='radio' name='sex' value='F' checked required)
+          label(for='female') Femme
       label Taille
       input(type='range' name='heightRange' min='1' max='250' value=height oninput='this.form.height.value=this.value')
       input(type='number' name='height' min='1' max='250' value=height oninput='this.form.heightRange.value=this.value')
@@ -30,7 +37,7 @@ include ./menu.jade
       | kg
     .column
       label Adresse mail
-      input#email(type='email' name='email' placeholder=email pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" readonly='' required='')
+      input#email(type='email' name='email' placeholder=email pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" readonly required)
       label Mot de passe
-      input#password(type='password' name='password' placeholder='••••••••' readonly='' required='')
+      input#password(type='password' name='password' placeholder='••••••••' readonly required)
       input(type='submit' name='submit' value='Modifier')
