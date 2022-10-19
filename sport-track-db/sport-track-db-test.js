@@ -17,7 +17,7 @@ async function testUser() {
 
     // Permet de vider les tables pour pouvoir réexecuter deux fois les tests sans avoir de problèle de clé primaire
     await clearDatabase();
-
+    console.log("--------------------------------- user_dao ---------------------------------");
     // Insertion de données puis on les affiche pour vérifier la bonne insertion
     console.log("[+] Test de l'insertion :\t");
     var user = ["John", "Doe", "12/01/1983", "M", 190, 95, "johndoe@test.com", "pass"];
@@ -45,7 +45,7 @@ async function testActivity() {
 
     // Permet de vider les tables pour pouvoir réexecuter deux fois les tests sans avoir de problèle de clé primaire
     await clearDatabase();
-
+    console.log("--------------------------------- activity_dao ---------------------------------");
     // Insertion d'un utilisateur pour les tests
     var user = ["John", "Doe", "12/01/1983", "M", 190, 95, "johndoe@test.com", "pass"];
     await user_dao.insert(user);
@@ -92,7 +92,7 @@ async function testActivityEntry() {
 
     // Permet de vider les tables pour pouvoir réexecuter deux fois les tests sans avoir de problèle de clé primaire
     await clearDatabase();
-
+    console.log("--------------------------------- activity_entry_dao ---------------------------------");
     // Insertion d'un utilisateur et d'une activité pour les tests
     var user = ["John", "Doe", "12/01/1983", "M", 190, 95, "johndoe@test.com", "pass"];
     await user_dao.insert(user);
