@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('list_activities');
+  if (req.session.userID == undefined) { res.redirect('/') }
+  else {
+    res.render('list_activities');
+  }
 });
 
 module.exports = router;
