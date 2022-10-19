@@ -21,12 +21,12 @@ router.post('/', async function (req, res, next) {
   
   var user = await user_dao.findByKey(req.session.userID);
 
-  var lname = user.lname;
-  var fname = user.fname;
-  var birthdate = user.birthdate;
-  var sex = user.sex;
-  var height = user.height;
-  var weight = user.weight;
+  var lname = req.body.lname;
+  var fname = req.body.fname;
+  var birthdate = req.body.birthdate;
+  var sex = req.body.sex;
+  var height = req.body.height;
+  var weight = req.body.weight;
 
   console.log([lname, fname, birthdate, sex, height, weight], req.session.userID)
   await user_dao.update([lname, fname, birthdate, sex, height, weight], req.session.userID);
