@@ -1,0 +1,30 @@
+include ./layout.jade
+
+#homepage.main-container
+  h1 Bonjour !
+  p.success-message Vous êtes connecté à SportTrack
+#logged-in.all-buttons
+  a(href='/activities')
+    div
+      img(src='images/sports.png')
+      br
+      | Afficher la liste de mes activités
+  a(href='/upload')
+    div
+      img(src='images/upload.png')
+      br
+      | Importer des données
+  a(href='/user_update')
+    div
+      img(src='images/profile.png')
+      br
+      | Modifier
+      br
+      | mon profil
+  a(href='/disconnect')
+    div
+      img(src='images/disconnect.png')
+      br
+      | Me
+      br
+      | déconnecter
