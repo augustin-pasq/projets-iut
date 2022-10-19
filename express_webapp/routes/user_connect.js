@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET page de connexion */
 router.get('/', function(req, res, next) {
-  res.render('add_user');
+  res.render('user_connect');
 });
 
 module.exports = router;

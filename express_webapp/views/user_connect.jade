@@ -1,0 +1,17 @@
+html 
+    head
+        title= "SportTrack Web App"
+        link(href='../stylesheets/style.css', rel='stylesheet')
+    
+    body
+        form(action='/connect' method='post' autocomplete='on')
+            h1 Connexion
+            label Adresse mail
+            input#email(type='email' name='email' placeholder='exemple@exemple.com' required='')
+            label Mot de passe
+            input#password(type='password' name='password' placeholder='Taper le mot de passe' required='')
+            input(type='submit' value='Se connecter')
+        p
+            | Vous n'avez pas encore de compte ? 
+            a.link(href='/user_add') S'inscrire
+

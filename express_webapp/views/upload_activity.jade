@@ -1,0 +1,12 @@
+html 
+    head
+        title= "SportTrack Web App"
+        link(href='../stylesheets/style.css', rel='stylesheet')
+    
+    body
+        h1 Importer des données
+        form(action='/upload' method='post' enctype='multipart/form-data')
+            input#file(type='file' name='file' accept='.json' required='')
+            br
+            br
+            input(type='submit' value='Importer')
