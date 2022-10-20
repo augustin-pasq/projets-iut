@@ -1,65 +1,58 @@
 var express = require('express');
-var activity_entry_dao = require('sport-track-db').activity_entry_dao;
-var db = require('sport-track-db').db;
-const fileUpload = require('express-fileupload');
 var router = express.Router();
+const fileUpload = require('express-fileupload');
+var db = require('sport-track-db').db;
+var activity_dao = require('sport-track-db').activity_dao;
+var activity_entry_dao = require('sport-track-db').activity_entry_dao;
+const calcDist = require("../../functions/calcDist")
+
+router.use(fileUpload());
 
 router.get('/', async function (req, res, next) {
   if (req.session.userID == undefined) { res.redirect('/') }
   else {
-    res.render('upload_activity_form');
+    res.render('upload_activity_form', { 'isImported': undefined });
   }
 });
 
-router.use(fileUpload());
+router.post('/', async function (req, res) {
 
-router.post('/', function (req, res) {
+  try {
+    sampleFile = req.files.activity;
+    var data = JSON.parse(sampleFile.data);
 
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
-  }
-
-  sampleFile = req.files.activity;
-  var data = JSON.parse(sampleFile.data);
-
-  query = "SELECT * FROM Activity WHERE activityUser='" + req.session.userID + "' ORDER BY Activity.rowid DESC;";
-  activities =  new Promise(function (resolve, reject) {
-    db.run(query,
-        function (err) {
-            if (err) reject(err.message)
-            else resolve(true)
-        })
-  })
-
-  date = data["activity"]["date"]
-  description = data["activity"]["description"]
-  time = data["data"][0]["time"],
-  activityUser = req.session.userID,
-  basicData = [date, time, activityUser]
-
-  var idActivity = 1; // TO DETERMINE
-  /*
-  values = [date, description]
-  query = "SELECT ROWID FROM Activity WHERE date = ?, description = ?";
-  id = new Promise(function (resolve, reject) {
-    db.run(query, values,
-        function (err) {
-            if (err) reject(err.message)
-            else resolve(true)
+    readDB = function (query) {
+      return new Promise(function (resolve, reject) {
+        db.all(query, function (err, rows) {
+          if (err) reject("Read error: " + err.message)
+          else {
+            resolve(rows)
+          }
         })
       })
-    */
+    };
 
-  for (let i = 0; i < data["data"].length; i++) {
-    let time = data["data"][i]["time"]
-    let cardio = data["data"][i]["cardio_frequency"]
-    let latitude = data["data"][i]["latitude"]
-    let longitude = data["data"][i]["longitude"]
-    let altitude = data["data"][i]["altitude"]
-    let donnee = [time, cardio, latitude, longitude, altitude, idActivity]
-    activity_entry_dao.insert(donnee);
+    userActivities = await readDB(`SELECT date, time, activityUser FROM Activity JOIN DataActivity ON Activity.rowid = DataActivity.idActivity WHERE activityUser='${req.session.userID}';`);
+    var basicData = {
+      'date': data.activity.date,
+      'time': data.data[0].time,
+      'activityUser': req.session.userID
+    };
+
+    if (!userActivities.find(element => JSON.stringify(element) === JSON.stringify(basicData))) {
+      activity_dao.insert([data.activity.date, data.activity.description, calcDist.calculDistanceTrajet(data), req.session.userID]);
+      activityContent = await readDB(`SELECT MAX(rowid) FROM Activity WHERE activityUser = '${req.session.userID}';`);
+      data.data.forEach(element => { activity_entry_dao.insert([element.time, element.cardio_frequency, element.latitude, element.longitude, element.altitude, activityContent[0]['MAX(rowid)']]) });
+      var isImported = true;
+    } else {
+      var isImported = false;
+    }
+  } catch (e) {
+    console.log(e)
+    var isImported = false;
   }
 
+  res.render('upload_activity_form', { 'isImported': isImported });
 });
 
 module.exports = router;

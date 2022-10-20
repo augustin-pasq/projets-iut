@@ -3,6 +3,10 @@ include ./menu.jade
 
 #upload-form.main-container
   h1 Importer des données
+  - if (isImported)
+    p.success-message Les données ont été importées
+  - if (!isImported && isImported != undefined)
+    p.error-message Les données existent déjà ou ne sont pas compatibles
   form(action='/upload' method='post' enctype='multipart/form-data')
     input#file(type='file' name='activity' accept='.json' required)
     br

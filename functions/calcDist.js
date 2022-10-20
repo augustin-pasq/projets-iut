@@ -21,11 +21,8 @@ function calculDistance2PointsGPS(lat1, long1, lat2, long2) {
  * @param parcours Le tableau contenant les points GPS
  * @return La distance du parcours
  */
-function calculDistanceTrajet(fileName) {
-    data = require(fileName)
-
-    // Récupérer seulement le partie data du ficher Json
-    data = data.data;
+function calculDistanceTrajet(content) {
+    data = content.data;
 
     distance = 0;
     for (let i = 0; i < data.length - 1; i += 1) {
@@ -35,6 +32,4 @@ function calculDistanceTrajet(fileName) {
     return distance;
 }
 
-// Test 
-console.log("[+] Test de calcul de distance : ");
-console.log(calculDistanceTrajet('./dataTest.json') + "m \n"); // Expected : 770 m
+module.exports = { calculDistanceTrajet }
