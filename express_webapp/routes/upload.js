@@ -33,11 +33,7 @@ router.post('/', async function (req, res) {
     };
 
     userActivities = await readDB(`SELECT date, time, activityUser FROM Activity JOIN DataActivity ON Activity.rowid = DataActivity.idActivity WHERE activityUser='${req.session.userID}';`);
-    var basicData = {
-      'date': data.activity.date,
-      'time': data.data[0].time,
-      'activityUser': req.session.userID
-    };
+    var basicData = { 'date': data.activity.date, 'time': data.data[0].time, 'activityUser': req.session.userID };
 
     if (!userActivities.find(element => JSON.stringify(element) === JSON.stringify(basicData))) {
       activity_dao.insert([data.activity.date, data.activity.description, calcDist.calculDistanceTrajet(data), req.session.userID]);
@@ -48,7 +44,6 @@ router.post('/', async function (req, res) {
       var isImported = false;
     }
   } catch (e) {
-    console.log(e)
     var isImported = false;
   }
 

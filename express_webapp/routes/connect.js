@@ -1,16 +1,16 @@
 var express = require('express');
-var user_dao = require('sport-track-db').user_dao;
-const bcrypt = require('bcrypt');
 var router = express.Router();
+const bcrypt = require('bcrypt');
+var user_dao = require('sport-track-db').user_dao;
 
-router.get('/', function(req, res, next) {
-  res.render('user_connect_form', {'badCredentials': true});
+router.get('/', function (req, res, next) {
+  res.render('user_connect_form', { 'badCredentials': true });
 });
 
 router.post('/', async function (req, res, next) {
   var redirect = "user_connect_form";
-  var data = {'badCredentials': false};
-  
+  var data = { 'badCredentials': false };
+
   var email = req.body.email;
   var password = req.body.password;
   var user = await user_dao.findByKey(email);
@@ -22,7 +22,7 @@ router.post('/', async function (req, res, next) {
     data.fname = user.fname;
     redirect = "user_connect_valid";
   }
-  
+
   res.render(redirect, data);
 });
 
