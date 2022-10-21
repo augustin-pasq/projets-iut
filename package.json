@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "express-fileupload": "^1.4.0",
     "express-generator": "^4.16.1"
   }
 }
