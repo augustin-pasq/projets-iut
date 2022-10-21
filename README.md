@@ -12,7 +12,7 @@ Des instructions se trouvent dans les dossiers `PHP` et `JavaScript`.
 
 ## Arborescence
 
-`database` : Fichiers pour la base de données, contient entre autres le script de création et le fichier de base de données (`sport_track.db`). Le SGBD utilisé est SQLite 3.
+`database` : Fichiers pour la base de données, contient entre autres le script de création et le fichier de base de données (`sport_track.db`). Des détails sont disponible dans le fichier `README.md` du dossier.
 
 `javascript` : Contient l'ensemble des fichiers nécessaires à l'application codée en JavaScript. Des détails sont disponible dans le fichier `README.md` du dossier.
 
