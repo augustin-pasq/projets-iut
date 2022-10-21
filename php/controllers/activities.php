@@ -3,7 +3,7 @@
 session_start();
 
 require(__ROOT__.'/controllers/Controller.php');
-require(__ROOT__.'/php/SqliteConnection.php');
+require(__ROOT__.'/functions/SqliteConnection.php');
 
 class ListActivityController extends Controller {
 

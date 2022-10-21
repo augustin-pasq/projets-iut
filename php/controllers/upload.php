@@ -3,11 +3,11 @@
 session_start();
 
 require(__ROOT__.'/controllers/Controller.php');
-require(__ROOT__.'/php/CalculDistance.php');
-require(__ROOT__.'/php/Activity.php');
-require(__ROOT__.'/php/ActivityDAO.php');
-require(__ROOT__.'/php/ActivityEntry.php');
-require(__ROOT__.'/php/ActivityEntryDAO.php');
+require(__ROOT__.'/functions/CalculDistance.php');
+require(__ROOT__.'/functions/Activity.php');
+require(__ROOT__.'/functions/ActivityDAO.php');
+require(__ROOT__.'/functions/ActivityEntry.php');
+require(__ROOT__.'/functions/ActivityEntryDAO.php');
 
 class UploadActivityController extends Controller {
 

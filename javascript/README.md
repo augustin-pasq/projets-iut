@@ -16,3 +16,4 @@ Exécuter la commande `npm install` dans ce répertoire ainsi que dans `app` et 
 ## Lancement
 
 Dans le répertoire `app`, exécuter la commande `npm start`.
+L'application est accessible depuis un navigateur à l'addresse `localhost:3000`.

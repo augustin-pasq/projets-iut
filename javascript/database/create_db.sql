@@ -12,8 +12,6 @@ CREATE TABLE IF NOT EXISTS User(
    password         TEXT         NOT NULL
 );
 
-
-
 CREATE TABLE IF NOT EXISTS Activity(
     rowid           INTEGER     NOT NULL    PRIMARY KEY,
     date            TEXT        NOT NULL,
@@ -25,9 +23,8 @@ CREATE TABLE IF NOT EXISTS Activity(
     REFERENCES User(email)
 );
 
-
 CREATE TABLE IF NOT EXISTS DataActivity(
-    rowid           INTEGER     NOT NULL    PRIMARY KEY,
+    rowid                   INTEGER      NOT NULL   PRIMARY KEY,
     time                    TEXT         NOT NULL,
     cardio_frequency        INTEGER      NOT NULL
     CHECK (cardio_frequency >= 0 AND cardio_frequency <= 226),

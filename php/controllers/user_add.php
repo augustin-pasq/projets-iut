@@ -1,8 +1,8 @@
 <?php
 
 require(__ROOT__.'/controllers/Controller.php');
-require(__ROOT__.'/php/Utilisateur.php');
-require(__ROOT__.'/php/UtilisateurDAO.php');
+require(__ROOT__.'/functions/Utilisateur.php');
+require(__ROOT__.'/functions/UtilisateurDAO.php');
 
 session_start();
 
