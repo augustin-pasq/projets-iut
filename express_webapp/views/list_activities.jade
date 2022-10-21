@@ -23,3 +23,10 @@ include ./menu.jade
           | Fréquence cardiaque
           br
           | maximale
+        each activity in data[0]
+          td #{activity}
+        tr 
+        each item in activity0
+          td #{item}
+        tr
+
