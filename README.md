@@ -4,7 +4,7 @@ Projet d'application web de suivi de données sportives - Projet universitaire.
 
 ## Description
 
-Ce projet s'inscrit dans le cadre de la ressource R3.01 - Développement web du BUT Informatique à l'IUT de Vannes. Ce projet a pour but de développer en PHP et en JavaScript une application de suivi de données sportives.
+Ce projet, s'inscrivant dans le cadre de la ressource R3.01 - Développement web du BUT Informatique à l'IUT de Vannes, a pour but de développer en PHP et en JavaScript une application de suivi de données sportives.
 
 ## Lancement
 
