@@ -45,3 +45,7 @@ Des instructions se trouvent dans les dossiers `PHP` et `JavaScript`.
 ```
 
 `website` : Contient les éléments de l'interface de l'application web.
+
+## Auteurs
+
+Liam Le Ny et Augustin Pasquier
