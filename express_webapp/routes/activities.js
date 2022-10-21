@@ -41,7 +41,7 @@ router.get('/', async function (req, res, next) {
       };
     }
     
-    res.render('list_activities', data);
+    res.render('list_activities', {'data': data});
   }
 });
 
