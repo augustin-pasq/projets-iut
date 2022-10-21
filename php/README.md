@@ -2,7 +2,7 @@
 
 ## Dépendances
 
-- [PHP] https://www.php.net/
+- [PHP](https://www.php.net/)
 - php-cli
 - php-common
 - php-sqlite3

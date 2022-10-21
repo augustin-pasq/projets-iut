@@ -2,7 +2,7 @@
 
 ## SGBD
 
-- [SQLite3] https://www.sqlite.org/index.html 
+- [SQLite3](https://www.sqlite.org/index.html)
 
 ## Mise en place
 
