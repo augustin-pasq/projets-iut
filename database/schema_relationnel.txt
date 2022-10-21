@@ -1,0 +1,30 @@
+User (
+    lname: String,
+    fname: String,
+    birthdate: Date,
+    sex: char,
+    height: int,
+    weight: int,
+    email: String (1),
+    password: String    
+)
+
+Activity (
+    id: int (1),
+    date: Date,
+    description: String
+    @ActivityUser String :  REF User(email) (NN)
+)
+
+DataActivity (
+    time : time (1),
+    cardio_frequency : int,
+    latitude : double,
+    longitude : double,
+    altitude : int,
+    /duration : double,
+    /distance : double,
+    /cardio_frequency_max : int,
+    /cardio_frequency_min : int,
+    @IidActivity int :  REF Activity(id) (NN)
+)

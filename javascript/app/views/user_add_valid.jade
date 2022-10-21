@@ -1,0 +1,22 @@
+include ./layout.jade
+
+#homepage.main-container
+  h1
+    | Bienvenue !{fname} !
+  p.success-message Vous êtes désormais inscrit à SportTrack
+#registered.all-buttons
+  a(href='/upload')
+    div
+      img(src='images/upload.png')
+      br
+      | Importer des données
+  a(href='/user_update')
+    div
+      img(src='images/profile.png')
+      br
+      | Modifier mon profil
+  a(href='/disconnect')
+    div
+      img(src='images/disconnect.png')
+      br
+      | Me déconnecter

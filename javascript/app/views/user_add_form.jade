@@ -1,0 +1,39 @@
+include ./layout.jade
+
+#register-page.main-container
+  form(action='/user_add' method='post' autocomplete='on')
+    h1 Inscription
+    - if (email != undefined)
+      p.error-message Un compte existe déjà pour cette adresse mail
+    .column
+      label Prénom
+      input#fname(type='text' name='fname' placeholder='Pierre' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
+      label Nom
+      input#lname(type='text' name='lname' placeholder='Dupont' pattern='^[a-zA-Z0-9-\\séèçàâêûîôäëüïöÿœÉÈÇÀÂÊÛÎÔÄËÜÏÖùÙ]*$' required)
+      label Date de naissance
+      - var maxDate = new Date().toLocaleDateString('en-CA');
+      input#birthdate(type='date' name='birthdate' min='1900-01-01' max=maxDate required)
+    .column
+      label Sexe
+      .sex
+        input#male(type='radio' name='sex' value='M' required)
+        label(for='male') Homme
+        input#female(type='radio' name='sex' value='F' required)
+        label(for='female') Femme
+      label Taille
+      input(type='range' name='heightRange' min='1' max='250' value='180' oninput='this.form.height.value=this.value')
+      input(type='number' name='height' min='1' max='250' value='180' oninput='this.form.heightRange.value=this.value')
+      | cm
+      label Poids
+      input(type='range' name='weightRange' min='1' max='150' value='75' oninput='this.form.weight.value=this.value')
+      input(type='number' name='weight' min='1' max='150' value='75' oninput='this.form.weightRange.value=this.value')
+      | kg
+    .column
+      label Adresse mail
+      input#email(type='email' name='email' placeholder='exemple@exemple.com' pattern="^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$" required)
+      label Mot de passe
+      input#password(type='password' name='password' placeholder='Taper le mot de passe' required)
+      input(type='submit' name='submit' value="S'inscrire")
+      p
+        | Vous avez déjà un compte ? 
+        a.link(href='/connect') Se connecter
