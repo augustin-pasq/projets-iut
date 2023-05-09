@@ -1,0 +1,68 @@
+body {
+    background-image: url("../img/background.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+main {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    width: 30vw;
+    margin-left: 15vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 80vh;
+}
+
+header {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+header button {
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: large;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+header button:hover {
+    color: mediumslateblue;
+}
+
+header button:focus {
+    outline: none;
+}
+
+header section {
+    margin-left: auto;
+}
+
+main summary {
+    font-size: xx-large;
+    margin-bottom: 10px;
+}
+
+main details div {
+    font-size: large;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 3px;
+    color: white;
+}
