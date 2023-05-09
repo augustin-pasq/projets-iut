@@ -3,16 +3,19 @@ const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
 async function getWeather() {
     let location = document.getElementById("input-city").value
     let apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric&lang=fr`
-    console.log(apiWeatherURL)
     const weatherResponse = await fetch(apiWeatherURL)
-    const weatherData = await weatherResponse.json()
+    const weatherData = weatherResponse.ok ? await weatherResponse.json() : null
 
-    switch(weatherData.cod) {
+    switch(weatherResponse.status) {
         case 404:
-            document.getElementById("container").innerHTML = "<p>La ville n'existe pas</p>"
+            document.getElementById("container").hidden = true
+            document.getElementById("base-message").innerText = "La ville n'existe pas."
             break
         case 200:
-            document.getElementById("city-name").innerText = location
+            document.getElementById("container").hidden = false
+            document.getElementById("base-message").innerText = `Météo à ${weatherData.name} : ${weatherData.weather[0].main}`
+
+            document.getElementById("city-name").innerText = weatherData.name
             document.getElementById("weather").innerText = weatherData.weather[0].description
             document.getElementById("temp").innerText = weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`
             document.getElementById("feels-like").innerText = weatherData.main.feels_like + "°C"
