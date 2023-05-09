@@ -13,7 +13,7 @@ async function getWeather() {
             break
         case 200:
             document.getElementById("container").hidden = false
-            document.getElementById("base-message").innerText = `Météo à ${weatherData.name} : ${weatherData.weather[0].main}`
+            document.getElementById("base-message").innerHTML = `Météo à ${weatherData.name} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`
 
             document.getElementById("city-name").innerText = weatherData.name
             document.getElementById("weather").innerText = weatherData.weather[0].description
