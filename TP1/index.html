@@ -20,7 +20,15 @@
 
         <section>
             <input id="input-city" type="text" placeholder="Saisir une ville" onsubmit="getWeather()">
-            <button id="submit-button" onclick="getWeather()" >Valider</button>
+            <button id="submit-button" onclick="getWeather()" type="submit" onsubmit="getWeather()">Valider</button>
+            <script>
+                var submit = document.getElementById("input-city");
+                submit.addEventListener("keydown", function (e) {
+                    if (e.code === "Enter") {
+                        getWeather();
+                    }
+                });
+            </script>
         </section>
     </header>
 
