@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>R4.10 - TP1</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <script src="../javascript/index.js"></script>
+</head>
+<body>
+    <header>
+        <button>Accueil</button>
+        <button>Contact</button>
+        <button>Aide</button>
+
+        <section>
+            <input id="input-city" type="text" placeholder="Saisir une ville">
+            <button id="submit-button" onclick="getWeather()">Valider</button>
+        </section>
+
+        <section>
+            <details>
+                <summary>Météo du jour</summary>
+                <div>
+                    <label>Nom de la ville : </label>
+                    <span id="city-name"></span>
+                </div>
+                <div>
+                    <label>Météo : </label>
+                    <span id="weather"></span>
+                </div>
+                <div>
+                    <label>Températures : </label>
+                    <span id="temp"></span>
+                </div>
+                <div>
+                    <label>Ressenti : </label>
+                    <span id="feels-like"></span>
+                </div>
+                <div>
+                    <label>Pression : </label>
+                    <span id="pressure"></span>
+                </div>
+                <div>
+                    <label>Pourcentage d'humidité : </label>
+                    <span id="humidity"></span>
+                </div>
+                <div>
+                    <label>Vent : </label>
+                    <span id="wind"></span>
+                </div>
+                <div>
+                    <label>Lever du soleil : </label>
+                    <span id="sunrise"></span>
+                </div>
+                <div>
+                    <label>Coucher du soleil : </label>
+                    <span id="sunset"></span>
+                </div>
+            </details>
+        </section>
+    </header>
+</body>
+</html>
