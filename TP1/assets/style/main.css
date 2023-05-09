@@ -3,9 +3,10 @@
 }
 
 body {
-    background-image: url("../img/background.gif");
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: mediumslateblue;
+    background-image: url("../img/background.gif");
     padding: 0;
     margin: 0;
     overflow-x: hidden;
@@ -16,12 +17,24 @@ main {
     color: white;
     padding: 15px;
     width: 30vw;
-    margin-left: 15vw;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 40%;
+    left: 60%;
     transform: translate(-50%,-50%);
-    height: 80vh;
+    height: 60vh;
+}
+
+@media screen and (max-width: 1024px) {
+    main {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        width: 80vw;
+        left: 50%;
+    }
 }
 
 header {
@@ -30,9 +43,13 @@ header {
     padding: 10px;
 }
 
+header hgroup {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+}
+
 header button {
-    margin-left: auto;
-    margin-right: 10px;
     font-size: large;
     background-color: rgba(0, 0, 0, 0);
     border: none;
@@ -73,4 +90,21 @@ footer {
 
 label {
     font-weight: bold
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    header section {
+        margin-left: unset;
+        display: flex;
+    }
+    header section input {
+        flex-grow: 1;
+    }
+    main {
+        margin-top: 50px;
+    }
 }

@@ -12,13 +12,15 @@
 </head>
 <body>
     <header>
-        <button>Accueil</button>
-        <button>Contact</button>
-        <button>Aide</button>
+        <hgroup>
+            <button>Accueil</button>
+            <button>Contact</button>
+            <button>Aide</button>
+        </hgroup>
 
         <section>
-            <input id="input-city" type="text" placeholder="Saisir une ville">
-            <button id="submit-button" onclick="getWeather()">Valider</button>
+            <input id="input-city" type="text" placeholder="Saisir une ville" onsubmit="getWeather()">
+            <button id="submit-button" onclick="getWeather()" >Valider</button>
         </section>
     </header>
 
