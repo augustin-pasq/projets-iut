@@ -92,6 +92,10 @@ label {
     font-weight: bold
 }
 
+.property {
+    padding-bottom: 1rem
+}
+
 @media screen and (max-width: 500px) {
     header {
         flex-direction: column;
