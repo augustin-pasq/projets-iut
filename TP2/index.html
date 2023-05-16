@@ -5,64 +5,71 @@
     <title>R4.10 - TP1</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
-    <link href="assets/style/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/style/main.css" rel="stylesheet" type="text/css"/>
     <script src="javascript/index.js"></script>
 
 </head>
 <body data-bs-theme="dark">
-    <header>
-        <nav class="navbar navbar-expand-lg radius-4" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Météovannes</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Aide</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Rechercher une ville" aria-label="Rechercher une ville" id="input-city">
-                        <button class="btn btn-outline-primary" onclick="getWeather()">
-                            <span class="spinner-border spinner-border-sm" role="status" style="display: none" id="spinner"></span>
-                            <span style="display: inline-flex">Rechercher</span>
-                        </button>
-                        <script>
-                            var lock = false;
-                            $("#input-city").on("keydown", function (e) {
-                                if (e.code === "Enter" || e.code === "NumpadEnter") {
-                                    if (lock) {
-                                        return;
-                                    }
-                                    getWeather();
-                                    lock = true;
+<header>
+    <nav class="navbar navbar-expand-lg radius-4" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Météovannes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Aide</a>
+                    </li>
+                </ul>
+                <div class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Rechercher une ville"
+                           aria-label="Rechercher une ville" id="input-city">
+                    <button class="btn btn-outline-primary" onclick="getWeather()">
+                        <span class="spinner-border spinner-border-sm" role="status" style="display: none"
+                              id="spinner"></span>
+                        <span style="display: inline-flex">Rechercher</span>
+                    </button>
+                    <script>
+                        var lock = false;
+                        $("#input-city").on("keydown", function (e) {
+                            if (e.code === "Enter" || e.code === "NumpadEnter") {
+                                if (lock) {
+                                    return;
                                 }
-                            });
-                            $("#input-city").on("keyup", function (e) {
-                                if (e.code === "Enter" || e.code === "NumpadEnter") {
-                                    lock = false;
-                                }
-                            });
-                        </script>
-                    </div>
+                                getWeather();
+                                lock = true;
+                            }
+                        });
+                        $("#input-city").on("keyup", function (e) {
+                            if (e.code === "Enter" || e.code === "NumpadEnter") {
+                                lock = false;
+                            }
+                        });
+                    </script>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <main id="current-container">
-        <h1 class="base-message">Saisissez une ville dans la barre de recherche.</h1>
-        <section class="container" hidden>
+<main>
+    <h1 id="help-message" class="base-message">Saisissez une ville dans la barre de recherche.</h1>
+    <div class="container d-none" id="current-container">
+        <h1 class="base-message"></h1>
+        <section class="weather-container">
             <details>
                 <summary>Plus d'informations</summary>
                 <div class="property">
@@ -104,14 +111,19 @@
                 <button onclick="getForecastWeather()">Afficher les prévisions sur 5 jours</button>
             </details>
         </section>
-    </main>
+    </div>
+    <div id="forecast-container" class="container slide-right d-none">
+        <h1 class="base-message"></h1>
+        <section class="weather-container"></section>
+    </div>
+</main>
 
 <footer class=" text-center text-lg-start position-absolute bottom-0 start-0 end-0 m-2 rounded-4">
     <div class="text-center p-2">
         TP2 - R4.10 - 2023
     </div>
 </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
 </body>
 </html>
