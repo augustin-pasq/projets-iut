@@ -20,16 +20,19 @@ header {
 }
 
 main {
-    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+}
+
+main > .container {
+    background: rgba(0, 0, 0, 0.6);
     color: white;
     padding: 2rem;
     width: 30vw;
-    position: absolute;
-    top: 40%;
-    left: 60%;
-    transform: translate(-50%,-50%);
-    height: 60vh;
-    overflow-y: auto;
+    height: 70vh;
     border-radius: 25px;
 }
 
@@ -103,10 +106,10 @@ footer {
 
 @keyframes slide-left {
     0% {
-        transform: translate(-50%, -50%);
+        transform: translateX(0%);
     }
     100% {
-        transform: translate(-150%, -50%);
+        transform: translateX(-1%);
     }
 }
 
@@ -116,9 +119,9 @@ footer {
 
 @keyframes slide-right {
     0% {
-        transform: translate(-50%, -50%);
+        transform: translateX(0%);
     }
     100% {
-        transform: translate(1%, -50%);
+        transform: translateX(1%);
     }
 }

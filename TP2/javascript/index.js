@@ -16,10 +16,11 @@ async function getWeather(onFinish = null) {
                 $(".base-message").html("La ville n'existe pas.")
                 break
             case 200:
-
                 CURRENT_CITY = weatherData.name
 
-                $(".container").show()
+                $("#current-container").removeClass("d-none").addClass("d-block")
+                $("#help-message").addClass("d-none")
+
                 $(".base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
                 $("#city-name").html(weatherData.name)
                 $("#weather").html(weatherData.weather[0].description)
@@ -92,8 +93,7 @@ async function getForecastWeather() {
                 })
 
                 $("#current-container").addClass("slide-left")
-                $("#forecast-container").addClass("slide-right")
-                $("#forecast-container").show()
+                $("#forecast-container").removeClass("d-none").addClass("d-block slide-right")
                 break
         }
 
