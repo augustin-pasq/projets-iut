@@ -2,9 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>R4.10 - TP1</title>
+    <title>R4.10 - TP2</title>
     <link href="assets/style/main.css" rel="stylesheet" type="text/css" />
     <script src="javascript/index.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +34,7 @@
     <script src="/assets/js/material-dashboard.min.js"></script>
 
 
+
 </head>
 <body class="dark-version">
     <header>
@@ -55,9 +58,9 @@
         </section>
     </header>
 
-    <main>
-        <h1 id="base-message">Saisissez une ville dans la barre de recherche.</h1>
-        <section id="container" hidden>
+    <main id="current-container">
+        <h1 class="base-message">Saisissez une ville dans la barre de recherche.</h1>
+        <section class="container" hidden>
             <details>
                 <summary>Plus d'informations</summary>
                 <div class="property">
@@ -96,12 +99,13 @@
                     <label>Coucher du soleil : </label>
                     <span id="sunset"></span>
                 </div>
+                <button onclick="getForecastWeather()">Afficher les prévisions sur 5 jours</button>
             </details>
         </section>
     </main>
 
 <footer>
-    <p>TP1 - R4.10 - 2023</p>
+    <p>TP2 - R4.10 - 2023</p>
 </footer>
 </body>
 </html>

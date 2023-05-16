@@ -129,7 +129,7 @@ main img {
 }
 
 summary,
-#base-message {
+.base-message {
     justify-content: center;
     text-align: center;
 }
