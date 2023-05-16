@@ -1,0 +1,139 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: mediumslateblue;
+    background-image: url("../img/background.gif");
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+main {
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 2rem;
+    width: 30vw;
+    position: absolute;
+    top: 40%;
+    left: 60%;
+    transform: translate(-50%,-50%);
+    height: 60vh;
+    overflow-y: auto;
+    border-radius: 25px;
+}
+
+@media screen and (max-width: 1024px) {
+    main {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        width: 80vw;
+        left: 50%;
+    }
+}
+
+header {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+}
+
+header hgroup {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+header button {
+    font-size: large;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+header button:hover {
+    color: mediumslateblue;
+}
+
+header button:focus {
+    outline: none;
+}
+
+header section {
+    margin-left: auto;
+}
+
+main summary {
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+main h1 {
+    font-size: x-large;
+}
+
+main details div {
+    font-size: large;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 3px;
+    color: white;
+}
+
+label {
+    font-weight: bold
+}
+
+.property {
+    padding-bottom: 1rem
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    header section {
+        margin-left: unset;
+        display: flex;
+    }
+    header section input {
+        flex-grow: 1;
+    }
+    main {
+        margin-top: 50px;
+    }
+}
+
+main h1 {
+    display: flex;
+    align-items: center;
+}
+
+main img {
+    width: 64px;
+}
+
+summary,
+#base-message {
+    justify-content: center;
+    text-align: center;
+}
+
+summary {
+    padding-bottom: 1rem
+}

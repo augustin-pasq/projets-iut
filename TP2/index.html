@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>R4.10 - TP1</title>
+    <link href="assets/style/main.css" rel="stylesheet" type="text/css" />
+    <script src="javascript/index.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <hgroup>
+            <button>Accueil</button>
+            <button>Contact</button>
+            <button>Aide</button>
+        </hgroup>
+
+        <section>
+            <input id="input-city" type="text" placeholder="Saisir une ville" onsubmit="getWeather()">
+            <button id="submit-button" onclick="getWeather()" type="submit" onsubmit="getWeather()">Valider</button>
+            <script>
+                var submit = document.getElementById("input-city");
+                submit.addEventListener("keydown", function (e) {
+                    if (e.code === "Enter") {
+                        getWeather();
+                    }
+                });
+            </script>
+        </section>
+    </header>
+
+    <main>
+        <h1 id="base-message">Saisissez une ville dans la barre de recherche.</h1>
+        <section id="container" hidden>
+            <details>
+                <summary>Plus d'informations</summary>
+                <div class="property">
+                    <label>Nom de la ville : </label>
+                    <span id="city-name"></span>
+                </div>
+                <div class="property">
+                    <label>Météo : </label>
+                    <span id="weather"></span>
+                </div>
+                <div class="property">
+                    <label>Températures : </label>
+                    <span id="temp"></span>
+                </div>
+                <div class="property">
+                    <label>Ressenti : </label>
+                    <span id="feels-like"></span>
+                </div>
+                <div class="property">
+                    <label>Pression : </label>
+                    <span id="pressure"></span>
+                </div>
+                <div class="property">
+                    <label>Pourcentage d'humidité : </label>
+                    <span id="humidity"></span>
+                </div>
+                <div class="property">
+                    <label>Vent : </label>
+                    <span id="wind"></span>
+                </div>
+                <div class="property">
+                    <label>Lever du soleil : </label>
+                    <span id="sunrise"></span>
+                </div>
+                <div class="property">
+                    <label>Coucher du soleil : </label>
+                    <span id="sunset"></span>
+                </div>
+            </details>
+        </section>
+    </main>
+
+<footer>
+    <p>TP1 - R4.10 - 2023</p>
+</footer>
+</body>
+</html>
