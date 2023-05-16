@@ -1,4 +1,5 @@
 const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
+let CURRENT_CITY = ""
 
 async function getWeather(onFinish = null) {
     $(document).ready(async function () {
@@ -15,8 +16,11 @@ async function getWeather(onFinish = null) {
                 $(".base-message").html("La ville n'existe pas.")
                 break
             case 200:
+
+                CURRENT_CITY = weatherData.name
+
                 $(".container").show()
-                $(".base-message").html(`Météo à ${weatherData.name} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
+                $(".base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
                 $("#city-name").html(weatherData.name)
                 $("#weather").html(weatherData.weather[0].description)
                 $("#temp").html(weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`)
@@ -35,9 +39,7 @@ async function getWeather(onFinish = null) {
 
 async function getForecastWeather() {
     $(document).ready(async function () {
-        let location = $("#input-city").val()
-
-        let apiWeatherURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&appid=${API_KEY}&units=metric&lang=fr`
+        let apiWeatherURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${CURRENT_CITY}&appid=${API_KEY}&units=metric&lang=fr`
         const weatherResponse = await fetch(apiWeatherURL)
         const weatherData = weatherResponse.ok ? await weatherResponse.json() : null
 
@@ -47,12 +49,9 @@ async function getForecastWeather() {
                 $("#base-message").html("La ville n'existe pas.")
                 break
             case 200:
-                $(`<main id=\"forecast-container\">
-                        <h1 class=\"base-message\">Météo à ${weatherData.city.name} pour les 6 prochains jours</h1>
-                        <section class=\"container\"></section>
-                   </main>`
-                ).insertAfter($("main"))
+                $("#forecast-container > .base-message").html(`Météo à ${CURRENT_CITY} pour les 6 prochains jours`)
 
+                $("#forecast-container > section").html("")
                 weatherData.list.slice(1).forEach((dayWeatherData) => {
                     $(`<details>
                             <summary>${new Date(dayWeatherData.dt * 1000).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric' })}</summary>
@@ -91,6 +90,10 @@ async function getForecastWeather() {
                             </details>`
                     ).appendTo($("#forecast-container > section"));
                 })
+
+                $("#current-container").addClass("slide-left")
+                $("#forecast-container").addClass("slide-right")
+                $("#forecast-container").show()
                 break
         }
 

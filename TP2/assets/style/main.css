@@ -96,3 +96,29 @@ footer {
     background-color: #04292d;
     color: white;
 }
+
+.slide-left {
+    animation: slide-left 0.8s both;
+}
+
+@keyframes slide-left {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        transform: translate(-150%, -50%);
+    }
+}
+
+.slide-right {
+    animation: slide-right 0.8s both;
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        transform: translate(1%, -50%);
+    }
+}
