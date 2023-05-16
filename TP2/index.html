@@ -38,9 +38,19 @@
                             <span style="display: inline-flex">Rechercher</span>
                         </button>
                         <script>
+                            var lock = false;
                             $("#input-city").on("keydown", function (e) {
-                                if (e.code === "Enter") {
+                                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                                    if (lock) {
+                                        return;
+                                    }
                                     getWeather();
+                                    lock = true;
+                                }
+                            });
+                            $("#input-city").on("keyup", function (e) {
+                                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                                    lock = false;
                                 }
                             });
                         </script>
