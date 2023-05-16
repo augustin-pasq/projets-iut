@@ -10,11 +10,6 @@
     <link href="assets/style/main.css" rel="stylesheet" type="text/css" />
     <script src="javascript/index.js"></script>
 
-    <style>
-        html {
-            font-size: 15px; /* On change la taille du rem */
-        }
-    </style>
 </head>
 <body data-bs-theme="dark">
     <header>
@@ -36,9 +31,9 @@
                             <a class="nav-link" href="#">Aide</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
+                    <div class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Rechercher une ville" aria-label="Rechercher une ville" id="input-city">
-                        <button class="btn btn-outline-primary" type="submit" onclick="getWeather()">
+                        <button class="btn btn-outline-primary" onclick="getWeather()">
                             <span class="spinner-border spinner-border-sm" role="status" style="display: none" id="spinner"></span>
                             <span style="display: inline-flex">Rechercher</span>
                         </button>
@@ -49,7 +44,7 @@
                                 }
                             });
                         </script>
-                    </form>
+                    </div>
                 </div>
             </div>
         </nav>
