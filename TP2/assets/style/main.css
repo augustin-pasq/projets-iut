@@ -12,6 +12,11 @@ body {
     overflow-x: hidden;
 }
 
+header {
+    z-index: 100;
+    position: relative;
+}
+
 main {
     background: rgba(0, 0, 0, 0.75);
     color: white;
@@ -39,38 +44,6 @@ main {
     }
 }
 
-header {
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-}
-
-header hgroup {
-    display: flex;
-    flex-grow: 1;
-    gap: 20px;
-}
-
-header button {
-    font-size: large;
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-header button:hover {
-    color: mediumslateblue;
-}
-
-header button:focus {
-    outline: none;
-}
-
-header section {
-    margin-left: auto;
-}
-
 main summary {
     font-size: large;
     margin-bottom: 10px;
@@ -84,16 +57,6 @@ main details div {
     font-size: large;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 3px;
-    color: white;
-}
-
 label {
     font-weight: bold
 }
@@ -103,17 +66,6 @@ label {
 }
 
 @media screen and (max-width: 500px) {
-    header {
-        flex-direction: column;
-        gap: 10px;
-    }
-    header section {
-        margin-left: unset;
-        display: flex;
-    }
-    header section input {
-        flex-grow: 1;
-    }
     main {
         margin-top: 50px;
     }
