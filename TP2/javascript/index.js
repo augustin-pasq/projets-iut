@@ -1,7 +1,8 @@
 const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
 
-async function getWeather() {
+async function getWeather(onFinish = null) {
     $(document).ready(async function () {
+        $("#spinner").css("display", "inline-flex")
         let location = $("#input-city").val()
 
         let apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric&lang=fr`
@@ -27,6 +28,8 @@ async function getWeather() {
                 $("#sunset").html(new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('fr-FR'))
                 break
         }
+
+        $("#spinner").css("display", "none")
     })
 }
 

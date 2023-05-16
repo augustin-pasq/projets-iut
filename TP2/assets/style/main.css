@@ -3,18 +3,20 @@
 }
 
 body {
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,109,121,1) 68%, rgba(0,255,171,1) 100%);
     background-repeat: no-repeat;
-    background-size: cover;
-    background-color: mediumslateblue;
-    background-image: url("../img/background.gif");
+    height: 100vh;
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    position: relative;
 }
 
 header {
     z-index: 100;
     position: relative;
+    background-color: #020024;
 }
 
 main {
@@ -88,4 +90,9 @@ summary,
 
 summary {
     padding-bottom: 1rem
+}
+
+footer {
+    background-color: #04292d;
+    color: white;
 }
