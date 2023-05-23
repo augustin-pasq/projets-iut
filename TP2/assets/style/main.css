@@ -18,54 +18,19 @@ header {
 }
 
 main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     height: 85%;
 }
 
 main > .container {
     background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 2rem;
-    width: 30vw;
     height: 70vh;
     border-radius: 25px;
 }
 
-@media screen and (max-width: 1024px) {
-    main {
-        width: 50vw;
-    }
-}
-
 @media screen and (max-width: 768px) {
     main {
-        width: 80vw;
         left: 50%;
     }
-}
-
-main summary {
-    font-size: large;
-    margin-bottom: 10px;
-}
-
-main h1 {
-    font-size: x-large;
-}
-
-main details div {
-    font-size: large;
-}
-
-label {
-    font-weight: bold
-}
-
-.property {
-    padding-bottom: 1rem
 }
 
 @media screen and (max-width: 500px) {
@@ -74,28 +39,8 @@ label {
     }
 }
 
-main h1 {
-    display: flex;
-    align-items: center;
-}
-
-main img {
-    width: 64px;
-}
-
-summary,
-.base-message {
-    justify-content: center;
-    text-align: center;
-}
-
-summary {
-    padding-bottom: 1rem
-}
-
 footer {
     background-color: #04292d;
-    color: white;
 }
 
 .slide-left {

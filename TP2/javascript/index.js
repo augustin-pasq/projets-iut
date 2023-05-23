@@ -1,9 +1,9 @@
 const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
 let CURRENT_CITY = ""
 
-async function getWeather(onFinish = null) {
+async function getWeather() {
     $(document).ready(async function () {
-        $("#spinner").css("display", "inline-flex")
+        $(".spinner").css("display", "inline-flex")
         let location = $("#input-city").val()
 
         let apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric&lang=fr`
@@ -12,8 +12,8 @@ async function getWeather(onFinish = null) {
 
         switch (weatherResponse.status) {
             case 404:
-                $(".container").hide()
-                $(".base-message").html("La ville n'existe pas.")
+                $(".container").addClass("d-none")
+                $("#help-message").removeClass("d-none").addClass("d-block").html("La ville n'existe pas.")
                 break
             case 200:
                 CURRENT_CITY = weatherData.name
@@ -21,7 +21,7 @@ async function getWeather(onFinish = null) {
                 $("#current-container").removeClass("d-none").addClass("d-block")
                 $("#help-message").addClass("d-none")
 
-                $(".base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
+                $("#current-container > .base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img width="64px" src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
                 $("#city-name").html(weatherData.name)
                 $("#weather").html(weatherData.weather[0].description)
                 $("#temp").html(weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`)
@@ -34,63 +34,59 @@ async function getWeather(onFinish = null) {
                 break
         }
 
-        $("#spinner").css("display", "none")
+        $(".spinner").css("display", "none")
     })
 }
 
 async function getForecastWeather() {
     $(document).ready(async function () {
-        let location = $("#input-city").val()
-
-        let apiWeatherURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&appid=${API_KEY}&units=metric&lang=fr`
+        let apiWeatherURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${CURRENT_CITY}&appid=${API_KEY}&units=metric&lang=fr`
         const weatherResponse = await fetch(apiWeatherURL)
         const weatherData = weatherResponse.ok ? await weatherResponse.json() : null
 
         switch (weatherResponse.status) {
             case 404:
-                $("#container").hide()
-                $("#base-message").html("La ville n'existe pas.")
+                $(".container").addClass("d-none")
+                $("#help-message").removeClass("d-none").addClass("d-block").html("La ville n'existe pas.")
                 break
             case 200:
-                $(`<main id=\"forecast-container\">
-                        <h1 class=\"base-message\">Météo à ${weatherData.city.name} pour les 6 prochains jours</h1>
-                        <section class=\"container\"></section>
-                   </main>`
-                ).insertAfter($("main"))
+                $("#forecast-container > .weather-container").html("")
+
+                $("#forecast-container > .base-message").html(`Météo à ${weatherData.city.name} pour les 6 prochains jours`)
 
                 weatherData.list.slice(1).forEach((dayWeatherData) => {
                     $(`<details>
-                            <summary>${new Date(dayWeatherData.dt * 1000).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric' })}</summary>
-                                <div class=\"property\">
-                                    <label>Météo : </label>
+                            <summary class=\"py-3 justify-content-center text-center\">${new Date(dayWeatherData.dt * 1000).toLocaleDateString('fr-FR', { weekday: 'long', month: 'long', day: 'numeric' })}</summary>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Météo : </label>
                                     <span>${dayWeatherData.weather[0].description}<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Températures : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Températures : </label>
                                     <span>${dayWeatherData.temp.day + `°C (Minimale : ${dayWeatherData.temp.min}°C | Maximale : ${dayWeatherData.temp.max}°C)`}<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Ressenti : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Ressenti : </label>
                                     <span>${dayWeatherData.feels_like.day}°C<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Pression : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Pression : </label>
                                     <span>${dayWeatherData.pressure} hPa<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Pourcentage d'humidité : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Pourcentage d'humidité : </label>
                                     <span>${dayWeatherData.humidity} %<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Vent : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Vent : </label>
                                     <span>${dayWeatherData.speed + ` m/s (${getDirection(dayWeatherData.deg)})`}<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Lever du soleil : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Lever du soleil : </label>
                                     <span>${new Date(dayWeatherData.sunrise * 1000).toLocaleTimeString('fr-FR')}<span>
                                 </div>
-                                <div class=\"property\">
-                                    <label>Coucher du soleil : </label>
+                                <div class=\"property pb-3\">
+                                    <label class="fw-bold">Coucher du soleil : </label>
                                     <span>${new Date(dayWeatherData.sunset * 1000).toLocaleTimeString('fr-FR')}<span>
                                 </div>
                             </details>`
