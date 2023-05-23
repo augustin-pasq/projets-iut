@@ -1,13 +1,6 @@
 const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
 let CURRENT_CITY = ""
 
-var app = new Vue({
-    el: '#app',
-    data: {
-        message: 'Hello Vue !'
-    }
-})
-
 async function getWeather() {
     $(document).ready(async function () {
         $(".spinner").css("display", "inline-flex")
@@ -17,27 +10,45 @@ async function getWeather() {
         const weatherResponse = await fetch(apiWeatherURL)
         const weatherData = weatherResponse.ok ? await weatherResponse.json() : null
 
+        var app = new Vue({
+            el: '#app',
+            data: {
+                help_message: "La ville n'existe pas.",
+                title: '',
+                city_name: '',
+                weather: '',
+                temp: '',
+                feels_like: '',
+                pressure: '',
+                humidity: '',
+                wind: '',
+                sunrise: '',
+                sunset: '',
+            }
+        })
+
         switch (weatherResponse.status) {
             case 404:
                 $(".container").addClass("d-none")
-                $("#help-message").removeClass("d-none").addClass("d-block").html("La ville n'existe pas.")
+                $("#help-message").removeClass("d-none").addClass("d-block")
                 break
             case 200:
                 CURRENT_CITY = weatherData.name
 
+                app.title = `Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img width="64px" src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`
+                app.city_name = weatherData.name
+                app.weather = weatherData.weather[0].description
+                app.temp = weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`
+                app.feels_like = weatherData.main.feels_like + "°C"
+                app.pressure = weatherData.main.pressure + " hPa"
+                app.humidity = weatherData.main.humidity + " %"
+                app.wind = weatherData.wind.speed + ` m/s (${getDirection(weatherData.wind.deg)})`
+                app.sunrise = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString('fr-FR')
+                app.sunset = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('fr-FR')
+
                 $("#current-container").removeClass("d-none").addClass("d-block")
                 $("#help-message").addClass("d-none")
 
-                $("#current-container > .base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img width="64px" src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
-                $("#city-name").html(weatherData.name)
-                $("#weather").html(weatherData.weather[0].description)
-                $("#temp").html(weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`)
-                $("#feels-like").html(weatherData.main.feels_like + "°C")
-                $("#pressure").html(weatherData.main.pressure + " hPa")
-                $("#humidity").html(weatherData.main.humidity + " %")
-                $("#wind").html(weatherData.wind.speed + ` m/s (${getDirection(weatherData.wind.deg)})`)
-                $("#sunrise").html(new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString('fr-FR'))
-                $("#sunset").html(new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('fr-FR'))
                 break
         }
 

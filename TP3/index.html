@@ -66,48 +66,47 @@
 </header>
 
 <main id="app" class="d-flex flex-row justify-content-center align-items-center mx-5">
-    {{ message }}
     <h1 id="help-message" class="base-message justify-content-center text-center d-flex align-items-center h3">Saisissez une ville dans la barre de recherche.</h1>
     <div id="current-container" class="container d-none text-white p-4">
-        <h1 class="base-message justify-content-center text-center d-flex align-items-center h3 pb-3"></h1>
+        <h1 v-html="title" class="base-message justify-content-center text-center d-flex align-items-center h3 pb-3"></h1>
         <section class="weather-container">
             <details>
                 <summary class="pb-3 justify-content-center text-center">Plus d'informations</summary>
                 <div class="property pb-3">
                     <label class="fw-bold">Nom de la ville : </label>
-                    <span id="city-name"></span>
+                    <span>{{ city_name }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Météo : </label>
-                    <span id="weather"></span>
+                    <span>{{ weather }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Températures : </label>
-                    <span id="temp"></span>
+                    <span>{{ temp }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Ressenti : </label>
-                    <span id="feels-like"></span>
+                    <span>{{ feels_like }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Pression : </label>
-                    <span id="pressure"></span>
+                    <span>{{ pressure }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Pourcentage d'humidité : </label>
-                    <span id="humidity"></span>
+                    <span>{{ humidity }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Vent : </label>
-                    <span id="wind"></span>
+                    <span>{{ wind }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Lever du soleil : </label>
-                    <span id="sunrise"></span>
+                    <span>{{ sunrise }}</span>
                 </div>
                 <div class="property pb-3">
                     <label class="fw-bold">Coucher du soleil : </label>
-                    <span id="sunset"></span>
+                    <span>{{ sunset }}</span>
                 </div>
                 <button class="btn btn-outline-primary" onclick="getForecastWeather()">
                         <span class="spinner spinner-border spinner-border-sm d-none" role="status"></span>
