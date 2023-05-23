@@ -1,4 +1,5 @@
 const API_KEY = "ee07e2bf337034f905cde0bdedae3db8"
+let CURRENT_CITY = ""
 
 async function getWeather(onFinish = null) {
     $(document).ready(async function () {
@@ -15,8 +16,12 @@ async function getWeather(onFinish = null) {
                 $(".base-message").html("La ville n'existe pas.")
                 break
             case 200:
-                $(".container").show()
-                $(".base-message").html(`Météo à ${weatherData.name} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
+                CURRENT_CITY = weatherData.name
+
+                $("#current-container").removeClass("d-none").addClass("d-block")
+                $("#help-message").addClass("d-none")
+
+                $(".base-message").html(`Météo à ${CURRENT_CITY} : ${weatherData.weather[0].main} <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png">`)
                 $("#city-name").html(weatherData.name)
                 $("#weather").html(weatherData.weather[0].description)
                 $("#temp").html(weatherData.main.temp + `°C (Minimale : ${weatherData.main.temp_min}°C | Maximale : ${weatherData.main.temp_max}°C)`)
@@ -91,6 +96,9 @@ async function getForecastWeather() {
                             </details>`
                     ).appendTo($("#forecast-container > section"));
                 })
+
+                $("#current-container").addClass("slide-left")
+                $("#forecast-container").removeClass("d-none").addClass("d-block slide-right")
                 break
         }
 
