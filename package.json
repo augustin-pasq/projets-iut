@@ -1,0 +1,15 @@
+{
+  "name": "projet",
+  "version": "1.0.0",
+  "description": "Nous sommes un revendeur de voitures :\r - beaucoup de véhicules\r - difficile à normaliser (le cas de plusieurs fois le même modèle avec la même couleur et la même motorisation)\r - plus simple à maintenir : si une nouvelle voiture dans la catalogue, on créée un nouveau document, si une voiture quitte le catalogue on supprime le document",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "mongodb": "^5.6.0"
+  }
+}
