@@ -115,19 +115,23 @@ async function run() {
     result = await voitures.insertMany(data);
     console.log(`${result.insertedCount} documents were inserted\n`);
 
-    /* Requêtes simples */
-    console.log("--------------- Requêtes simples ---------------")
     const voituresCollection = database.collection("voitures");
+
+    /* Requêtes simples */
+    console.log("--------------- Requêtes simples ---------------");
 
     // Nombre de voitures dans le catalogue
     const nbVoitures = await voituresCollection.countDocuments();
     console.log(`Nombre de voitures dans le catalogue : ${nbVoitures}`);
 
     // Lister les 3 premières voitures de la marque Peugeot
-    const voituresPeugeot = await voituresCollection.find({ marque: "Peugeot" }).limit(3).toArray();
-    console.log("Liste des 10 premières voitures de la marque Peugeot :");
+    const voituresPeugeot = await voituresCollection
+      .find({ marque: "Peugeot" })
+      .limit(3)
+      .toArray();
+    console.log("Liste des 3 premières voitures de la marque Peugeot :");
     console.log(voituresPeugeot);
-    
+
     // Proportion de boites auto par rapport au nombre total de véhicules
     const totalVehicles = await voituresCollection.countDocuments();
     const autoVehicles = await voituresCollection.countDocuments({
@@ -151,6 +155,125 @@ async function run() {
       .limit(1)
       .toArray();
     console.log("Voiture la plus chère :", voitureCher[0]);
+
+    /* Requêtes recherchées */
+    console.log("--------------- Requêtes recherchées ---------------");
+
+    // Appliquer -15% sur le prix des voitures dont le prix est supérieur à 10000
+    console.log(
+      "Afficher une voiture avec un prix supérieur à 10000 avant la modification :"
+    );
+
+    const voitureAvant = await voituresCollection.findOne({
+      prix: { $gt: 10000 },
+    });
+    console.log(voitureAvant);
+
+    console.log(
+      "Appliquer -15% sur le prix des voitures dont le prix est supérieur à 10000"
+    );
+
+    const listeVoitures = await voituresCollection
+      .find({ prix: { $gt: 10000 } })
+      .toArray();
+
+    for (const voiture of listeVoitures) {
+      const nouveauPrix = Math.trunc(voiture.prix * 0.85); // Réduction de 15% et conversion en entier
+      await voituresCollection.updateOne(
+        { _id: voiture._id },
+        { $set: { prix: nouveauPrix } }
+      );
+    }
+
+    console.log("Afficher la même voiture après la modification :");
+    const voitureApres = await voituresCollection.findOne({
+      _id: voitureAvant._id,
+    });
+    console.log(voitureApres);
+
+    // Supprimer toutes les voitures fabriquées avant 2000
+    const countAvant = await voituresCollection.countDocuments({
+      annee_production: { $lt: 2000 },
+    });
+    console.log(
+      `Nombre de voitures fabriquées avant 2000 avant la suppression : ${countAvant}`
+    );
+
+    console.log(
+      "Suppression de toutes toutes les voitures fabriquées avant 2000"
+    );
+    await voituresCollection.deleteMany({ annee_production: { $lt: 2000 } });
+
+    const countApres = await voituresCollection.countDocuments({
+      annee_production: { $lt: 2000 },
+    });
+    console.log(
+      `Nombre de voitures fabriquées avant 2000 après la suppression : ${countApres}`
+    );
+    
+    // Changer la couleur d'un certain modèle
+    const modèleVoiture = "Outback";
+    const nouvelleCouleur = "Blanc";
+
+    const voitureOutbackAvant = await voituresCollection
+      .find({ modele: modèleVoiture })
+      .limit(2)
+      .toArray();
+    console.log(`Liste des 2 premières voitures du modèle ${modèleVoiture} :`);
+    console.log(voitureOutbackAvant);
+
+    console.log(
+      `Changement de la couleur du modèle ${modèleVoiture} en ${nouvelleCouleur}`
+    );
+    await voituresCollection.updateMany(
+      { modele: modèleVoiture },
+      { $set: { couleur: nouvelleCouleur } }
+    );
+
+    const voitureOutbackAprès = await voituresCollection
+      .find({ modele: modèleVoiture })
+      .limit(2)
+      .toArray();
+    console.log(`Liste des 2 premières voitures du modèle ${modèleVoiture} :`);
+    console.log(voitureOutbackAprès);
+
+    // Ajouter les options pour Minibus/Utilitaire
+    const options = ["Wifi", "Toilette", "Radio DAB+"];
+
+    const voitureMinibusUtilitaireAvant = await voituresCollection
+      .find({ categorie: "Minibus/Utilitaire" })
+      .limit(2)
+      .toArray();
+    console.log(`Liste des 2 premiers Minibus/Utilitaire :`);
+    console.log(voitureMinibusUtilitaireAvant);
+
+    console.log(
+      `Ajout d'options ${options.toString()} pour Minibus/Utilitaire:`
+    );
+
+    await voituresCollection.updateMany(
+      { categorie: "Minibus/Utilitaire" },
+      { $addToSet: { options: { $each: options } } }
+    );
+
+    const voitureMinibusUtilitaireAprès = await voituresCollection
+    .find({ categorie: "Minibus/Utilitaire" })
+    .limit(2)
+    .toArray();
+  console.log(`Liste des 2 premiers Minibus/Utilitaire :`);
+  console.log(voitureMinibusUtilitaireAprès);
+
+    // Supprimer les véhicules qui ont plus de 500000 km
+    const nbVehiculesAvant = await voituresCollection.countDocuments();
+    console.log(`Nombre de véhicules totales : ${nbVehiculesAvant}`);
+
+    console.log("Suppression de tous les véhicules qui ont plus de 500000 km");
+    await voituresCollection.deleteMany({ kilometrage: { $gt: 500000 } });
+
+    const nbVehiculesAprès = await voituresCollection.countDocuments();
+    console.log(
+      `Nombre de véhicules restantes après la suppression des véhicules avec plus de 500000 km : ${nbVehiculesAprès}`
+    );
 
   } finally {
     await client.close();
