@@ -112,7 +112,7 @@ async function run() {
     console.log("'voitures' collection created successfully");
 
     let result;
-    result = await voitures.insertMany(data);
+    result = await voitures.insertMany(data.slice(0, 100));
     console.log(`${result.insertedCount} documents were inserted\n`);
 
     const voituresCollection = database.collection("voitures");
