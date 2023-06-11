@@ -5,21 +5,21 @@ Nous sommes un revendeur de voitures :
 
 Requêtes simples :
 - Nombre de voitures dans le catalogue
-- Lister les voitures de la marque Peugeot
-- Proportion de boites auto par rapport au nombre total de véhicules
-- Le kilométrage moyen de la base
-- La voiture la plus cher
+- Lister les 3 premières voitures de la marque Peugeot
+- Donner la proportion de boites auto par rapport au nombre total de véhicules
+- Indiquer le kilométrage moyen de tous les véhicules 
+- Trouver la voiture la plus cher
 
 Requêtes recherchées :
 - Appliquer -15% (?) sur le prix des voitures dont le prix est supérieur à [insérer un prix]
 - Supprimer toutes les voitures fabriquées avant 2000
 - Changer la couleur d'un certain modèle
 - Ajouter les options pour Minibus/Utilitaire
-- Supprimer les véhicules qui ont plus de 700 000 km
+- Supprimer les véhicules qui ont plus de 500 000 km
 
 Requêtes complexes :
 - Compter le nombre de véhicules sous garantie pour chaque marque
-- Le kilométrage moyen pour chaque catégorie
+- Donner la kilométrage moyen pour chaque catégorie
 - Compter le nombre de véhicules vendus pour chaque couleur
-- La somme des prix pour chaque type de moteur
-- Le moteur le plus gros parmi les véhicules produits après 2010 pour chaque transmission
+- Calculer la somme de tous les kilomètres parcourues parmis tous les véhiculants roulant avec le même type de carburant
+- Indiquer la capacité moteur la plus élevé parmi les véhicules produits après 2010 pour chaque transmission

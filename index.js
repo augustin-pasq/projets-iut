@@ -132,7 +132,7 @@ async function run() {
     console.log("Liste des 3 premières voitures de la marque Peugeot :");
     console.log(voituresPeugeot);
 
-    // Proportion de boites auto par rapport au nombre total de véhicules
+    // Donner la proportion de boites auto par rapport au nombre total de véhicules
     const totalVehicles = await voituresCollection.countDocuments();
     const autoVehicles = await voituresCollection.countDocuments({
       boite_vitesse: "Automatique",
@@ -142,19 +142,19 @@ async function run() {
       `Proportion de boîtes automatiques : ${proportionAuto.toFixed(2)}%`
     );
 
-    // Le kilométrage moyen de la base
+    // Indiquer le kilométrage moyen de tous les véhicules 
     const kilolométrageMoyen = await voituresCollection
       .aggregate([{ $group: { _id: null, moyenne: { $avg: "$kilometrage" } } }])
       .toArray();
-    console.log(`Kilométrage moyen : ${kilolométrageMoyen[0].moyenne}`);
+    console.log(`Kilométrage moyen de tous les véhicules : ${kilolométrageMoyen[0].moyenne}`);
 
-    // La voiture la plus cher
+    //  Trouver la voiture la plus cher
     const voitureCher = await voituresCollection
       .find()
       .sort({ prix: -1 })
       .limit(1)
       .toArray();
-    console.log("Voiture la plus chère :", voitureCher[0]);
+    console.log("La voiture la plus chère :", voitureCher[0]);
 
     /* Requêtes recherchées */
     console.log("--------------- Requêtes recherchées ---------------");
@@ -263,17 +263,114 @@ async function run() {
   console.log(`Liste des 2 premiers Minibus/Utilitaire :`);
   console.log(voitureMinibusUtilitaireAprès);
 
-    // Supprimer les véhicules qui ont plus de 500000 km
+    // Supprimer les véhicules qui ont plus de 500 000 km
     const nbVehiculesAvant = await voituresCollection.countDocuments();
     console.log(`Nombre de véhicules totales : ${nbVehiculesAvant}`);
 
-    console.log("Suppression de tous les véhicules qui ont plus de 500000 km");
+    console.log("Suppression de tous les véhicules qui ont plus de 500 000 km");
     await voituresCollection.deleteMany({ kilometrage: { $gt: 500000 } });
 
     const nbVehiculesAprès = await voituresCollection.countDocuments();
     console.log(
       `Nombre de véhicules restantes après la suppression des véhicules avec plus de 500000 km : ${nbVehiculesAprès}`
     );
+
+    /* Requêtes complexes */
+    console.log("--------------- Requêtes complexes ---------------");
+
+    // Compter le nombre de véhicules sous garantie pour chaque marque
+    const countVehiculesSousGarantieParMarque = await voituresCollection.aggregate([
+      {
+        $match: { sous_garantie: true } 
+      },
+      {
+        $group: {
+          _id: "$marque", 
+          nombre_vehicules: { $sum: 1 } 
+        }
+      }
+    ]).toArray();
+    
+    console.log("Nombre de véhicules sous garantie par marque : " , countVehiculesSousGarantieParMarque);
+    
+    // Donner le kilométrage moyen pour chaque catégorie
+    const kilolométrageMoyenParCategorie = await voituresCollection.aggregate([
+      {
+        $group: {
+          _id: "$categorie", 
+          kilometrage_moyen: { $avg: "$kilometrage" } 
+        }
+      }
+    ]).toArray();
+
+    console.log("Kilométrage moyen par catégorie :", kilolométrageMoyenParCategorie);
+    
+    // Compter le nombre de véhicules vendus pour chaque couleur
+    const countVehiculesVendusParCouleur = await voituresCollection.aggregate([
+      {
+        $match: { etat: "Vendue" } 
+      },
+      {
+        $group: {
+          _id: "$couleur", 
+          nombre_vehicules: { $sum: 1 } 
+        }
+      }
+    ]).toArray();
+    
+    console.log("Nombre de véhicules vendus par couleur : ", countVehiculesVendusParCouleur);
+    
+    // Calculer la somme de tous les kilomètres parcourues parmis tous les véhiculants roulant avec le même type de carburant
+    const kilometrageTotalParTypeCarburant = await voituresCollection.aggregate([
+      {
+        $group: {
+          _id: "$moteur.carburant", 
+          totalKilomètres: { $sum: "$kilometrage" } 
+        }
+      }
+    ]).toArray();
+    
+    console.log("Somme des kilomètres parcourus par type de carburant :");
+    console.log(kilometrageTotalParTypeCarburant);
+    
+
+    // Indiquer la capacité moteur la plus élevé parmi les véhicules produits après 2010 pour chaque transmission
+    const MeilleurCapaciteMoteurParTransmission = await voituresCollection.aggregate([
+      {
+        $match: {
+          annee_production: { $gt: 2010 } // Filtrer les véhicules produits après 2010
+        }
+      },
+      {
+        $group: {
+          _id: "$transmission", // Grouper par transmission
+          meilleurCapaciterMoteur: { $max: "$moteur.capacite_moteur" } // Trouver la capacité moteur maximale dans chaque groupe
+        }
+      },
+      {
+        $sort: { _id: 1 } // Trier les résultats par ordre de transmission (optionnel)
+      },
+      {
+        $group: {
+          _id: null,
+          transmissions: {
+            $push: {
+              transmission: "$_id",
+              MeilleurCapaciterMoteur: "$meilleurCapaciterMoteur"
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          transmissions: 1
+        }
+      }
+    ]).toArray();
+    
+    console.log("Capacité moteur la plus élevée parmi les véhicules produits après 2010 pour chaque transmission :");
+    console.log(JSON.stringify(MeilleurCapaciteMoteurParTransmission, null, 2));    
 
   } finally {
     await client.close();
