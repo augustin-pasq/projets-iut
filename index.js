@@ -11,6 +11,7 @@
 const csv = require("csvtojson");
 const { MongoClient, ObjectId } = require("mongodb");
 const { performance } = require("perf_hooks");
+const ExcelJS = require("exceljs");
 
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
@@ -397,45 +398,58 @@ async function run() {
 
     /* Tests de montée en charge */
     console.log("--------------- Test de montée en charge ---------------");
-    console.log("Suppression de toutes les données de la base avant le début du test")
+    console.log(
+      "Suppression de toutes les données de la base avant le début du test"
+    );
     await voituresCollection.deleteMany({});
 
-    // Mesurer le temps pour les opérations d'insertion
-    const startTempsInsertion = performance.now();
-    // Insertion d'environ un million de voitures
-    for (let nbInsertion = 0; nbInsertion < 27; nbInsertion++) {
-      for (let i in data) {
-        data[i]._id = new ObjectId();
+    const tempsInsertion = [];
+    const tempsMiseAJour = [];
+    const tempsSuppression = [];
+    const nbVoituresTest = [];
+
+    /**
+     * Permet de choisir le nombre de tests effectués
+     * A chaque nouveau test, les données seront insérer une fois de plus dans la base
+     * Si nbTest = 27, il y a environ un millions de voitures dans la base
+     */
+    for (let nbTests = 1; nbTests < 28; nbTests++) {
+      // Mesurer le temps pour les opérations d'insertion
+      const startTempsInsertion = performance.now();
+      for (let nbInsertion = 0; nbInsertion < nbTests; nbInsertion++) {
+        for (let i in data) {
+          data[i]._id = new ObjectId();
+        }
+        await voituresCollection.insertMany(data);
       }
-      await voituresCollection.insertMany(data);
+      const endTempsInsertion = performance.now();
+      const insertionTemps = endTempsInsertion - startTempsInsertion;
+      tempsInsertion.push(convertMStoS(insertionTemps));
+      const count = await voituresCollection.countDocuments();
+      console.log(
+        `Nombre de voitures pour le test de montée en charge : ${count}`
+      );
+      nbVoituresTest.push(count);
+      // Mesurer le temps pour les opérations de mise à jour (Incrémenter le champ "prix" de chaque document de 1)
+      const startTempsMiseAJour = performance.now();
+      await voituresCollection.updateMany({}, { $inc: { prix: 1 } });
+      const endTempsMiseAJour = performance.now();
+      const miseAJourTemps = endTempsMiseAJour - startTempsMiseAJour;
+      tempsMiseAJour.push(convertMStoS(miseAJourTemps));
+
+      // Mesurer le temps pour les opérations de suppression
+      const startTempsSuppression = performance.now();
+      await voituresCollection.deleteMany({});
+      const endTempsSuppression = performance.now();
+      const suppressionTemps = endTempsSuppression - startTempsSuppression;
+      tempsSuppression.push(convertMStoS(suppressionTemps));
     }
-    const endTempsInsertion = performance.now();
-    const insertionTemps = endTempsInsertion - startTempsInsertion;
-    const count = await voituresCollection.countDocuments();
-    console.log(`Nombre de voitures pour le tesf de montée en charge : ${count}`);
-    console.log(
-      `Temps nécessaire pour l'insertion : ${convertMStoS(insertionTemps)}`
+    exporterVersExcel(
+      nbVoituresTest,
+      tempsInsertion,
+      tempsMiseAJour,
+      tempsSuppression
     );
-
-
-    // Mesurer le temps pour les opérations de mise à jour (Incrémenter le champ "prix" de chaque document de 1)
-    const startTempsMiseAJour = performance.now();
-    await voituresCollection.updateMany({}, { $inc: { prix: 1 } });
-    const endTempsMiseAJour = performance.now();
-    const miseAJourTemps = endTempsMiseAJour - startTempsMiseAJour;
-    console.log(
-      `Temps nécessaire pour la mise à jour : ${convertMStoS(miseAJourTemps)}`
-    );
-
-    // Mesurer le temps pour les opérations de suppression
-    const startTempsSuppression = performance.now();
-    await voituresCollection.deleteMany({});
-    const endTempsSuppression = performance.now();
-    const suppressionTemps = endTempsSuppression - startTempsSuppression;
-    console.log(
-      `Temps nécessaire pour la suppression : ${convertMStoS(suppressionTemps)}`
-    );
-
   } finally {
     await client.close();
   }
@@ -448,7 +462,38 @@ async function run() {
  */
 const convertMStoS = (time) => {
   const seconds = (time / 1000).toFixed(2);
-  return `${seconds} secondes`;
+  secondsString = seconds.toString();
+  secondsString = secondsString.replace(/\./g, ",");
+  return secondsString;
 };
+
+async function exporterVersExcel(
+  nbVoituresTest,
+  tempsInsertion,
+  tempsMiseAJour,
+  tempsSuppression
+) {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet("Données");
+
+  // Ajouter les en-têtes de colonnes
+  worksheet.getCell("A1").value = "Nombre de voitures testées";
+  worksheet.getCell("B1").value = "Temps d'insertion";
+  worksheet.getCell("C1").value = "Temps de mise à jour";
+  worksheet.getCell("D1").value = "Temps de suppression";
+
+  // Remplir les données
+  for (let i = 0; i < nbVoituresTest.length; i++) {
+    const row = worksheet.getRow(i + 2);
+    row.getCell("A").value = nbVoituresTest[i];
+    row.getCell("B").value = tempsInsertion[i];
+    row.getCell("C").value = tempsMiseAJour[i];
+    row.getCell("D").value = tempsSuppression[i];
+  }
+
+  // Enregistrer le fichier Excel
+  await workbook.xlsx.writeFile("données.xlsx");
+  console.log("Le fichier Excel a été créé avec succès.");
+}
 
 run().catch(console.dir);

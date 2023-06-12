@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "csvtojson": "^2.0.10",
+    "exceljs": "^4.3.0",
     "mongodb": "^5.6.0",
     "perf_hooks": "^0.0.1"
   }
