@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type VoituresMoteur {
+  /// Multiple data types found: Float: 74.1%, Int: 25.9% out of 1000 sampled entries
+  capacite_moteur Json
+  carburant       String
+}
+
+/// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
+model voitures {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  annee_production Int
+  boite_vitesse    String
+  categorie        String
+  couleur          String
+  date_publication DateTime       @db.Date
+  etat             String
+  kilometrage      Int
+  marque           String
+  modele           String
+  moteur           VoituresMoteur
+  prix             Int
+  sous_garantie    Boolean
+  transmission     String
+}

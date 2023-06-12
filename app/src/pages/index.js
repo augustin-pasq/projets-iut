@@ -5,23 +5,28 @@ import {MultiSelect} from "primereact/multiselect";
 import {Button} from "primereact/button";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
-import {InputText} from "primereact/InputText";
+import {InputText} from "primereact/inputtext";
 
 export default function Home() {
     const [data, setData] = useState({})
     const [values, setValues] = useState({})
     const [filters, setFilters] = useState({})
     const [properties, setProperties] = useState({})
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false)
+    const [action, setAction] = useState("")
 
     useEffect(() => {
+        updateData()
+    }, [])
+
+    const updateData = () => {
         getData()
             .then((result) => {
                 setData(result)
                 setValues(result.values)
             })
             .catch(error => console.error(error))
-    }, [])
+    }
 
     const getData = async () => {
         return await (await fetch('/api/getData', {
@@ -44,7 +49,7 @@ export default function Home() {
         setData(results)
     }
 
-    const submitDropdown = (action, filter, value) => {
+    const submitInput = (action, filter, value) => {
         if (action === "filter") {
             let dataCopy = {...filters}
             typeof value === "string" && value === "" || value.length === 0 ? delete dataCopy[filter] : dataCopy[filter] = value
@@ -65,54 +70,42 @@ export default function Home() {
         const carFormatted = {
             id: car.id,
             annee_production: car.annee_production,
-            boite_vitesse: { name: car.boite_vitesse },
-            categorie: { name: car.categorie },
-            couleur: { name: car.couleur },
+            boite_vitesse: {name: car.boite_vitesse},
+            categorie: {name: car.categorie},
+            couleur: {name: car.couleur},
             date_publication: car.date_publication,
             etat: car.etat,
             kilometrage: car.kilometrage,
             marque: car.marque,
             modele: car.modele,
             prix: car.prix,
-            sous_garantie: { name: garantie },
-            transmission: { name: car.transmission },
+            sous_garantie: {name: garantie},
+            transmission: {name: car.transmission},
             capacite_moteur: car.moteur.capacite_moteur,
-            carburant: { name: car.moteur.carburant }
+            carburant: {name: car.moteur.carburant}
         }
 
         setProperties(carFormatted)
+        setAction("edit")
         setVisible(true)
     }
 
     const handleSubmit = async () => {
-        let garantie
-        if (properties.sous_garantie.name === "Oui") garantie = true
-        else garantie = false
-
-        const carEdited = {
-            id: properties.id,
-            annee_production: properties.annee_production,
-            boite_vitesse: properties.boite_vitesse.name,
-            categorie: properties.categorie.name,
-            couleur: properties.couleur.name,
-            date_publication: properties.date_publication,
-            etat: properties.etat,
-            kilometrage: properties.kilometrage,
-            marque: properties.marque,
-            modele: properties.modele,
-            moteur: {
-                capacite_moteur: properties.capacite_moteur,
-                carburant: properties.carburant.name
-            },
-            prix: properties.prix,
-            sous_garantie: garantie,
-            transmission: properties.transmission.name
-        }
-
         await (await fetch('/api/sendData', {
-            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(carEdited)
+            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({action: action, properties: properties})
         })).json()
+
+        updateData()
+        setProperties({})
         setVisible(false)
+    }
+
+    const handleDelete = async (id) => {
+        await (await fetch('/api/deleteData', {
+            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({id: id})
+        })).json()
+
+        updateData()
     }
 
     return (<>
@@ -120,45 +113,62 @@ export default function Home() {
             <Card className="mb-5">
                 <div className="flex flex-row flex-wrap justify-content-center gap-3">
                     <MultiSelect value={filters.marque}
-                                 onChange={(e) => submitDropdown("filter", "marque", e.value)}
+                                 onChange={(e) => submitInput("filter", "marque", e.value)}
                                  options={values.marques} optionLabel="name"
                                  display="chip" filter placeholder="Marque"/>
-                    <MultiSelect value={filters.boite_vitesse}
-                                 onChange={(e) => submitDropdown("filter", "boite_vitesse", e.value)}
-                                 options={values.boites_vitesse} optionLabel="name"
-                                 display="chip" filter placeholder="Boite de vitesse"/>
-                    <MultiSelect value={filters.couleur}
-                                 onChange={(e) => submitDropdown("filter", "couleur", e.value)}
-                                 options={values.couleurs} optionLabel="name"
-                                 display="chip" filter placeholder="Couleur"/>
+                    <InputText value={filters.modele}
+                               onChange={(e) => submitInput("filter", "modele", e.target.value)} placeholder="Modèle"
+                    />
+                    <InputText value={filters.annee_production}
+                               onChange={(e) => submitInput("filter", "annee_production", e.target.value)}
+                               keyfilter="int"  placeholder="Année de production"/>
                     <MultiSelect value={filters.categorie}
-                                 onChange={(e) => submitDropdown("filter", "categorie", e.value)}
+                                 onChange={(e) => submitInput("filter", "categorie", e.value)}
                                  options={values.categories} optionLabel="name"
                                  display="chip" filter placeholder="Catégorie"/>
-                    <MultiSelect value={filters.sous_garantie}
-                                 onChange={(e) => submitDropdown("filter", "sous_garantie", e.value)}
-                                 options={values.garanties} optionLabel="name"
-                                 display="chip" filter placeholder="Garantie"/>
-                    <MultiSelect value={filters.transmission}
-                                 onChange={(e) => submitDropdown("filter", "transmission", e.value)}
-                                 options={values.transmissions} optionLabel="name"
-                                 display="chip" filter placeholder="Transmission"/>
+                    <InputText id="kilometrage" value={filters.kilometrage}
+                               onChange={(e) => submitInput("edit", "kilometrage", e.target.value)}
+                               keyfilter="int" placeholder="Kilométrage"
+                    />
+                    <InputText id="capacite_moteur" value={filters.capacite_moteur}
+                               onChange={(e) => submitInput("edit", "capacite_moteur", e.target.value)}
+                               keyfilter="num"  placeholder="Capacité du moteur"/>
                     <MultiSelect value={filters.carburant}
-                                 onChange={(e) => submitDropdown("filter", "carburant", e.value)}
+                                 onChange={(e) => submitInput("filter", "carburant", e.value)}
                                  options={values.carburants} optionLabel="name"
                                  display="chip" filter placeholder="Carburant"/>
+                    <MultiSelect value={filters.boite_vitesse}
+                                 onChange={(e) => submitInput("filter", "boite_vitesse", e.value)}
+                                 options={values.boites_vitesse} optionLabel="name"
+                                 display="chip" filter placeholder="Boite de vitesse"/>
+                    <MultiSelect value={filters.transmission}
+                                 onChange={(e) => submitInput("filter", "transmission", e.value)}
+                                 options={values.transmissions} optionLabel="name"
+                                 display="chip" filter placeholder="Transmission"/>
+                    <MultiSelect value={filters.couleur}
+                                 onChange={(e) => submitInput("filter", "couleur", e.value)}
+                                 options={values.couleurs} optionLabel="name"
+                                 display="chip" filter placeholder="Couleur"/>
+                    <MultiSelect value={filters.sous_garantie}
+                                 onChange={(e) => submitInput("filter", "sous_garantie", e.value)}
+                                 options={values.garanties} optionLabel="name"
+                                 display="chip" filter placeholder="Garantie"/>
+                    <InputText id="prix" value={filters.prix}
+                               onChange={(e) => submitInput("edit", "prix", e.target.value)}
+                               keyfilter="money" placeholder="Prix"/>
+                    
                     <Button label="Rechercher" icon="pi pi-search" onClick={search}/>
                 </div>
             </Card>
         </header>
         <main className="flex flex-column gap-3">
-            {data.cars && data.cars.map((car) => <Card className="px-2 py-2">
+            {data.cars && data.cars.map((car, key) => <Card className="px-2 py-2" key={key}>
                 <div className="absolute right-0 pr-4">
                     <Button className="w-2rem h-2rem mr-2" icon="pi pi-pencil" rounded outlined
                             severity="secondary" aria-label="Modifier les informations"
                             onClick={() => handleEdit(car.id)}/>
                     <Button className="w-2rem h-2rem" icon="pi pi-trash" rounded outlined severity="danger"
-                            aria-label="Supprimer du catalogue"/>
+                            aria-label="Supprimer du catalogue" onClick={() => handleDelete(car.id)}/>
                 </div>
                 <div className="grid flex-column md:flex-row pt-3">
                     <div className="relative col-2">
@@ -177,7 +187,7 @@ export default function Home() {
                         <div className="flex flex-wrap row-gap-2 column-gap-6 pt-4">
                             <span><b>Kilométrage : </b>{new Intl.NumberFormat('fr-FR').format(car.kilometrage)} km</span>
                             <span><b>Année de production : </b>{car.annee_production}</span>
-                            <span><b>Capacité du moteur : </b>{car.capacite_moteur} L</span>
+                            <span><b>Capacité du moteur : </b>{car.moteur.capacite_moteur} L</span>
                             <span><b>Couleur : </b>{car.couleur}</span>
                             <span><b>Garantie : </b>{car.sous_garantie ? "oui" : "non"} </span>
                         </div>
@@ -194,93 +204,101 @@ export default function Home() {
                 })}</span>
             </Card>)}
 
-            <Dialog className="w-10" header="Modifier les informations" visible={visible}
-                    onHide={() => setVisible(false)} draggable={false} blockScroll={true} dismissableMask={true}>
+            <Dialog className="w-10" header={action === "add" ? "Ajouter un véhicule" : "Modifier les informations"} visible={visible}
+                    onHide={() => {
+                        setProperties({})
+                        setVisible(false)
+                    }} draggable={false} blockScroll={true} dismissableMask={true}>
                 <div className="grid gap-4 p-5 justify-content-center">
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="marque" value={properties.marque}
-                                   onChange={(e) => submitDropdown("edit", "marque", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "marque", e.target.value)}
                         />
                         <label className="pl-2" htmlFor="marque">Marque</label>
                     </span>
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="modele" value={properties.modele}
-                                   onChange={(e) => submitDropdown("edit", "modele", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "modele", e.target.value)}
                         />
                         <label className="pl-2" htmlFor="modele">Modèle</label>
                     </span>
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="annee_production" value={properties.annee_production}
-                                   onChange={(e) => submitDropdown("edit", "annee_production", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "annee_production", e.target.value)}
                                    keyfilter="int"/>
                         <label className="pl-2" htmlFor="annee_production">Année de production</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="categorie" value={properties.categorie}
-                                  onChange={(e) => submitDropdown("edit", "categorie", e.value)}
+                                  onChange={(e) => submitInput("edit", "categorie", e.value)}
                                   options={values.categories} optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="categorie">Catégorie</label>
                     </span>
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="kilometrage" value={properties.kilometrage}
-                                   onChange={(e) => submitDropdown("edit", "kilometrage", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "kilometrage", e.target.value)}
                                    keyfilter="int"
                         />
                         <label className="pl-2" htmlFor="kilometrage">Kilométrage</label>
                     </span>
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="capacite_moteur" value={properties.capacite_moteur}
-                                   onChange={(e) => submitDropdown("edit", "capacite_moteur", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "capacite_moteur", e.target.value)}
                                    keyfilter="num"/>
                         <label className="pl-2" htmlFor="capacite_moteur">Capacité du moteur</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="carburant" value={properties.carburant}
-                                  onChange={(e) => submitDropdown("edit", "carburant", e.value)}
+                                  onChange={(e) => submitInput("edit", "carburant", e.value)}
                                   options={values.carburants} optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="carburant">Carburant</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="boite_vitesse" value={properties.boite_vitesse}
-                                  onChange={(e) => submitDropdown("edit", "boite_vitesse", e.value)}
+                                  onChange={(e) => submitInput("edit", "boite_vitesse", e.value)}
                                   options={values.boites_vitesse} optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="boite_vitesse">Boite de vitesse</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="boite_vitesse" value={properties.transmission}
-                                  onChange={(e) => submitDropdown("edit", "transmission", e.value)}
+                                  onChange={(e) => submitInput("edit", "transmission", e.value)}
                                   options={values.transmissions} optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="transmission">Transmission</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="couleur" value={properties.couleur}
-                                  onChange={(e) => submitDropdown("edit", "couleur", e.value)} options={values.couleurs}
+                                  onChange={(e) => submitInput("edit", "couleur", e.value)} options={values.couleurs}
                                   optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="couleur">Couleur</label>
                     </span>
                     <span className="p-float-label col-3">
                         <Dropdown className="w-full" id="sous_garantie" value={properties.sous_garantie}
-                                  onChange={(e) => submitDropdown("edit", "sous_garantie", e.value)}
+                                  onChange={(e) => submitInput("edit", "sous_garantie", e.value)}
                                   options={values.garanties} optionLabel="name"
                                   display="chip" filter/>
                         <label className="pl-2" htmlFor="sous_garantie">Garantie</label>
                     </span>
                     <span className="p-float-label col-3">
                         <InputText className="w-full" id="prix" value={properties.prix}
-                                   onChange={(e) => submitDropdown("edit", "prix", e.target.value)}
+                                   onChange={(e) => submitInput("edit", "prix", e.target.value)}
                                    keyfilter="money"/>
                         <label className="pl-2" htmlFor="prix">Prix</label>
                     </span>
                 </div>
                 <div className="flex justify-content-center">
-                    <Button label="Valider" icon="pi pi-check" onClick={() => handleSubmit()}/>
+                    <Button label="Valider" icon="pi pi-check" onClick={() => handleSubmit(action)}/>
                 </div>
             </Dialog>
+
+            <Button className="fixed bottom-0 right-0 m-4" size="large" icon="pi pi-plus" rounded label="Ajouter une voiture" onClick={() => {
+                setAction("add")
+                setVisible(true)
+            }} />
         </main>
     </>)
 }
