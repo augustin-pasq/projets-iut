@@ -9,7 +9,8 @@
 
 /* https://github.com/Keyang/node-csvtojson */
 const csv = require("csvtojson");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
+const { performance } = require("perf_hooks");
 
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
@@ -112,7 +113,7 @@ async function run() {
     console.log("'voitures' collection created successfully");
 
     let result;
-    result = await voitures.insertMany(data.slice(0, 100));
+    result = await voitures.insertMany(data);
     console.log(`${result.insertedCount} documents were inserted\n`);
 
     const voituresCollection = database.collection("voitures");
@@ -142,11 +143,13 @@ async function run() {
       `Proportion de boîtes automatiques : ${proportionAuto.toFixed(2)}%`
     );
 
-    // Indiquer le kilométrage moyen de tous les véhicules 
+    // Indiquer le kilométrage moyen de tous les véhicules
     const kilolométrageMoyen = await voituresCollection
       .aggregate([{ $group: { _id: null, moyenne: { $avg: "$kilometrage" } } }])
       .toArray();
-    console.log(`Kilométrage moyen de tous les véhicules : ${kilolométrageMoyen[0].moyenne}`);
+    console.log(
+      `Kilométrage moyen de tous les véhicules : ${kilolométrageMoyen[0].moyenne}`
+    );
 
     //  Trouver la voiture la plus cher
     const voitureCher = await voituresCollection
@@ -210,7 +213,7 @@ async function run() {
     console.log(
       `Nombre de voitures fabriquées avant 2000 après la suppression : ${countApres}`
     );
-    
+
     // Changer la couleur d'un certain modèle
     const modèleVoiture = "Outback";
     const nouvelleCouleur = "Blanc";
@@ -257,11 +260,11 @@ async function run() {
     );
 
     const voitureMinibusUtilitaireAprès = await voituresCollection
-    .find({ categorie: "Minibus/Utilitaire" })
-    .limit(2)
-    .toArray();
-  console.log(`Liste des 2 premiers Minibus/Utilitaire :`);
-  console.log(voitureMinibusUtilitaireAprès);
+      .find({ categorie: "Minibus/Utilitaire" })
+      .limit(2)
+      .toArray();
+    console.log(`Liste des 2 premiers Minibus/Utilitaire :`);
+    console.log(voitureMinibusUtilitaireAprès);
 
     // Supprimer les véhicules qui ont plus de 500 000 km
     const nbVehiculesAvant = await voituresCollection.countDocuments();
@@ -279,102 +282,173 @@ async function run() {
     console.log("--------------- Requêtes complexes ---------------");
 
     // Compter le nombre de véhicules sous garantie pour chaque marque
-    const countVehiculesSousGarantieParMarque = await voituresCollection.aggregate([
-      {
-        $match: { sous_garantie: true } 
-      },
-      {
-        $group: {
-          _id: "$marque", 
-          nombre_vehicules: { $sum: 1 } 
-        }
-      }
-    ]).toArray();
-    
-    console.log("Nombre de véhicules sous garantie par marque : " , countVehiculesSousGarantieParMarque);
-    
-    // Donner le kilométrage moyen pour chaque catégorie
-    const kilolométrageMoyenParCategorie = await voituresCollection.aggregate([
-      {
-        $group: {
-          _id: "$categorie", 
-          kilometrage_moyen: { $avg: "$kilometrage" } 
-        }
-      }
-    ]).toArray();
+    const countVehiculesSousGarantieParMarque = await voituresCollection
+      .aggregate([
+        {
+          $match: { sous_garantie: true },
+        },
+        {
+          $group: {
+            _id: "$marque",
+            nombre_vehicules: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
 
-    console.log("Kilométrage moyen par catégorie :", kilolométrageMoyenParCategorie);
-    
+    console.log(
+      "Nombre de véhicules sous garantie par marque : ",
+      countVehiculesSousGarantieParMarque
+    );
+
+    // Donner le kilométrage moyen pour chaque catégorie
+    const kilolométrageMoyenParCategorie = await voituresCollection
+      .aggregate([
+        {
+          $group: {
+            _id: "$categorie",
+            kilometrage_moyen: { $avg: "$kilometrage" },
+          },
+        },
+      ])
+      .toArray();
+
+    console.log(
+      "Kilométrage moyen par catégorie :",
+      kilolométrageMoyenParCategorie
+    );
+
     // Compter le nombre de véhicules vendus pour chaque couleur
-    const countVehiculesVendusParCouleur = await voituresCollection.aggregate([
-      {
-        $match: { etat: "Vendue" } 
-      },
-      {
-        $group: {
-          _id: "$couleur", 
-          nombre_vehicules: { $sum: 1 } 
-        }
-      }
-    ]).toArray();
-    
-    console.log("Nombre de véhicules vendus par couleur : ", countVehiculesVendusParCouleur);
-    
+    const countVehiculesVendusParCouleur = await voituresCollection
+      .aggregate([
+        {
+          $match: { etat: "Vendue" },
+        },
+        {
+          $group: {
+            _id: "$couleur",
+            nombre_vehicules: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    console.log(
+      "Nombre de véhicules vendus par couleur : ",
+      countVehiculesVendusParCouleur
+    );
+
     // Calculer la somme de tous les kilomètres parcourues parmis tous les véhiculants roulant avec le même type de carburant
-    const kilometrageTotalParTypeCarburant = await voituresCollection.aggregate([
-      {
-        $group: {
-          _id: "$moteur.carburant", 
-          totalKilomètres: { $sum: "$kilometrage" } 
-        }
-      }
-    ]).toArray();
-    
+    const kilometrageTotalParTypeCarburant = await voituresCollection
+      .aggregate([
+        {
+          $group: {
+            _id: "$moteur.carburant",
+            totalKilomètres: { $sum: "$kilometrage" },
+          },
+        },
+      ])
+      .toArray();
+
     console.log("Somme des kilomètres parcourus par type de carburant :");
     console.log(kilometrageTotalParTypeCarburant);
-    
 
     // Indiquer la capacité moteur la plus élevé parmi les véhicules produits après 2010 pour chaque transmission
-    const MeilleurCapaciteMoteurParTransmission = await voituresCollection.aggregate([
-      {
-        $match: {
-          annee_production: { $gt: 2010 } // Filtrer les véhicules produits après 2010
-        }
-      },
-      {
-        $group: {
-          _id: "$transmission", // Grouper par transmission
-          meilleurCapaciterMoteur: { $max: "$moteur.capacite_moteur" } // Trouver la capacité moteur maximale dans chaque groupe
-        }
-      },
-      {
-        $sort: { _id: 1 } // Trier les résultats par ordre de transmission (optionnel)
-      },
-      {
-        $group: {
-          _id: null,
-          transmissions: {
-            $push: {
-              transmission: "$_id",
-              MeilleurCapaciterMoteur: "$meilleurCapaciterMoteur"
-            }
-          }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          transmissions: 1
-        }
+    const MeilleurCapaciteMoteurParTransmission = await voituresCollection
+      .aggregate([
+        {
+          $match: {
+            annee_production: { $gt: 2010 }, // Filtrer les véhicules produits après 2010
+          },
+        },
+        {
+          $group: {
+            _id: "$transmission", // Grouper par transmission
+            meilleurCapaciterMoteur: { $max: "$moteur.capacite_moteur" }, // Trouver la capacité moteur maximale dans chaque groupe
+          },
+        },
+        {
+          $sort: { _id: 1 }, // Trier les résultats par ordre de transmission (optionnel)
+        },
+        {
+          $group: {
+            _id: null,
+            transmissions: {
+              $push: {
+                transmission: "$_id",
+                MeilleurCapaciterMoteur: "$meilleurCapaciterMoteur",
+              },
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            transmissions: 1,
+          },
+        },
+      ])
+      .toArray();
+
+    console.log(
+      "Capacité moteur la plus élevée parmi les véhicules produits après 2010 pour chaque transmission :"
+    );
+    console.log(JSON.stringify(MeilleurCapaciteMoteurParTransmission, null, 2));
+
+    /* Tests de montée en charge */
+    console.log("--------------- Test de montée en charge ---------------");
+    console.log("Suppression de toutes les données de la base avant le début du test")
+    await voituresCollection.deleteMany({});
+
+    // Mesurer le temps pour les opérations d'insertion
+    const startTempsInsertion = performance.now();
+    // Insertion d'environ un million de voitures
+    for (let nbInsertion = 0; nbInsertion < 27; nbInsertion++) {
+      for (let i in data) {
+        data[i]._id = new ObjectId();
       }
-    ]).toArray();
-    
-    console.log("Capacité moteur la plus élevée parmi les véhicules produits après 2010 pour chaque transmission :");
-    console.log(JSON.stringify(MeilleurCapaciteMoteurParTransmission, null, 2));    
+      await voituresCollection.insertMany(data);
+    }
+    const endTempsInsertion = performance.now();
+    const insertionTemps = endTempsInsertion - startTempsInsertion;
+    const count = await voituresCollection.countDocuments();
+    console.log(`Nombre de voitures pour le tesf de montée en charge : ${count}`);
+    console.log(
+      `Temps nécessaire pour l'insertion : ${convertMStoS(insertionTemps)}`
+    );
+
+
+    // Mesurer le temps pour les opérations de mise à jour (Incrémenter le champ "prix" de chaque document de 1)
+    const startTempsMiseAJour = performance.now();
+    await voituresCollection.updateMany({}, { $inc: { prix: 1 } });
+    const endTempsMiseAJour = performance.now();
+    const miseAJourTemps = endTempsMiseAJour - startTempsMiseAJour;
+    console.log(
+      `Temps nécessaire pour la mise à jour : ${convertMStoS(miseAJourTemps)}`
+    );
+
+    // Mesurer le temps pour les opérations de suppression
+    const startTempsSuppression = performance.now();
+    await voituresCollection.deleteMany({});
+    const endTempsSuppression = performance.now();
+    const suppressionTemps = endTempsSuppression - startTempsSuppression;
+    console.log(
+      `Temps nécessaire pour la suppression : ${convertMStoS(suppressionTemps)}`
+    );
 
   } finally {
     await client.close();
   }
 }
+
+/**
+ * Fonction pour formater le temps en secondes
+ * @param {*} time temps en millisecondes
+ * @returns le temps en secondes avec 2 décimales
+ */
+const convertMStoS = (time) => {
+  const seconds = (time / 1000).toFixed(2);
+  return `${seconds} secondes`;
+};
 
 run().catch(console.dir);
