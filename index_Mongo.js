@@ -473,7 +473,7 @@ async function exporterVersExcel(
   tempsMiseAJour,
   tempsSuppression
 ) {
-  const workbook = new ExcelJS.Workbook();
+  const workbook = new Workbook();
   const worksheet = workbook.addWorksheet("Données");
 
   // Ajouter les en-têtes de colonnes
@@ -492,7 +492,7 @@ async function exporterVersExcel(
   }
 
   // Enregistrer le fichier Excel
-  await workbook.xlsx.writeFile("données.xlsx");
+  await workbook.xlsx.writeFile("données_mongo.xlsx");
   console.log("Le fichier Excel a été créé avec succès.");
 }
 
