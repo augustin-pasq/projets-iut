@@ -10,9 +10,10 @@
   "dependencies": {
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
-    "primevue": "^3.29.1",
-    "vee-validate": "^4.9.5",
-    "vue": "^3.3.2"
+    "primevue": "^3.29.2",
+    "vee-validate": "^4.9.6",
+    "vue": "^3.3.2",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

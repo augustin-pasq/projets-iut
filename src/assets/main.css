@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: rgb(51,105,230);
+    background: -moz-linear-gradient(180deg, rgba(51,105,230,1) 0%, rgba(148,200,226,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(51,105,230,1) 0%, rgba(148,200,226,1) 100%);
+    background: linear-gradient(180deg, rgba(51,105,230,1) 0%, rgba(148,200,226,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3369e6",endColorstr="#94c8e2",GradientType=1);
+}
+
+.p-card-content {
+    height: 100%;
+    padding: 0 !important;
+}
+
+.p-card-body {
+    height: 100%;
+    padding: 0 !important;
+}
+
+.col-6 {
+    padding-bottom: 0 !important;
+}
