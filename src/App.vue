@@ -214,12 +214,18 @@ export default {
       if (typeof this.newTask.dateBegin == "Date") task.dateBegin = this.newTask.dateBegin
       else if (typeof this.newTask.dateBegin == "object") task.dateBegin = new Date(this.newTask.dateBegin)
       else task.dateBegin = new Date(this.newTask.dateBegin)
-      task.dateBegin = task.dateBegin.toLocaleDateString('fr-FR')
 
       if (typeof this.newTask.dateEnd == "Date") task.dateEnd = this.newTask.dateEnd
       else if (typeof this.newTask.dateEnd == "object") task.dateEnd = new Date(this.newTask.dateEnd)
       else task.dateEnd = new Date(this.newTask.dateEnd)
+
+      if (task.dateBegin > task.dateEnd) {
+        this.errorMessageValidation = "La date de début doit être inférieure à la date de fin"
+        return
+      }
+
       task.dateEnd = task.dateEnd.toLocaleDateString('fr-FR')
+      task.dateBegin = task.dateBegin.toLocaleDateString('fr-FR')
 
       if (this.mode === "add") task.id = localStorage.length.toString()
       else if (this.mode === "edit") task.id = this.taskId
