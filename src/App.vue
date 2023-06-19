@@ -234,8 +234,26 @@ export default {
 
       let filteredStates = selectedState.value && selectedState.value.length > 0 ? selectedState.value.map(state => state.code) : ["todo", "in_progress", "done"]
       let filteredPriorities = selectedPriority.value && selectedPriority.value.length > 0 ? selectedPriority.value.map(priority => priority.code) : ["high", "medium", "low"]
+      let dateBegin2 = dateBegin.value ? new Date(dateBegin.value) : null
+      if (dateBegin2) {
+        dateBegin2.setHours(0, 0, 0, 0)
+      }
+      let dateEnd2 = dateEnd.value ? new Date(dateEnd.value) : null
+      if (dateEnd2) {
+        dateEnd2.setHours(23, 59, 59, 999)
+      }
 
-      tasks.value = allTasks.filter(task => filteredStates.includes(task.selectedState.code) && filteredPriorities.includes(task.selectedPriority.code))
+      console.log(dateBegin2, dateEnd2)
+
+      tasks.value = allTasks.filter((task) => {
+        let dateBegin3 = new Date(task.dateBegin.split("/").reverse().join("-"))
+        let dateEnd3 = new Date(task.dateEnd.split("/").reverse().join("-"))
+
+        return filteredStates.includes(task.selectedState.code) && 
+          filteredPriorities.includes(task.selectedPriority.code) &&
+          (dateBegin2 === null || dateBegin3 >= dateBegin2) &&
+          (dateEnd2 === null || dateEnd3 <= dateEnd2)
+      });
 
       this.isOpen = false
     },
