@@ -238,7 +238,9 @@ export default {
       this.dialogVisible = false
     },
     completeTask(task) {
-      tasks.value.splice(task.id, 1)
+      tasks.value.forEach((t, index) => {
+        if (t.id === task.id) tasks.value.splice(index, 1)
+      })
       localStorage.removeItem(task.id)
     },
     filter() {
