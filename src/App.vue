@@ -24,36 +24,37 @@
 
             <Dialog :dismissableMask="true" :draggable="false" v-model:visible="dialogVisible" modal
                     :header="mode === 'add' ? 'Créer une nouvelle tâche' : 'Modifier la tâche'" :style="{ width: '53vh' }">
-              <Form class="flex flex-column pt-2 gap-2" :validation-schema="schema" @submit="handleFormSubmit">
+              <strong  v-if="errorMessageValidation" class="text-red-lighten-1">{{ errorMessageValidation }}</strong>
+              <Form class="flex flex-column pt-2 gap-2" @submit="handleFormSubmit">
                 <Field name="title" v-slot="{ field, errorMessage }">
                   <InputText :class="{ 'p-invalid': errorMessage }" v-bind="field" v-model="newTask.title"
-                             placeholder="Titre"/>
+                             placeholder="Titre" :value="newTask.title"/>
                 </Field>
                 <Field name="description" v-slot="{ field, errorMessage }">
                   <Textarea :class="{ 'p-invalid': errorMessage }" v-bind="field" v-model="newTask.description"
                             autoResize
-                            rows="5" cols="30" placeholder="Description"/>
+                            rows="5" cols="30" placeholder="Description" :value="newTask.description"/>
                 </Field>
                 <div class="grid">
                   <Field name="dateBegin" v-slot="{ field, errorMessage }">
                     <Calendar :class="{ 'col-6': true, 'p-invalid': errorMessage }" v-bind="field"
                               v-model="newTask.dateBegin" placeholder="Date de début" showIcon showButtonBar
-                              dateFormat="dd/mm/yy" :minDate="minDate"/>
+                              dateFormat="dd/mm/yy" :minDate="minDate" :value="newTask.dateBegin"/>
                   </Field>
                   <Field name="dateEnd" v-slot="{ field, errorMessage }">
                     <Calendar :class="{ 'col-6': true, 'p-invalid': errorMessage }" v-bind="field"
                               v-model="newTask.dateEnd" placeholder="Date de fin" showIcon showButtonBar
-                              dateFormat="dd/mm/yy" :minDate="new Date(newTask.dateBegin)"/>
+                              dateFormat="dd/mm/yy" :minDate="new Date(newTask.dateBegin)" :value="newTask.dateEnd"/>
                   </Field>
                 </div>
                 <Field name="selectedState" v-slot="{ field, errorMessage }">
                   <Dropdown :class="{ 'p-invalid': errorMessage }" v-bind="field" v-model="newTask.selectedState"
-                            optionLabel="name" :options="states" placeholder="État"/>
+                            optionLabel="name" :options="states" placeholder="État" :value="newTask.selectedState"/>
                 </Field>
                 <Field name="selectedPriority" v-slot="{ field, errorMessage }">
                   <Dropdown :class="{ 'p-invalid': errorMessage }" v-bind="field" v-model="newTask.selectedPriority"
                             optionLabel="name" :options="priorities"
-                            placeholder="Priorité"/>
+                            placeholder="Priorité" :value="newTask.selectedPriority"/>
                 </Field>
 
                 <div class="flex flex-row justify-content-end pt-4">
@@ -161,14 +162,7 @@ export default {
         {name: 'Moyenne', code: 'medium', severity: 'warning'},
         {name: 'Basse', code: 'low', severity: 'success'},
       ],
-      schema: yup.object({
-        title: yup.string().required(),
-        description: yup.string().required(),
-        dateBegin: yup.string().required(),
-        dateEnd: yup.string().required(),
-        selectedState: yup.object().required(),
-        selectedPriority: yup.object().required()
-      })
+      errorMessageValidation: ""
     }
   },
   methods: {
@@ -193,8 +187,8 @@ export default {
       this.taskId = task.id
       this.newTask.title = task.title
       this.newTask.description = task.description
-      this.newTask.dateBegin = task.dateBegin
-      this.newTask.dateEnd = task.dateEnd
+      this.newTask.dateBegin = new Date(task.dateBegin.split("/").reverse().join("-"))
+      this.newTask.dateEnd = new Date(task.dateEnd.split("/").reverse().join("-"))
       this.newTask.selectedState = task.selectedState
       this.newTask.selectedPriority = task.selectedPriority
 
@@ -204,15 +198,28 @@ export default {
     },
     handleFormSubmit() {
       const days = Math.round((this.newTask.dateEnd - new Date()) / (1000 * 3600 * 24))
+      if (this.newTask.title === '' || this.newTask.description === '' || this.newTask.dateBegin === null || this.newTask.dateEnd === null || this.newTask.selectedState === null || this.newTask.selectedPriority === null) {
+        this.errorMessageValidation = "Veuillez remplir tous les champs"
+        return
+      }
+
       let task = {
         title: this.newTask.title,
         description: this.newTask.description,
-        dateBegin: new Date(this.newTask.dateBegin).toLocaleDateString('fr-FR'),
-        dateEnd: new Date(this.newTask.dateEnd).toLocaleDateString('fr-FR'),
         selectedState: this.newTask.selectedState,
         selectedPriority: this.newTask.selectedPriority,
         days: days > 0 ? days : 0,
       }
+
+      if (typeof this.newTask.dateBegin == "Date") task.dateBegin = this.newTask.dateBegin
+      else if (typeof this.newTask.dateBegin == "object") task.dateBegin = new Date(this.newTask.dateBegin)
+      else task.dateBegin = new Date(this.newTask.dateBegin)
+      task.dateBegin = task.dateBegin.toLocaleDateString('fr-FR')
+
+      if (typeof this.newTask.dateEnd == "Date") task.dateEnd = this.newTask.dateEnd
+      else if (typeof this.newTask.dateEnd == "object") task.dateEnd = new Date(this.newTask.dateEnd)
+      else task.dateEnd = new Date(this.newTask.dateEnd)
+      task.dateEnd = task.dateEnd.toLocaleDateString('fr-FR')
 
       if (this.mode === "add") task.id = localStorage.length.toString()
       else if (this.mode === "edit") task.id = this.taskId
@@ -243,8 +250,6 @@ export default {
         dateEnd2.setHours(23, 59, 59, 999)
       }
 
-      console.log(dateBegin2, dateEnd2)
-
       tasks.value = allTasks.filter((task) => {
         let dateBegin3 = new Date(task.dateBegin.split("/").reverse().join("-"))
         let dateEnd3 = new Date(task.dateEnd.split("/").reverse().join("-"))
@@ -259,6 +264,7 @@ export default {
     },
     getAll() {
       selectedPriority.value = selectedState.value = undefined
+      dateBegin.value = dateEnd.value = undefined
       tasks.value = []
       for (let key in localStorage) if (localStorage.getItem(key) !== null) tasks.value.push(JSON.parse(localStorage.getItem(key)))
 
