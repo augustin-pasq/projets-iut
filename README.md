@@ -22,3 +22,9 @@ npm run dev
 - Pour filtrer une tâche, choisir les filtres et cliquer sur le bouton ``Filtrer``
 - Pour supprimer les filtres et afficher toutes les tâches, cliquer sur le bouton ``Afficher toutes les tâches``
 - Sur un affichage mobile, le menu s'affichera au clic sur le bouton avec les trois barres horizontales (et se fermera au clic sur le même bouton)
+
+## Auteurs
+
+Augustin Pasquier, Théo Challon
+
+Groupe 2D
