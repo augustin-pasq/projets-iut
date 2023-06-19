@@ -1,29 +1,24 @@
-# todo-app
+# Application ToDo
 
-This template should help get you started developing with Vue 3 in Vite.
+Ce document donne les indications nécessaires pour installer et lancer l'application ToDo.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Installer le projet
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Lancer le projet
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Utiliser l'application
 
-```sh
-npm run build
-```
+- Pour créer une tâche, cliquer sur le bouton ``Ajouter une tâche`` et compléter tous les champs du formulaire
+- Pour modifier une tâche, cliquer sur le crayon à côté du titre de la tâche et modifier le formulaire
+- Pour supprimer une tâche, cliquer sur le bouton en forme de coche
+- Pour filtrer une tâche, choisir les filtres et cliquer sur le bouton ``Filtrer``
+- Pour supprimer les filtres et afficher toutes les tâches, cliquer sur le bouton ``Afficher toutes les tâches``
+- Sur un affichage mobile, le menu s'affichera au clic sur le bouton avec les trois barres horizontales (et se fermera au clic sur le même bouton)
