@@ -2,6 +2,12 @@
 
 Ce document donne les indications nécessaires pour installer et lancer l'application ToDo.
 
+## Stack technologique
+
+- Vue.js
+- Vite
+- PrimeVue
+
 ## Installer le projet
 
 ```sh
@@ -26,5 +32,3 @@ npm run dev
 ## Auteurs
 
 Augustin Pasquier, Théo Challon
-
-Groupe 2D
