@@ -1,6 +1,6 @@
 # Application ToDo
 
-Ce document donne les indications nécessaires pour installer et lancer l'application ToDo.
+Application ToDo de la ressource R4.10 - Complément web du BUT Informatique 2ème année.
 
 ## Stack technologique
 
