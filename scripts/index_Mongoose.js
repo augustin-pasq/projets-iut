@@ -15,7 +15,7 @@ const { ObjectId } = mongoose.Types;
 
 async function run() {
   try {
-    const data = await csv().fromFile("./Voitures.csv");
+    const data = await csv().fromFile("../data/Voitures.csv");
     for (let i in data) {
       let moteur = { carburant: "", capacite_moteur: "" };
       moteur.carburant = data[i].carburant;
@@ -181,7 +181,7 @@ async function exporterVersExcel(
   }
 
   // Enregistrer le fichier Excel
-  await workbook.xlsx.writeFile("données_mongoose.xlsx");
+  await workbook.xlsx.writeFile("../results/données_mongoose.xlsx");
   console.log("Le fichier Excel a été créé avec succès.");
 }
 

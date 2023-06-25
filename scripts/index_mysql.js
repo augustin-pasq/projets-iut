@@ -14,7 +14,7 @@ const ExcelJS = require("exceljs");
 
 async function run() {
   try {
-    const data = await csv().fromFile("./Voitures.csv");
+    const data = await csv().fromFile("../data/Voitures.csv");
     for (let i in data) {
       let moteur = { carburant: "", capacite_moteur: "" };
       moteur.carburant = data[i].carburant;
@@ -226,7 +226,7 @@ async function exporterVersExcel(
   }
 
   // Enregistrer le fichier Excel
-  await workbook.xlsx.writeFile("donnees_mysql.xlsx");
+  await workbook.xlsx.writeFile("../results/donnees_mysql.xlsx");
   console.log("Le fichier Excel a été créé avec succès.");
 }
 
