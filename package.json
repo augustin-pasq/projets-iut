@@ -1,0 +1,27 @@
+{
+  "name": "punto",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "prisma studio": "npx prisma studio",
+    "socket": "node src/server/socket.mjs"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.4.1",
+    "@types/node": "^18.15.11",
+    "crypto": "^1.0.1",
+    "http": "^0.0.1-security",
+    "next": "^13.5.4",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primereact": "^9.2.3",
+    "prisma": "^5.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  }
+}

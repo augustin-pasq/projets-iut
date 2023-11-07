@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Card {
+  id         Int          @id @default(autoincrement())
+  positionX  Int?
+  positionY  Int?
+  color      String       @db.VarChar(7)
+  value      Int?
+  game       Int
+  player     Int
+  Game       Game         @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Card_ibfk_1")
+  Player     Player       @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Card_ibfk_2")
+  CardSeries CardSeries[]
+
+  @@index([game], map: "game")
+  @@index([player], map: "player")
+}
+
+model CardSeries {
+  card   Int
+  series Int
+  Card   Card   @relation(fields: [card], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "CardSeries_ibfk_1")
+  Series Series @relation(fields: [series], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "CardSeries_ibfk_2")
+
+  @@id([card, series])
+  @@index([series], map: "series")
+}
+
+model Game {
+  id            Int      @id @default(autoincrement())
+  accessCode    String   @db.VarChar(255)
+  roundsToReach Int?
+  Card          Card[]
+  Player        Player[]
+}
+
+model Player {
+  id        Int    @id @default(autoincrement())
+  username  String @db.VarChar(32)
+  roundsWon Int?
+  game      Int?
+  Card      Card[]
+  Game      Game?  @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Player_ibfk_1")
+
+  @@index([game], map: "game")
+}
+
+model Series {
+  id         Int          @id @default(autoincrement())
+  score      Int?
+  CardSeries CardSeries[]
+}
