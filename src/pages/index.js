@@ -4,11 +4,12 @@ import {Dialog} from "primereact/dialog"
 import {InputText} from "primereact/inputtext"
 import {InputNumber} from "primereact/inputnumber";
 
-export default function Home(props) {
+export default function Home() {
     const [username, setUsername] = useState("")
-    const [roundsToReach, setRoundsToReach] = useState(0)
+    const [roundsToReach, setRoundsToReach] = useState(2)
     const [accessCode, setAccessCode] = useState("")
     const [isGameCreated, setIsGameCreated] = useState({state: false, owner: false})
+    const [isGameStarted, setIsGameStarted] = useState(true)
     const [openModal, setOpenModal] = useState(false)
 
     const handleDisplayModal = async () => {
@@ -43,20 +44,61 @@ export default function Home(props) {
                     .then(() => setIsGameCreated({state: true, owner: true}))
             }
         } else {
+            // TODO : handle game join
+
             setIsGameCreated({state: true, owner: false})
         }
+    }
+
+    const startGame = () => {
+        setOpenModal(false)
+        setIsGameStarted(true)
+    }
+
+    const addCard = async (x, y) => {
+        let htmlCard = document.createElement("div");
+        htmlCard.classList.add("card");
+
+        const results = await (await fetch("/api/createCard", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                accessCode: "FC11", //accessCode
+                positionX: x,
+                positionY: y,
+                color: "#ED1D23",
+                value: 1,
+                playerId: 22, //sessionStorage.getItem("player_id")
+            }),
+        }))
+
+        if (results.status === 204) {
+            document.querySelector(`#row-${x} > #cell-${y}`).appendChild(htmlCard)
+        } else {
+        }
+
+        // TODO : generate new card
     }
 
     return (
         <div className="container">
             <section id="deck-container">
-                <div className="game-launcher">
-                    <div>
-                        <label htmlFor="username-field">Choisis un pseudo :</label>
-                        <InputText id="username-field" aria-describedby="username-help" placeholder="Pseudo stylé" onChange={(e) => setUsername(e.target.value)} />
-                    </div>
-                    <Button label="Jouer !" onClick={handleDisplayModal}/>
-                </div>
+                {isGameStarted ?
+                        <>
+                            <div className="card card-reversed">
+
+                            </div>
+                        </>
+                    :
+                        <div className="game-launcher">
+                            <div>
+                                <label htmlFor="username-field">Choisis un pseudo :</label>
+                                <InputText id="username-field" aria-describedby="username-help" placeholder="Pseudo stylé" onChange={(e) => setUsername(e.target.value)} />
+                            </div>
+                            <Button label="Jouer !" onClick={handleDisplayModal}/>
+                        </div>
+                }
+
             </section>
 
             <section id="board-container">
@@ -64,7 +106,7 @@ export default function Home(props) {
                     {[...Array(6)].map((_, i) => (
                         <div id={`row-${i}`} key={`row-${i}`} className="row">
                             {[...Array(6)].map((_, j) => (
-                                <div id={`cell-${j}`} key={`cell-${j}`} className="cell"></div>
+                                <div id={`cell-${j}`} key={`cell-${j}`} className="cell" onClick={() => addCard(i, j)}></div>
                             ))}
                         </div>
                     ))}
@@ -84,17 +126,17 @@ export default function Home(props) {
                         <h3>Rejoindre une partie</h3>
 
                         {isGameCreated.state ?
-                            <>
-                                <span>Partage ce code avec tes amis pour jouer avec eux :</span>
-                                <span className="access-code">{accessCode}</span>
-                                {isGameCreated.owner && <Button className="mt-5 mb-3" label="Lancer la partie" onClick={() => handleGameLaunch("joined")}/>}
-                            </>
-                        :
-                            <>
-                                <label htmlFor="access-code-feld">Entre le code que tu as reçu pour jouer avec tes amis :</label>
-                                <InputText id="access-code-field" aria-describedby="username-help" onChange={(e) => setAccessCode(e.target.value.toUpperCase())} />
-                                <Button className="mt-5 mb-3" label="Rejoindre une partie" onClick={() => handleGameLaunch("joined")}/>
-                            </>
+                                <>
+                                    <span>Partage ce code avec tes amis pour jouer avec eux :</span>
+                                    <span className="access-code">{accessCode}</span>
+                                    {isGameCreated.owner && <Button className="mt-5 mb-3" label="Lancer la partie" onClick={() => startGame()}/>}
+                                </>
+                            :
+                                <>
+                                    <label htmlFor="access-code-feld">Entre le code que tu as reçu pour jouer avec tes amis :</label>
+                                    <InputText id="access-code-field" aria-describedby="username-help" onChange={(e) => setAccessCode(e.target.value.toUpperCase())} />
+                                    <Button className="mt-5 mb-3" label="Rejoindre une partie" onClick={() => handleGameLaunch("joined")}/>
+                                </>
                         }
                     </div>
                 </div>

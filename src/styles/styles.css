@@ -32,18 +32,33 @@ body {
 .container {
     display: flex;
     flex-direction: row;
+    padding: 0 5vw;
     height: 100vh;
     width: 100vw;
 }
 
 #deck-container {
+    align-items: center;
     display: flex;
+    justify-content: center;
     width: 33.3%;
 }
 
+.card {
+    background-color: #373737;
+    border: 1px #595959 solid;
+    border-radius: 1vw;
+    height: 6vw;
+    position: absolute;
+    width: 6vw;
+}
+
 .cell {
+    align-items: center;
     border: grey 1px dashed;
+    display: flex;
     height: 7vw;
+    justify-content: center;
     width: 7vw;
 }
 
