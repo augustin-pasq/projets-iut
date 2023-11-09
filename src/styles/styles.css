@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700');
 
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 .access-code {
@@ -62,12 +62,6 @@ body {
     width: 7vw;
 }
 
-.modal-container {
-    display: flex;
-    flex-direction: row;
-    gap: 2vw;
-}
-
 .game-creation, .game-join {
     align-items: center;
     display: flex;
@@ -80,16 +74,63 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
+    gap: 5vw;
+    width: 100%;
+}
+
+.game-launcher > button {
+    width: fit-content;
+}
+
+.game-launcher-card {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     gap: 3vw;
     justify-content: center;
-    width: 100%;
+    width: 90%;
 }
 
 .game-launcher > div {
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 0.5vw;
+    gap: 0.8vw;
+    width: 100%;
+}
+
+h1 {
+    font-size: 3vw;
+    font-weight: 700;
+    margin: 1vw 0 0 0;
+    text-align: center;
+}
+
+label {
+    text-align: center;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+}
+
+.pi {
+    font-family: 'primeicons', sans-serif !important;
+}
+
+.p-card-body {
+    width: 100%;
+}
+
+.p-dialog-header {
+    text-align: center;
+}
+
+.p-inputtext {
+    text-align: center;
+    width: 67%;
 }
 
 .row {
