@@ -23,7 +23,7 @@ export default async function handle(req, res) {
         })
 
         let code = 418
-        if(gameCardsCount === 0 || neighbors.length > 0) {
+        if((gameCardsCount === 0 && (req.body.positionX === 2 || req.body.positionX === 3) && (req.body.positionY === 2 || req.body.positionY === 3)) || neighbors.length > 0) {
             code = 204
             await prisma.card.create({
                 data: {

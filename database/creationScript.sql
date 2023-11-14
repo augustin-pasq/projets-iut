@@ -21,7 +21,7 @@ CREATE TABLE Card
     positionX INTEGER,
     positionY INTEGER,
     color     VARCHAR(7) NOT NULL,
-    value     INTEGER,
+    value     INTEGER    NOT NULL,
     game      INTEGER    NOT NULL,
     player    INTEGER    NOT NULL,
 

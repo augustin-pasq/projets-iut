@@ -12,6 +12,7 @@
   "dependencies": {
     "@prisma/client": "^5.4.1",
     "@types/node": "^18.15.11",
+    "array-shuffle": "^3.0.0",
     "crypto": "^1.0.1",
     "http": "^0.0.1-security",
     "next": "^13.5.4",

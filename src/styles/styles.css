@@ -133,6 +133,14 @@ label {
     width: 67%;
 }
 
+.players {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1vw;
+    justify-content: center;
+}
+
 .row {
     display: flex;
     flex-direction: row;
