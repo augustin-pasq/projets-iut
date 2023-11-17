@@ -2,7 +2,7 @@ import http from "http"
 import {Server} from "socket.io"
 
 const server = http.createServer((req, res) => {
-    res.writeHead(302, {location: '192.168.1.12:3000'})
+    res.writeHead(302, {location: "localhost:3000"})
     res.end()
 })
 

@@ -9,7 +9,7 @@ import {io} from "socket.io-client"
 import {Chip} from "primereact/chip"
 import arrayShuffle from "array-shuffle";
 
-const socket = io.connect("http://192.168.1.12:4000")
+const socket = io.connect("http://localhost:4000")
 const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
 
 export default function Home() {
@@ -153,7 +153,7 @@ export default function Home() {
                 positionY: y,
                 color: "#ED1D23",
                 value: 1,
-                playerId: sessionStorage.getItem("player_id")
+                playerId: parseInt(sessionStorage.getItem("player_id"))
             }),
         }))
 
@@ -170,7 +170,6 @@ export default function Home() {
         // TODO : generate new card
     }
 
-    console.log(decks)
     return (<div className="container">
         <section id="deck-container">
             {isGameStarted ? <>
