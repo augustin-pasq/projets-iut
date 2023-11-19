@@ -15,11 +15,15 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     socket.on("playerHasJoined", (players) => {
-        io.emit("playerHasJoined", players.map(player => player.username))
+        io.emit("playerHasJoined", players)
     })
 
     socket.on("gameHasStarted", (playersNumber) => {
         io.emit("gameHasStarted", playersNumber)
+    })
+
+    socket.on("playerHasPlayed", (players) => {
+        io.emit("playerHasPlayed", players.allPlayers[(players.allPlayers.indexOf(players.allPlayers.find(player => player.id === players.currentPlayer)) + 1) % players.allPlayers.length].id)
     })
 })
 

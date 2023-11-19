@@ -28,6 +28,7 @@ export default async function handle(req, res) {
 
             let players = await prisma.player.findMany({
                 select: {
+                    id: true,
                     username: true
                 },
                 where: {

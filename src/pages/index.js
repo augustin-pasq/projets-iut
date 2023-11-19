@@ -21,6 +21,7 @@ export default function Home() {
     const [openModal, setOpenModal] = useState(false)
     const [players, setPlayers] = useState([])
     const [decks, setDecks] = useState([])
+    const [playerTurn, setPlayerTurn] = useState(-1)
     const toast = useRef(null)
 
     useEffect(() => {
@@ -28,7 +29,7 @@ export default function Home() {
             setPlayers(players)
         })
 
-        socket.on("gameHasStarted", (playersNumber) => {
+        socket.on("gameHasStarted", (players) => {
             let p1Colors, p2Colors, p3Colors, p4Colors
             let p1Cards = []
             let p2Cards = []
@@ -41,7 +42,7 @@ export default function Home() {
                         let color = colors[colorIndex]
                         let card = {color: color, value: value, iteration: i}
 
-                        switch(playersNumber) {
+                        switch(players.length) {
                             case 2:
                                 p1Colors = [colors[0], colors[1]]
                                 p2Colors = [colors[2], colors[3]]
@@ -69,13 +70,13 @@ export default function Home() {
                                         p3Cards.push(card)
                                         break
                                     case p4Colors:
-                                        if(playersNumber === 3) {
+                                        if(players.length === 3) {
                                             if([1, 4, 7].includes(value)) p1Cards.push(card)
                                             if([2, 5, 8].includes(value)) p2Cards.push(card)
                                             if([3, 6, 9].includes(value)) p3Cards.push(card)
 
                                             setDecks([arrayShuffle(p1Cards), arrayShuffle(p2Cards), arrayShuffle(p3Cards)])
-                                        } else if (playersNumber === 4) {
+                                        } else if (players.length === 4) {
                                             p4Cards.push(card)
 
                                             setDecks([arrayShuffle(p1Cards), arrayShuffle(p2Cards), arrayShuffle(p3Cards), arrayShuffle(p4Cards)])
@@ -91,8 +92,12 @@ export default function Home() {
 
             setOpenModal(false)
             setIsGameStarted(true)
+            setPlayerTurn(players[0].id)
         })
 
+        socket.on("playerHasPlayed", (playerId) => {
+            setPlayerTurn(playerId)
+        })
     }, [])
 
     const handleDisplayModal = async () => {
@@ -143,31 +148,43 @@ export default function Home() {
     }
 
     const addCard = async (x, y) => {
-        let htmlCard = document.createElement("div");
-        htmlCard.classList.add("card");
+        let playerId = parseInt(sessionStorage.getItem("player_id"))
 
-        const results = await (await fetch("/api/createCard", {
-            method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
-                accessCode: accessCode,
-                positionX: x,
-                positionY: y,
-                color: "#ED1D23",
-                value: 1,
-                playerId: parseInt(sessionStorage.getItem("player_id"))
-            }),
-        }))
+        if(playerTurn === playerId) {
+            let htmlCard = document.createElement("div");
+            htmlCard.classList.add("card");
 
-        if (results.status === 204) {
-            document.querySelector(`#row-${x} > #cell-${y}`).appendChild(htmlCard)
+            const results = await (await fetch("/api/createCard", {
+                method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
+                    accessCode: accessCode,
+                    positionX: x,
+                    positionY: y,
+                    color: "#ED1D23",
+                    value: 1,
+                    playerId: playerId
+                }),
+            }))
+
+            if (results.status === 204) {
+                document.querySelector(`#row-${x} > #cell-${y}`).appendChild(htmlCard)
+
+                socket.emit("playerHasPlayed", {currentPlayer: playerId, allPlayers: players})
+            } else {
+                toast.current.show({
+                    severity: "error",
+                    summary: "C'est pas comme ça que ça marche !",
+                    detail: "Tu ne peux pas poser de cartes ici."
+                })
+            }
+
+            // TODO : generate new card
         } else {
             toast.current.show({
                 severity: "error",
-                summary: "C'est pas comme ça que ça marche !",
-                detail: "Tu ne peux pas poser de cartes ici."
+                summary: "Attends un peu !",
+                detail: "Ce n'est pas encore à toi de jouer."
             })
         }
-
-        // TODO : generate new card
     }
 
     return (<div className="container">
@@ -225,11 +242,11 @@ export default function Home() {
                         <span>Partage ce code avec tes amis pour jouer avec eux :</span>
                         <span className="access-code">{accessCode}</span>
                         <div className="players">{players.map((player, index) => {
-                            return <Chip key={index} label={player}/>
+                            return <Chip key={index} label={player.username}/>
                         })}</div>
                         {isGameCreated.owner && <Button className="mt-5 mb-3" label="Lancer la partie"
                                                         disabled={players.length <= 1 || players.length > 4}
-                                                        onClick={() => socket.emit("gameHasStarted", players.length)}/>}
+                                                        onClick={() => socket.emit("gameHasStarted", players)}/>}
                     </> : <>
                         <label htmlFor="access-code-feld">Entre le code que tu as reçu pour jouer avec tes amis
                             :</label>
