@@ -7,7 +7,9 @@ import {Toast} from "primereact/toast"
 import {Card} from "primereact/card"
 import {io} from "socket.io-client"
 import {Chip} from "primereact/chip"
-import arrayShuffle from "array-shuffle";
+import arrayShuffle from "array-shuffle"
+import PuntoCard from "@/components/PuntoCard"
+import {render} from "react-dom"
 
 const socket = io.connect("http://localhost:4000")
 const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
@@ -20,8 +22,9 @@ export default function Home() {
     const [isGameStarted, setIsGameStarted] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [players, setPlayers] = useState([])
-    const [decks, setDecks] = useState([])
+    const [decks, setDecks] = useState({})
     const [playerTurn, setPlayerTurn] = useState(-1)
+    const [turnIndex, setTurnIndex] = useState(0)
     const toast = useRef(null)
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export default function Home() {
                 for (let i = 1; i <= 2; i++) {
                     for (let value = 1; value <= 9; value++) {
                         let color = colors[colorIndex]
-                        let card = {color: color, value: value, iteration: i}
+                        let card = {color: color, value: value}
 
                         switch(players.length) {
                             case 2:
@@ -50,7 +53,7 @@ export default function Home() {
                                 if(p1Colors.includes(color)) p1Cards.push(card)
                                 else if(p2Colors.includes(color)) p2Cards.push(card)
 
-                                setDecks([arrayShuffle(p1Cards), arrayShuffle(p2Cards)])
+                                setDecks({[players[0].id]: arrayShuffle(p1Cards), [players[1].id]: arrayShuffle(p2Cards)})
                                 break
                             case 3:
                             case 4:
@@ -75,11 +78,11 @@ export default function Home() {
                                             if([2, 5, 8].includes(value)) p2Cards.push(card)
                                             if([3, 6, 9].includes(value)) p3Cards.push(card)
 
-                                            setDecks([arrayShuffle(p1Cards), arrayShuffle(p2Cards), arrayShuffle(p3Cards)])
+                                            setDecks({[players[0].id]: arrayShuffle(p1Cards), [players[1].id]: arrayShuffle(p2Cards), [players[2].id]: arrayShuffle(p3Cards)})
                                         } else if (players.length === 4) {
                                             p4Cards.push(card)
 
-                                            setDecks([arrayShuffle(p1Cards), arrayShuffle(p2Cards), arrayShuffle(p3Cards), arrayShuffle(p4Cards)])
+                                            setDecks({[players[0].id]: arrayShuffle(p1Cards), [players[1].id]: arrayShuffle(p2Cards), [players[2].id]: arrayShuffle(p3Cards), [players[3].id]: arrayShuffle(p4Cards)})
                                         }
 
                                         break
@@ -99,10 +102,9 @@ export default function Home() {
             setPlayerTurn(playerId)
         })
 
-        socket.on("updateBoard", (coordinates) => {
-            let htmlCard = document.createElement("div")
-            htmlCard.classList.add("card")
-            document.querySelector(`#row-${coordinates[0]} > #cell-${coordinates[1]}`).appendChild(htmlCard)
+        socket.on("updateBoard", (card) => {
+            render(<PuntoCard card={card.card} />, document.querySelector(`#row-${card.x} > #cell-${card.y}`))
+
         })
     }, [])
 
@@ -157,25 +159,22 @@ export default function Home() {
         let playerId = parseInt(sessionStorage.getItem("player_id"))
 
         if(playerTurn === playerId) {
-            let htmlCard = document.createElement("div");
-            htmlCard.classList.add("card");
-
             const results = await (await fetch("/api/createCard", {
                 method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
                     accessCode: accessCode,
                     positionX: x,
                     positionY: y,
-                    color: "#ED1D23",
-                    value: 1,
+                    color: decks[playerId][turnIndex].color,
+                    value: decks[playerId][turnIndex].value,
                     playerId: playerId
                 }),
             }))
 
             if (results.status === 204) {
-                document.querySelector(`#row-${x} > #cell-${y}`).appendChild(htmlCard)
+                render(<PuntoCard card={decks[playerId][turnIndex]} />, document.querySelector(`#row-${x} > #cell-${y}`))
 
                 socket.emit("playerHasPlayed", {currentPlayer: playerId, allPlayers: players})
-                socket.emit("updateBoard", [x, y])
+                socket.emit("updateBoard", {card: decks[playerId][turnIndex], x: x, y: y})
             } else {
                 toast.current.show({
                     severity: "error",
@@ -184,7 +183,7 @@ export default function Home() {
                 })
             }
 
-            // TODO : generate new card
+            setTurnIndex(turnIndex + 1)
         } else {
             toast.current.show({
                 severity: "error",
@@ -197,9 +196,7 @@ export default function Home() {
     return (<div className="container">
         <section id="deck-container">
             {isGameStarted ? <>
-                <div className="card card-reversed">
-
-                </div>
+                <PuntoCard card={decks[parseInt(sessionStorage.getItem("player_id"))][turnIndex]}/>
             </> : <Card className="game-launcher-card">
                 <div className="game-launcher">
                     <h1>Punto</h1>

@@ -45,10 +45,15 @@ body {
 }
 
 .card {
+    align-items: center;
     background-color: #373737;
     border: 1px #595959 solid;
     border-radius: 1vw;
+    display: flex;
+    flex-wrap: wrap;
     height: 6vw;
+    justify-content: space-around;
+    padding: 0.5vw;
     position: absolute;
     width: 6vw;
 }
@@ -60,6 +65,14 @@ body {
     height: 7vw;
     justify-content: center;
     width: 7vw;
+}
+
+.dot {
+    background-clip: content-box;
+    border-radius: 100vw;
+    height: 1.5vw;
+    padding: 0.1vw;
+    width: 1.5vw;
 }
 
 .game-creation, .game-join {
