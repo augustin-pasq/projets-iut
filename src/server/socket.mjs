@@ -25,6 +25,10 @@ io.on("connection", (socket) => {
     socket.on("playerHasPlayed", (players) => {
         io.emit("playerHasPlayed", players.allPlayers[(players.allPlayers.indexOf(players.allPlayers.find(player => player.id === players.currentPlayer)) + 1) % players.allPlayers.length].id)
     })
+
+    socket.on("updateBoard", (coordinates) => {
+        io.emit("updateBoard", coordinates)
+    })
 })
 
 server.listen(4000)

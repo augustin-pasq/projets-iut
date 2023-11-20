@@ -98,6 +98,12 @@ export default function Home() {
         socket.on("playerHasPlayed", (playerId) => {
             setPlayerTurn(playerId)
         })
+
+        socket.on("updateBoard", (coordinates) => {
+            let htmlCard = document.createElement("div")
+            htmlCard.classList.add("card")
+            document.querySelector(`#row-${coordinates[0]} > #cell-${coordinates[1]}`).appendChild(htmlCard)
+        })
     }, [])
 
     const handleDisplayModal = async () => {
@@ -169,6 +175,7 @@ export default function Home() {
                 document.querySelector(`#row-${x} > #cell-${y}`).appendChild(htmlCard)
 
                 socket.emit("playerHasPlayed", {currentPlayer: playerId, allPlayers: players})
+                socket.emit("updateBoard", [x, y])
             } else {
                 toast.current.show({
                     severity: "error",
