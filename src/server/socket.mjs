@@ -18,8 +18,8 @@ io.on("connection", (socket) => {
         io.emit("playerHasJoined", players)
     })
 
-    socket.on("gameHasStarted", (playersNumber) => {
-        io.emit("gameHasStarted", playersNumber)
+    socket.on("gameHasStarted", (data) => {
+        io.emit("gameHasStarted", data)
     })
 
     socket.on("playerHasPlayed", (players) => {

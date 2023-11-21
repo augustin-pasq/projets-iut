@@ -24,7 +24,7 @@ export default async function handle(req, res) {
                 game: results.id
             },
             where: {
-                id: parseInt(req.body.playerId)
+                id: req.body.playerId
             }
         })
 
