@@ -6,11 +6,7 @@ const socket = io.connect("http://localhost:4000")
 export default async function handle(req, res) {
     try {
         let code
-        let game = await prisma.game.findFirst({
-            where: {
-                accessCode: req.body.accessCode
-            }
-        })
+        let game = await prisma.game.findFirst({where: {accessCode: req.body.accessCode,}})
 
         if (game === null) {
             code = 404
@@ -36,7 +32,7 @@ export default async function handle(req, res) {
                 }
             })
 
-            players.length > 4 ? code = 403 : socket.emit("playerHasJoined", players)
+            players.length > 4 || !game.isOpen ? code = 403 : socket.emit("playerHasJoined", players)
         }
 
         res.status(code).json()

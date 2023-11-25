@@ -1,8 +1,15 @@
+DROP TABLE Series;
+DROP TABLE Card;
+DROP TABLE Player;
+DROP TABLE Round;
+DROP TABLE Game;
+
 CREATE TABLE Game
 (
     id            INTEGER PRIMARY KEY AUTO_INCREMENT,
     accessCode    VARCHAR(255) NOT NULL,
-    roundsToReach INTEGER
+    roundsToReach INTEGER,
+    isOpen        BOOLEAN
 );
 
 CREATE TABLE Player
@@ -11,6 +18,15 @@ CREATE TABLE Player
     username  VARCHAR(32) NOT NULL,
     roundsWon INTEGER,
     game      INTEGER,
+    winner    BOOLEAN,
+
+    FOREIGN KEY (game) REFERENCES Game (id)
+);
+
+CREATE TABLE Round
+(
+    id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+    game INTEGER NOT NULL,
 
     FOREIGN KEY (game) REFERENCES Game (id)
 );
@@ -22,27 +38,24 @@ CREATE TABLE Card
     positionY INTEGER,
     color     VARCHAR(7) NOT NULL,
     value     INTEGER    NOT NULL,
-    game      INTEGER    NOT NULL,
+    round     INTEGER    NOT NULL,
     player    INTEGER    NOT NULL,
 
-    CONSTRAINT ck_color CHECK (color IN ('#ED1D23', '#00B9F1', '#F9AE19', '#70BE44')),
-    CONSTRAINT ck_value CHECK (value BETWEEN 1 AND 9),
-    FOREIGN KEY (game) REFERENCES Game (id),
+    FOREIGN KEY (round) REFERENCES Round (id),
     FOREIGN KEY (player) REFERENCES Player (id)
 );
 
 CREATE TABLE Series
 (
-    id    INTEGER PRIMARY KEY AUTO_INCREMENT,
-    score INTEGER
-);
+    id          INTEGER PRIMARY KEY AUTO_INCREMENT,
+    seriesColor VARCHAR(7) NOT NULL,
+    score       INTEGER,
+    length      INTEGER,
+    start       INTEGER    NOT NULL,
+    end         INTEGER    NOT NULL,
+    round       INTEGER    NOT NULL,
 
-CREATE TABLE CardSeries
-(
-    card   INTEGER NOT NULL,
-    series INTEGER NOT NULL,
-
-    PRIMARY KEY (card, series),
-    FOREIGN KEY (card) REFERENCES Card (id),
-    FOREIGN KEY (series) REFERENCES Series (id)
+    FOREIGN KEY (start) REFERENCES Card (id),
+    FOREIGN KEY (end) REFERENCES Card (id),
+    FOREIGN KEY (round) REFERENCES Round (id)
 );

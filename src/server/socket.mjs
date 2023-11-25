@@ -18,12 +18,16 @@ io.on("connection", (socket) => {
         io.emit("playerHasJoined", players)
     })
 
-    socket.on("gameHasStarted", (data) => {
-        io.emit("gameHasStarted", data)
-    })
-
     socket.on("playerHasPlayed", (players) => {
         io.emit("playerHasPlayed", players.allPlayers[(players.allPlayers.indexOf(players.allPlayers.find(player => player.id === players.currentPlayer)) + 1) % players.allPlayers.length].id)
+    })
+
+    socket.on("roundEnded", (data) => {
+        io.emit("roundEnded", data)
+    })
+
+    socket.on("startNewRound", (data) => {
+        io.emit("startNewRound", data)
     })
 
     socket.on("updateBoard", (card) => {
