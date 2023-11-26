@@ -6,17 +6,8 @@ export default function Home() {
     const router = useRouter()
 
     const handleDatabaseChoice = async (database) => {
-        const results = await fetch("api/getDatabase", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({database: database}),
-        })
-
-        if (results.status === 204) {
-            await router.push({
-                pathname: "/play",
-            }, "/play")
-        }
+        document.cookie = `database=${database}`
+        await router.push("/play")
     }
 
     return (<div className="database-selector-container">

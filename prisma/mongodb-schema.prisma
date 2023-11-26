@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "./mongodb-client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_DATABASE_URL")
+}
+
+model Card {
+  id                        String   @id @default(auto()) @map("_id") @db.ObjectId
+  positionX                 Int?
+  positionY                 Int?
+  color                     String
+  value                     Int
+  round                     String   @db.ObjectId
+  player                    String   @db.ObjectId
+  Round                     Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Player                    Player   @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series_Series_startToCard Series[] @relation("Series_startToCard")
+  Series_Series_endToCard   Series[] @relation("Series_endToCard")
+
+  @@index([player], map: "player")
+  @@index([round], map: "round")
+}
+
+model Game {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  accessCode    String
+  roundsToReach Int?
+  isOpen        Boolean?
+  Player        Player[]
+  Round         Round[]
+}
+
+model Player {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String
+  roundsWon Int?
+  game      String?  @db.ObjectId
+  winner    Boolean?
+  Card      Card[]
+  Game      Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([game], map: "game")
+}
+
+model Series {
+  id                      String @id @default(auto()) @map("_id") @db.ObjectId
+  seriesColor             String
+  score                   Int?
+  length                  Int?
+  start                   String @db.ObjectId
+  end                     String @db.ObjectId
+  round                   String @db.ObjectId
+  Card_Series_startToCard Card   @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_endToCard   Card   @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Round                   Round  @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([end], map: "end")
+  @@index([start], map: "start")
+  @@index([round], map: "round")
+}
+
+model Round {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  game   String   @db.ObjectId
+  Card   Card[]
+  Game   Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series Series[]
+
+  @@index([game], map: "game")
+}

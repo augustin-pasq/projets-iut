@@ -1,9 +1,26 @@
-import prisma from "../../../lib/prisma"
+import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
+import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
+import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
 import arrayShuffle from "array-shuffle"
 
 const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
 
 export default async function handle(req, res) {
+    let prisma
+    switch (req.headers.cookie?.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1]) {
+        case "mysql":
+        default:
+            prisma = new MySQLPrismaCLient()
+            break
+        case "mongodb":
+            prisma = new MongoDBPrismaClient()
+            break
+        case "sqlite":
+            prisma = new SQLitePrismaClient()
+            break
+        // Handle other databases if needed
+    }
+
     try {
         await prisma.game.update({
             data: {

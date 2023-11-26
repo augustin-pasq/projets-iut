@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./sqlite-client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../database/sqlite-database.db"
+}
+
+model Card {
+  id                        Int      @id @default(autoincrement())
+  positionX                 Int?
+  positionY                 Int?
+  color                     String
+  value                     Int
+  round                     Int
+  player                    Int
+  Player                    Player   @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Round                     Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series_Series_endToCard   Series[] @relation("Series_endToCard")
+  Series_Series_startToCard Series[] @relation("Series_startToCard")
+}
+
+model Game {
+  id            Int      @id @default(autoincrement())
+  accessCode    String
+  roundsToReach Int?
+  isOpen        Boolean?
+  Player        Player[]
+  Round         Round[]
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  username  String
+  roundsWon Int?
+  game      Int?
+  winner    Boolean?
+  Card      Card[]
+  Game      Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Round {
+  id     Int      @id @default(autoincrement())
+  game   Int
+  Card   Card[]
+  Game   Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series Series[]
+}
+
+model Series {
+  id                      Int    @id @default(autoincrement())
+  seriesColor             String
+  score                   Int?
+  length                  Int?
+  start                   Int
+  end                     Int
+  round                   Int
+  Round                   Round  @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_endToCard   Card   @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_startToCard Card   @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

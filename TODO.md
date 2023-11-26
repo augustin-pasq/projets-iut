@@ -24,14 +24,3 @@
 
 ## On verra
 - [ ] Faire le responsive
-
-## Règles non implémentées :
-- Dans le cas d'une partie à trois joueurs, la couleur neutre compte quand même (il peut se passer des choses bizarres dans le cas d'une victoire avec cette couleur)
-- Ce n'est pas le joueur le plus jeune qui commence, mais le premier qui a créé son pseudo
-- Impossible de jouer tout le temps à gauche, comme la grille est fixe
-- Une série est gagnante dès 4 cartes, même pour un jeu à 2 joueurs (au lieu de 5 cartes)
-- Toutes les cartes sont remélangées au début d'une manche, le gagnant n'enlève pas la carte avec le plus de points
-- Jeu par équipes
-
-## Fonctionnalités manquantes :
-- Gestion des déconnexions
