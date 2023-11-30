@@ -3,10 +3,10 @@ import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-cli
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
 import {io} from "socket.io-client"
 
+let prisma
 const socket = io.connect("http://localhost:4000")
 
 export default async function handle(req, res) {
-    let prisma
     switch (req.headers.cookie?.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1]) {
         case "mysql":
         default:
@@ -18,7 +18,6 @@ export default async function handle(req, res) {
         case "sqlite":
             prisma = new SQLitePrismaClient()
             break
-        // Handle other databases if needed
     }
 
     try {
@@ -55,5 +54,7 @@ export default async function handle(req, res) {
         res.status(code).json()
     } catch (err) {
         res.status(500).json(err)
+    } finally {
+        await prisma.$disconnect()
     }
 }

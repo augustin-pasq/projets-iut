@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./mysql-client"
+  output   = "./mysql-client"
 }
 
 datasource db {
@@ -10,6 +10,7 @@ datasource db {
 
 model Card {
   id                        Int      @id @default(autoincrement())
+  creation_date             DateTime @default(dbgenerated("(now())")) @db.DateTime(0)
   positionX                 Int?
   positionY                 Int?
   color                     String   @db.VarChar(7)
@@ -27,6 +28,7 @@ model Card {
 
 model Game {
   id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(dbgenerated("(now())")) @db.DateTime(0)
   accessCode    String   @db.VarChar(255)
   roundsToReach Int?
   isOpen        Boolean?
@@ -35,28 +37,30 @@ model Game {
 }
 
 model Player {
-  id        Int      @id @default(autoincrement())
-  username  String   @db.VarChar(32)
-  roundsWon Int?
-  game      Int?
-  winner    Boolean?
-  Card      Card[]
-  Game      Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Player_ibfk_1")
+  id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(dbgenerated("(now())")) @db.DateTime(0)
+  username      String   @db.VarChar(32)
+  roundsWon     Int?
+  game          Int?
+  winner        Boolean?
+  Card          Card[]
+  Game          Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Player_ibfk_1")
 
   @@index([game], map: "game")
 }
 
 model Series {
-  id                      Int    @id @default(autoincrement())
-  seriesColor             String @db.VarChar(7)
+  id                      Int      @id @default(autoincrement())
+  creation_date           DateTime @default(dbgenerated("(now())")) @db.DateTime(0)
+  seriesColor             String   @db.VarChar(7)
   score                   Int?
   length                  Int?
   start                   Int
   end                     Int
   round                   Int
-  Card_Series_startToCard Card   @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_1")
-  Card_Series_endToCard   Card   @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_2")
-  Round                   Round  @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_3")
+  Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_1")
+  Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_2")
+  Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Series_ibfk_3")
 
   @@index([end], map: "end")
   @@index([start], map: "start")
@@ -64,11 +68,12 @@ model Series {
 }
 
 model Round {
-  id     Int      @id @default(autoincrement())
-  game   Int
-  Card   Card[]
-  Game   Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Round_ibfk_1")
-  Series Series[]
+  id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(dbgenerated("(now())")) @db.DateTime(0)
+  game          Int
+  Card          Card[]
+  Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Round_ibfk_1")
+  Series        Series[]
 
   @@index([game], map: "game")
 }

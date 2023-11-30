@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./mongodb-client"
+  output   = "./mongodb-client"
 }
 
 datasource db {
@@ -10,6 +10,7 @@ datasource db {
 
 model Card {
   id                        String   @id @default(auto()) @map("_id") @db.ObjectId
+  creation_date             DateTime @default(now())
   positionX                 Int?
   positionY                 Int?
   color                     String
@@ -27,6 +28,7 @@ model Card {
 
 model Game {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  creation_date DateTime @default(now())
   accessCode    String
   roundsToReach Int?
   isOpen        Boolean?
@@ -35,28 +37,30 @@ model Game {
 }
 
 model Player {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String
-  roundsWon Int?
-  game      String?  @db.ObjectId
-  winner    Boolean?
-  Card      Card[]
-  Game      Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  creation_date DateTime @default(now())
+  username      String
+  roundsWon     Int?
+  game          String?  @db.ObjectId
+  winner        Boolean?
+  Card          Card[]
+  Game          Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([game], map: "game")
 }
 
 model Series {
-  id                      String @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  creation_date           DateTime @default(now())
   seriesColor             String
   score                   Int?
   length                  Int?
-  start                   String @db.ObjectId
-  end                     String @db.ObjectId
-  round                   String @db.ObjectId
-  Card_Series_startToCard Card   @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_endToCard   Card   @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Round                   Round  @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  start                   String   @db.ObjectId
+  end                     String   @db.ObjectId
+  round                   String   @db.ObjectId
+  Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([end], map: "end")
   @@index([start], map: "start")
@@ -64,11 +68,12 @@ model Series {
 }
 
 model Round {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  game   String   @db.ObjectId
-  Card   Card[]
-  Game   Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series Series[]
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  creation_date DateTime @default(now())
+  game          String   @db.ObjectId
+  Card          Card[]
+  Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series        Series[]
 
   @@index([game], map: "game")
 }

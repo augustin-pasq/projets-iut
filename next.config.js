@@ -14,6 +14,17 @@ const nextConfig = {
         permanent: false,
         destination: '/',
       },
+      {
+        source: '/admin',
+        missing: [
+          {
+            type: 'cookie',
+            key: 'database',
+          },
+        ],
+        permanent: false,
+        destination: '/',
+      },
     ]
   }
 }

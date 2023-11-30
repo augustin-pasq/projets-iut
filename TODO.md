@@ -10,9 +10,9 @@
     - Compter le nombre de séries de 3 par joueur
     - Si égalité : la série la plus faible gagne
 - [x] Triage des cartes à la fin de la manche
-- [ ] Stocker la date des opérations
+- [x] Stocker la date des opérations
 - [x] Stocker les victoires et les défaites du joueur
-- [ ] Gestion des manches
+- [x] Gestion des manches
 
 ## Important
 - [ ] Afficher les decks des autres joueurs / Revoir l'affichage de gauche

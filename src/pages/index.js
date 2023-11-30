@@ -10,7 +10,7 @@ export default function Home() {
         await router.push("/play")
     }
 
-    return (<div className="database-selector-container">
+    return (<div className="selector-container">
         <h1>Choisir une base de données</h1>
 
         <div className="buttons-container">

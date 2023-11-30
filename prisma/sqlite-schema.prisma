@@ -10,6 +10,7 @@ datasource db {
 
 model Card {
   id                        Int      @id @default(autoincrement())
+  creation_date             DateTime @default(now())
   positionX                 Int?
   positionY                 Int?
   color                     String
@@ -24,6 +25,7 @@ model Card {
 
 model Game {
   id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(now())
   accessCode    String
   roundsToReach Int?
   isOpen        Boolean?
@@ -32,32 +34,35 @@ model Game {
 }
 
 model Player {
-  id        Int      @id @default(autoincrement())
-  username  String
-  roundsWon Int?
-  game      Int?
-  winner    Boolean?
-  Card      Card[]
-  Game      Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(now())
+  username      String
+  roundsWon     Int?
+  game          Int?
+  winner        Boolean?
+  Card          Card[]
+  Game          Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Round {
-  id     Int      @id @default(autoincrement())
-  game   Int
-  Card   Card[]
-  Game   Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series Series[]
+  id            Int      @id @default(autoincrement())
+  creation_date DateTime @default(now())
+  game          Int
+  Card          Card[]
+  Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Series        Series[]
 }
 
 model Series {
-  id                      Int    @id @default(autoincrement())
+  id                      Int      @id @default(autoincrement())
+  creation_date           DateTime @default(now())
   seriesColor             String
   score                   Int?
   length                  Int?
   start                   Int
   end                     Int
   round                   Int
-  Round                   Round  @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_endToCard   Card   @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_startToCard Card   @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

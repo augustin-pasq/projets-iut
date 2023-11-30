@@ -3,10 +3,10 @@ import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-cli
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
 import arrayShuffle from "array-shuffle"
 
+let prisma
 const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
 
 export default async function handle(req, res) {
-    let prisma
     switch (req.headers.cookie?.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1]) {
         case "mysql":
         default:
@@ -18,7 +18,6 @@ export default async function handle(req, res) {
         case "sqlite":
             prisma = new SQLitePrismaClient()
             break
-        // Handle other databases if needed
     }
 
     try {
@@ -112,5 +111,7 @@ export default async function handle(req, res) {
         res.status(200).json({decks: decks, players: req.body.players, roundId: round.id})
     } catch (err) {
         res.status(500).json(err)
+    } finally {
+        await prisma.$disconnect()
     }
 }

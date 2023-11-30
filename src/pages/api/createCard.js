@@ -2,8 +2,9 @@ import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
 import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
 
+let prisma
+
 export default async function handle(req, res) {
-    let prisma
     switch (req.headers.cookie?.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1]) {
         case "mysql":
         default:
@@ -211,5 +212,7 @@ export default async function handle(req, res) {
 
     } catch (err) {
         res.status(500).json(err)
+    } finally {
+        await prisma.$disconnect()
     }
 }
