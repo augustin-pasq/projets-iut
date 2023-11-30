@@ -1,26 +1,26 @@
 # TODO
 
-## Urgent
-- [x] Superposition : la valeur de la carte doit être supérieure à celle déjà posée
-- [x] Des fois couleur manquante
+## Jeu
+- [ ] Gérer la couleur neutre
 - [ ] Conditions d'arrêt :
-  - Série de 4 cartes de la même couleur → je le vérifie à chaque fois qu'on pose une carte : on prend toutes les séries de la couleur et on vérifie si c'est à suivre
+  - Série de 4 cartes de la même couleur (5 cartes pour un jeu à deux)
   - Plus de cartes dans le deck
   - Dès qu'un joueur ne peut plus poser de cartes :
     - Compter le nombre de séries de 3 par joueur
     - Si égalité : la série la plus faible gagne
-- [x] Triage des cartes à la fin de la manche
-- [x] Stocker la date des opérations
-- [x] Stocker les victoires et les défaites du joueur
-- [x] Gestion des manches
 
-## Important
-- [ ] Afficher les decks des autres joueurs / Revoir l'affichage de gauche
+## Outil de gestion de données
+- [ ] Transfert MySQL → MongoDB et SQLite
+- [ ] Génération de données
 
-## Moyennement important
-- [ ] Masquer la carte tant que ce n'est pas le tour du joueur
-- [ ] Afficher le joueur dont c'est le tour
+## Rendu
+- [ ] Rapport à rédiger
+- [ ] Compléter/Corriger le README
+
+## Améliorations possibles
+- [ ] Revoir l'affichage de gauche :
+  - Afficher le joueur dont c'est le tour
+  - Afficher les decks des autres joueurs
+  - Masquer la carte tant que ce n'est pas le tour du joueur
 - [ ] Afficher les emplacements disponibles pour poser une carte
-
-## On verra
 - [ ] Faire le responsive
