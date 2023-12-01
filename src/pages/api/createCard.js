@@ -1,6 +1,7 @@
 import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
 import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
+import { v4 as uuidv4 } from "uuid"
 
 let prisma
 
@@ -44,6 +45,7 @@ export default async function handle(req, res) {
         if (previousCard !== null && req.body.value > previousCard.value) { // Superposition
             card = await prisma.card.create({
                 data: {
+                    id: uuidv4(),
                     positionX: req.body.positionX,
                     positionY: req.body.positionY,
                     color: req.body.color,
@@ -58,6 +60,7 @@ export default async function handle(req, res) {
             if ((roundCardsCount === 0 && (req.body.positionX === 2 || req.body.positionX === 3) && (req.body.positionY === 2 || req.body.positionY === 3)) || neighbors.length > 0) {
                 card = await prisma.card.create({
                     data: {
+                        id: uuidv4(),
                         positionX: req.body.positionX,
                         positionY: req.body.positionY,
                         color: req.body.color,
@@ -86,6 +89,7 @@ export default async function handle(req, res) {
                 for (const colorNeighbor of colorNeighbors) {
                     await prisma.series.create({
                         data: {
+                            id: uuidv4(),
                             seriesColor: colorNeighbor.color,
                             score: parseInt(colorNeighbor.value) + parseInt(card.value),
                             length: 2,

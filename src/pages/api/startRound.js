@@ -2,6 +2,7 @@ import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
 import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
 import arrayShuffle from "array-shuffle"
+import {v4 as uuidv4} from "uuid";
 
 let prisma
 const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
@@ -30,7 +31,12 @@ export default async function handle(req, res) {
             }
         })
 
-        const round = await prisma.round.create({data: {game: req.body.gameId}})
+        const round = await prisma.round.create({
+            data: {
+                id: uuidv4(),
+                game: req.body.gameId
+            }
+        })
 
 
         let p1Colors, p2Colors, p3Colors, p4Colors

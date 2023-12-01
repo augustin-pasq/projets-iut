@@ -10,7 +10,6 @@
     - Si égalité : la série la plus faible gagne
 
 ## Outil de gestion de données
-- [ ] Transfert MySQL → MongoDB et SQLite
 - [ ] Génération de données
 
 ## Rendu

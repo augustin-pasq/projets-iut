@@ -1,6 +1,7 @@
 import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
 import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
+import {v4 as uuidv4} from "uuid";
 
 let prisma
 export default async function handle(req, res) {
@@ -30,6 +31,7 @@ export default async function handle(req, res) {
 
         const game = await prisma.game.create({
             data: {
+                id: uuidv4(),
                 accessCode: accessCode,
                 roundsToReach: req.body.roundsToReach,
                 isOpen: true

@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Game;
 
 CREATE TABLE Game
 (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            TEXT PRIMARY KEY,
     creation_date DATETIME NOT NULL DEFAULT (datetime('now')),
     accessCode    TEXT     NOT NULL,
     roundsToReach INTEGER,
@@ -15,11 +15,11 @@ CREATE TABLE Game
 
 CREATE TABLE Player
 (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            TEXT PRIMARY KEY,
     creation_date DATETIME NOT NULL DEFAULT (datetime('now')),
     username      TEXT     NOT NULL,
     roundsWon     INTEGER,
-    game          INTEGER,
+    game          TEXT,
     winner        BOOLEAN,
 
     FOREIGN KEY (game) REFERENCES Game (id)
@@ -27,23 +27,23 @@ CREATE TABLE Player
 
 CREATE TABLE Round
 (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            TEXT PRIMARY KEY,
     creation_date DATETIME NOT NULL DEFAULT (datetime('now')),
-    game          INTEGER  NOT NULL,
+    game          TEXT     NOT NULL,
 
     FOREIGN KEY (game) REFERENCES Game (id)
 );
 
 CREATE TABLE Card
 (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            TEXT PRIMARY KEY,
     creation_date DATETIME NOT NULL DEFAULT (datetime('now')),
     positionX     INTEGER,
     positionY     INTEGER,
     color         TEXT     NOT NULL,
     value         INTEGER  NOT NULL,
-    round         INTEGER  NOT NULL,
-    player        INTEGER  NOT NULL,
+    round         TEXT     NOT NULL,
+    player        TEXT     NOT NULL,
 
     FOREIGN KEY (round) REFERENCES Round (id),
     FOREIGN KEY (player) REFERENCES Player (id)
@@ -51,14 +51,14 @@ CREATE TABLE Card
 
 CREATE TABLE Series
 (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            TEXT PRIMARY KEY,
     creation_date DATETIME NOT NULL DEFAULT (datetime('now')),
     seriesColor   TEXT     NOT NULL,
     score         INTEGER,
     length        INTEGER,
-    start         INTEGER  NOT NULL,
-    end           INTEGER  NOT NULL,
-    round         INTEGER  NOT NULL,
+    start         TEXT     NOT NULL,
+    end           TEXT     NOT NULL,
+    round         TEXT     NOT NULL,
 
     FOREIGN KEY (start) REFERENCES Card (id),
     FOREIGN KEY (end) REFERENCES Card (id),

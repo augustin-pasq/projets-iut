@@ -9,14 +9,14 @@ datasource db {
 }
 
 model Card {
-  id                        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                        String   @id @default(uuid()) @map("_id") @db.String
   creation_date             DateTime @default(now())
   positionX                 Int?
   positionY                 Int?
   color                     String
   value                     Int
-  round                     String   @db.ObjectId
-  player                    String   @db.ObjectId
+  round                     String   @db.String
+  player                    String   @db.String
   Round                     Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Player                    Player   @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Series_Series_startToCard Series[] @relation("Series_startToCard")
@@ -27,7 +27,7 @@ model Card {
 }
 
 model Game {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(uuid()) @map("_id") @db.String
   creation_date DateTime @default(now())
   accessCode    String
   roundsToReach Int?
@@ -37,11 +37,11 @@ model Game {
 }
 
 model Player {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(uuid()) @map("_id") @db.String
   creation_date DateTime @default(now())
   username      String
   roundsWon     Int?
-  game          String?  @db.ObjectId
+  game          String?  @db.String
   winner        Boolean?
   Card          Card[]
   Game          Game?    @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -50,14 +50,14 @@ model Player {
 }
 
 model Series {
-  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String   @id @default(uuid()) @map("_id") @db.String
   creation_date           DateTime @default(now())
   seriesColor             String
   score                   Int?
   length                  Int?
-  start                   String   @db.ObjectId
-  end                     String   @db.ObjectId
-  round                   String   @db.ObjectId
+  start                   String   @db.String
+  end                     String   @db.String
+  round                   String   @db.String
   Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -68,9 +68,9 @@ model Series {
 }
 
 model Round {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(uuid()) @map("_id") @db.String
   creation_date DateTime @default(now())
-  game          String   @db.ObjectId
+  game          String   @db.String
   Card          Card[]
   Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Series        Series[]

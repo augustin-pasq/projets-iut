@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Game;
 
 CREATE TABLE Game
 (
-    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
+    id            VARCHAR(255) PRIMARY KEY,
     creation_date DATETIME     NOT NULL DEFAULT (NOW()),
     accessCode    VARCHAR(255) NOT NULL,
     roundsToReach INTEGER,
@@ -15,11 +15,11 @@ CREATE TABLE Game
 
 CREATE TABLE Player
 (
-    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
+    id            VARCHAR(255) PRIMARY KEY,
     creation_date DATETIME    NOT NULL DEFAULT (NOW()),
     username      VARCHAR(32) NOT NULL,
     roundsWon     INTEGER,
-    game          INTEGER,
+    game          VARCHAR(255),
     winner        BOOLEAN,
 
     FOREIGN KEY (game) REFERENCES Game (id)
@@ -27,23 +27,23 @@ CREATE TABLE Player
 
 CREATE TABLE Round
 (
-    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
-    creation_date DATETIME NOT NULL DEFAULT (NOW()),
-    game          INTEGER  NOT NULL,
+    id            VARCHAR(255) PRIMARY KEY,
+    creation_date DATETIME     NOT NULL DEFAULT (NOW()),
+    game          VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (game) REFERENCES Game (id)
 );
 
 CREATE TABLE Card
 (
-    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
-    creation_date DATETIME   NOT NULL DEFAULT (NOW()),
+    id            VARCHAR(255) PRIMARY KEY,
+    creation_date DATETIME     NOT NULL DEFAULT (NOW()),
     positionX     INTEGER,
     positionY     INTEGER,
-    color         VARCHAR(7) NOT NULL,
-    value         INTEGER    NOT NULL,
-    round         INTEGER    NOT NULL,
-    player        INTEGER    NOT NULL,
+    color         VARCHAR(7)   NOT NULL,
+    value         INTEGER      NOT NULL,
+    round         VARCHAR(255) NOT NULL,
+    player        VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (round) REFERENCES Round (id),
     FOREIGN KEY (player) REFERENCES Player (id)
@@ -51,14 +51,14 @@ CREATE TABLE Card
 
 CREATE TABLE Series
 (
-    id            INTEGER PRIMARY KEY AUTO_INCREMENT,
-    creation_date DATETIME   NOT NULL DEFAULT (NOW()),
-    seriesColor   VARCHAR(7) NOT NULL,
+    id            VARCHAR(255) PRIMARY KEY,
+    creation_date DATETIME     NOT NULL DEFAULT (NOW()),
+    seriesColor   VARCHAR(7)   NOT NULL,
     score         INTEGER,
     length        INTEGER,
-    start         INTEGER    NOT NULL,
-    end           INTEGER    NOT NULL,
-    round         INTEGER    NOT NULL,
+    start         VARCHAR(255) NOT NULL,
+    end           VARCHAR(255) NOT NULL,
+    round         VARCHAR(255) NOT NULL,
 
     FOREIGN KEY (start) REFERENCES Card (id),
     FOREIGN KEY (end) REFERENCES Card (id),

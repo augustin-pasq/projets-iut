@@ -1,6 +1,7 @@
 import { PrismaClient as MySQLPrismaCLient } from "../../../prisma/mysql-client"
 import { PrismaClient as MongoDBPrismaClient } from "../../../prisma/mongodb-client"
 import { PrismaClient as SQLitePrismaClient } from "../../../prisma/sqlite-client"
+import {v4 as uuidv4} from "uuid";
 
 let prisma
 
@@ -21,6 +22,7 @@ export default async function handle(req, res) {
     try {
         const results = await prisma.player.create({
             data: {
+                id: uuidv4(),
                 username: req.body.username,
                 roundsWon: 0,
                 game: undefined
