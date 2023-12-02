@@ -3,7 +3,6 @@
 ## Jeu
 - [ ] Gérer la couleur neutre
 - [ ] Conditions d'arrêt :
-  - Série de 4 cartes de la même couleur (5 cartes pour un jeu à deux)
   - Plus de cartes dans le deck
   - Dès qu'un joueur ne peut plus poser de cartes :
     - Compter le nombre de séries de 3 par joueur

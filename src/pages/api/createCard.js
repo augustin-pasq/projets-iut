@@ -174,32 +174,45 @@ export default async function handle(req, res) {
             }
         }
 
+        const game = await prisma.game.findUnique({where: {id: round.game}})
+        let playersNumber = await prisma.player.count({where: {game: game.id}})
         let winner = await prisma.series.findFirst({
             select: {
                 Card_Series_startToCard: {
                     select: {
-                        player: true
+                        Player: {
+                            select: {
+                                id: true,
+                                roundsWon: true
+                            }
+                        }
                     }
                 }
             },
             where: {
                 round: round.id,
-                length: 4,
+                length: playersNumber === 2 ? 5 : 4,
             }
         })
 
         if (winner !== null) {
-            const game = await prisma.game.findUnique({where: {id: round.game}})
-            let roundsNumber = await prisma.round.count({where: {game: game.id}})
+            await prisma.player.update({
+                data: {
+                    roundsWon: winner.Card_Series_startToCard.Player.roundsWon + 1
+                },
+                where: {
+                    id: winner.Card_Series_startToCard.Player.id
+                }
+            })
 
             let type
-            if (roundsNumber === game.roundsToReach) {
+            if (game.roundsToReach === winner.Card_Series_startToCard.Player.roundsWon + 1) {
                 await prisma.player.update({
                     data: {
                         winner: true
                     },
                     where: {
-                        id: winner.Card_Series_startToCard.player
+                        id: winner.Card_Series_startToCard.Player.id
                     }
                 })
 
@@ -209,11 +222,10 @@ export default async function handle(req, res) {
             }
 
 
-            res.status(200).json({type: type, winner: winner.Card_Series_startToCard.player})
+            res.status(200).json({type: type, winner: winner.Card_Series_startToCard.Player.id})
         } else {
             res.status(code).json()
         }
-
     } catch (err) {
         res.status(500).json(err)
     } finally {
