@@ -93,19 +93,6 @@ export default async function handle(req, res) {
                             code = 400
                         }
                         break
-                    case "Séries":
-                        if(fileFields.toString() === ["id", "creation_date", "seriesColor", "score", "length", "start", "end", "round"].toString()) {
-                            try {
-                                await prisma.series.createMany({
-                                    data: fileData
-                                })
-                            } catch (err) {
-                                res.status(409).json(err)
-                            }
-                        } else {
-                            code = 400
-                        }
-                        break
                 }
 
                 if (database === "mysql") await prisma.$queryRaw`SET foreign_key_checks = 1;`
@@ -158,18 +145,6 @@ export default async function handle(req, res) {
                                 await prisma.$transaction(records)
                             } catch (err) {
                                 console.log(err)
-                                res.status(409).json(err)
-                            }
-                        } else {
-                            code = 400
-                        }
-                        break
-                    case "Séries":
-                        if(fileFields.toString() === ["id", "creation_date", "seriesColor", "score", "length", "start", "end", "round"].toString()) {
-                            try {
-                                for (const record of fileData) records.push(prisma.series.create({data: record}))
-                                await prisma.$transaction(records)
-                            } catch (err) {
                                 res.status(409).json(err)
                             }
                         } else {

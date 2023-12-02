@@ -19,8 +19,6 @@ model Card {
   player                    String   @db.String
   Round                     Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Player                    Player   @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series_Series_startToCard Series[] @relation("Series_startToCard")
-  Series_Series_endToCard   Series[] @relation("Series_endToCard")
 
   @@index([player], map: "player")
   @@index([round], map: "round")
@@ -49,31 +47,12 @@ model Player {
   @@index([game], map: "game")
 }
 
-model Series {
-  id                      String   @id @default(uuid()) @map("_id") @db.String
-  creation_date           DateTime @default(now())
-  seriesColor             String
-  score                   Int?
-  length                  Int?
-  start                   String   @db.String
-  end                     String   @db.String
-  round                   String   @db.String
-  Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([end], map: "end")
-  @@index([start], map: "start")
-  @@index([round], map: "round")
-}
-
 model Round {
   id            String   @id @default(uuid()) @map("_id") @db.String
   creation_date DateTime @default(now())
   game          String   @db.String
   Card          Card[]
   Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series        Series[]
 
   @@index([game], map: "game")
 }

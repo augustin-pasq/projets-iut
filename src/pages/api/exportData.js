@@ -36,9 +36,6 @@ export default async function handle(req, res) {
                 case "Joueurs":
                     data = await prisma.player.findMany()
                     break
-                case "Séries":
-                    data = await prisma.series.findMany()
-                    break
                 case "Manches":
                     data = await prisma.round.findMany()
                     break

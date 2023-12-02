@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS Series;
 DROP TABLE IF EXISTS Card;
 DROP TABLE IF EXISTS Player;
 DROP TABLE IF EXISTS Round;
@@ -47,20 +46,4 @@ CREATE TABLE Card
 
     FOREIGN KEY (round) REFERENCES Round (id),
     FOREIGN KEY (player) REFERENCES Player (id)
-);
-
-CREATE TABLE Series
-(
-    id            VARCHAR(255) PRIMARY KEY,
-    creation_date DATETIME     NOT NULL DEFAULT (NOW()),
-    seriesColor   VARCHAR(7)   NOT NULL,
-    score         INTEGER,
-    length        INTEGER,
-    start         VARCHAR(255) NOT NULL,
-    end           VARCHAR(255) NOT NULL,
-    round         VARCHAR(255) NOT NULL,
-
-    FOREIGN KEY (start) REFERENCES Card (id),
-    FOREIGN KEY (end) REFERENCES Card (id),
-    FOREIGN KEY (round) REFERENCES Round (id)
 );

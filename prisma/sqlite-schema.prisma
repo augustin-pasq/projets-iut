@@ -19,8 +19,6 @@ model Card {
   player                    String
   Player                    Player   @relation(fields: [player], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Round                     Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series_Series_endToCard   Series[] @relation("Series_endToCard")
-  Series_Series_startToCard Series[] @relation("Series_startToCard")
 }
 
 model Game {
@@ -50,19 +48,4 @@ model Round {
   game          String
   Card          Card[]
   Game          Game     @relation(fields: [game], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Series        Series[]
-}
-
-model Series {
-  id                      String   @id @default(uuid())
-  creation_date           DateTime @default(now())
-  seriesColor             String
-  score                   Int?
-  length                  Int?
-  start                   String
-  end                     String
-  round                   String
-  Round                   Round    @relation(fields: [round], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_endToCard   Card     @relation("Series_endToCard", fields: [end], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Card_Series_startToCard Card     @relation("Series_startToCard", fields: [start], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

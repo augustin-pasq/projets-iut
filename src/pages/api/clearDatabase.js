@@ -17,7 +17,7 @@ export default async function handle(req, res) {
     }
 
     try {
-        await prisma.$transaction([prisma.series.deleteMany(), prisma.card.deleteMany(), prisma.player.deleteMany(), prisma.round.deleteMany(), prisma.round.deleteMany(), prisma.game.deleteMany()])
+        await prisma.$transaction([prisma.card.deleteMany(), prisma.player.deleteMany(), prisma.round.deleteMany(), prisma.round.deleteMany(), prisma.game.deleteMany()])
 
         res.status(204).json()
     } catch (err) {

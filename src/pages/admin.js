@@ -14,7 +14,7 @@ export default function Admin() {
     const [clearModal, setClearModal] = useState(false)
     const [selectedTables, setSelectedTables] = useState([])
     const [uploadedFiles, setUploadedFiles] = useState(null)
-    const tables = ["Joueurs", "Parties", "Manches", "Cartes", "Séries"]
+    const tables = ["Joueurs", "Parties", "Manches", "Cartes"]
     const toast = useRef(null);
 
     useEffect(() => {
