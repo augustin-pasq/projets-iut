@@ -50,7 +50,7 @@ npm run build
 
 ### Lancement de l'application
 ```bash
-npm run start
+npm run start-all
 ```
 
 ## Schéma de la base de données
