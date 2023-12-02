@@ -48,6 +48,9 @@ npx prisma generate --schema prisma/sqlite-schema.prisma
 ```
 - Adapter le client Prisma pour SQLite à l'arborescence en remplaçant dans le fichier ``database/sqlite-client/schema.prisma`` ``file:../database/sqlite-database.db`` par : ``file:../../database/sqlite-database.db``
 
+## Schéma de la base de données
+![schema.png](database%2Fschema.png)
+
 ## Améliorations possibles
 - Revoir l'affichage de gauche :
     - Afficher le joueur dont c'est le tour
