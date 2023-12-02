@@ -10,8 +10,8 @@ Un outil de gestion des données est également inclus pour procéder à de l'im
 Les règles du Punto sont disponibles ici : https://montvalsurloir.bibli.fr/doc_num.php?explnum_id=4140
 
 ### Règles non implémentées
-- Dans le cas d'une partie à trois joueurs, la couleur neutre compte quand même (il peut se passer des choses bizarres dans le cas d'une victoire avec cette couleur)
-- La grille est fixe, rendant impossible de jouer plus de 2 cartes autour du carré central de 4 cases (là où dans le jeu original il est impossible de dépasser une grille de 6x6, certes, mais rien n'empêche de jouer toujours à gauche de la première carte posée par exemple)
+- Dans le cas d'une partie à trois joueurs, la couleur neutre compte quand même (il peut se passer des choses inattendues dans le cas d'une victoire avec cette couleur)
+- La grille est fixe, rendant impossible de jouer plus de 2 cartes autour du carré central de 4 cases (là où dans le jeu original, il est impossible de dépasser une grille de 6x6, certes, mais rien n'empêche de jouer toujours à gauche de la première carte posée par exemple)
 - Toutes les cartes sont remélangées au début d'une manche, le gagnant n'enlève pas la carte avec le plus de points
 - Jeu par équipes
 
@@ -47,6 +47,14 @@ npx prisma generate --schema prisma/mongodb-schema.prisma
 npx prisma generate --schema prisma/sqlite-schema.prisma
 ```
 - Adapter le client Prisma pour SQLite à l'arborescence en remplaçant dans le fichier ``database/sqlite-client/schema.prisma`` ``file:../database/sqlite-database.db`` par : ``file:../../database/sqlite-database.db``
+
+## Améliorations possibles
+- Revoir l'affichage de gauche :
+    - Afficher le joueur dont c'est le tour
+    - Afficher les decks des autres joueurs
+    - Masquer la carte tant que ce n'est pas le tour du joueur
+- Afficher les emplacements disponibles pour poser une carte
+- Faire le responsive
 
 ## Auteur
 - Augustin Pasquier ([@augustin-pasq](https://github.com/augustin-pasq))

@@ -134,7 +134,7 @@ export default function Home() {
     }
 
     const addCard = async (x, y) => {
-        if (playerTurn === playerId) {
+        if (playerTurn === playerId && decks[playerId].length > 0) {
             const results = await (await fetch("/api/createCard", {
                 method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
                     roundId: roundId,
