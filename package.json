@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "dev-all": "concurrently npm:socket npm:dev",
+    "start-all": "concurrently npm:socket npm:start",
     "prisma studio": "npx prisma studio",
     "socket": "node src/server/socket.mjs"
   },
@@ -13,6 +15,7 @@
     "@prisma/client": "^5.4.1",
     "@types/node": "^18.15.11",
     "array-shuffle": "^3.0.0",
+    "concurrently": "^8.2.2",
     "crypto": "^1.0.1",
     "formidable": "^3.5.1",
     "http": "^0.0.1-security",

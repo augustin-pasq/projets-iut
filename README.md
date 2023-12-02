@@ -23,10 +23,6 @@ Les règles du Punto sont disponibles ici : https://montvalsurloir.bibli.fr/doc_
 ```bash
 npm install
 ```
-- Lancement de l'application :
-```bash
-npm run dev
-```
 
 ### Bases de données
 - Ajouter un fichier ``.env`` à la racine du projet :
@@ -46,7 +42,16 @@ npx prisma generate --schema prisma/mysql-schema.prisma
 npx prisma generate --schema prisma/mongodb-schema.prisma
 npx prisma generate --schema prisma/sqlite-schema.prisma
 ```
-- Adapter le client Prisma pour SQLite à l'arborescence en remplaçant dans le fichier ``database/sqlite-client/schema.prisma`` ``file:../database/sqlite-database.db`` par : ``file:../../database/sqlite-database.db``
+
+### Build de l'application
+```bash
+npm run build
+```
+
+### Lancement de l'application
+```bash
+npm run start
+```
 
 ## Schéma de la base de données
 ![schema.png](database%2Fschema.png)
