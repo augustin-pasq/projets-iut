@@ -15,6 +15,19 @@ Les règles du Punto sont disponibles ici : https://montvalsurloir.bibli.fr/doc_
 - Toutes les cartes sont remélangées au début d'une manche, le gagnant n'enlève pas la carte avec le plus de points
 - Jeu par équipes
 
+## Fonctionnalités
+- `/`
+  - Choix de la base de données à utiliser (MySQL, MongoDB ou SQLite)
+- `/play`
+  - Jeu du Punto, de 2 à 4 joueurs avec choix du pseudo
+  - Multijoueur en ligne via WebSocket
+  - Nombre de manches personnalisable
+- `/admin`
+  - Outil de gestion des bases de données
+  - Export du contenu de la base, par table
+  - Import du contenu de chacune des trois bases, par table
+  - Réinitialisation de la base de données
+
 ## Installation
 
 ### Application web
