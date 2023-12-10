@@ -47,7 +47,7 @@ export default async function handle(req, res) {
             }
         })
 
-        const board = await prisma.card.findMany({
+        let board = await prisma.card.findMany({
             where: {
                 round: round.id
             }
@@ -64,10 +64,16 @@ export default async function handle(req, res) {
         }
 
         let seriesSize = players === 2 ? 5 : 4
-        if (roundCardsCount === 0 || canPlaceCard(board, card)) {
+        if (roundCardsCount === 0 || (card.color !== undefined && card.value !== undefined && canPlaceCard(board, card))) {
             if (roundCardsCount === 0 && (req.body.positionX === 2 || req.body.positionX === 3) && (req.body.positionY === 2 || req.body.positionY === 3)) {
                 await prisma.card.create({
                     data: card
+                })
+
+                board = await prisma.card.findMany({
+                    where: {
+                        round: round.id
+                    }
                 })
 
                 code = 204
@@ -93,10 +99,22 @@ export default async function handle(req, res) {
                         data: card
                     })
 
+                    board = await prisma.card.findMany({
+                        where: {
+                            round: round.id
+                        }
+                    })
+
                     code = 204
                 } else if (previousCard === null && neighbors.length > 0) { // Juxtaposition
                     await prisma.card.create({
                         data: card
+                    })
+
+                    board = await prisma.card.findMany({
+                        where: {
+                            round: round.id
+                        }
                     })
 
                     code = 204

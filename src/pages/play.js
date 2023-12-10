@@ -134,14 +134,14 @@ export default function Home() {
     }
 
     const addCard = async (x, y) => {
-        if (playerTurn === playerId && decks[playerId].length > 0) {
+        if (playerTurn === playerId) {
             const results = await (await fetch("/api/createCard", {
                 method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
                     roundId: roundId,
                     positionX: x,
                     positionY: y,
-                    color: decks[playerId][turnIndex].color,
-                    value: decks[playerId][turnIndex].value,
+                    color: decks[playerId].length > 0 ? decks[playerId][turnIndex].color : undefined,
+                    value: decks[playerId].length > 0 ? decks[playerId][turnIndex].value : undefined,
                     playerId: playerId
                 })
             }))
@@ -150,11 +150,10 @@ export default function Home() {
                 createRoot(document.querySelector(`#row-${x} > #cell-${y}`)).render(<PuntoCard
                     card={decks[playerId][turnIndex]}/>)
 
-                setTurnIndex(turnIndex + 1)
-
                 socket.emit("playerHasPlayed", {currentPlayer: playerId, allPlayers: players})
                 socket.emit("updateBoard", {card: decks[playerId][turnIndex], x: x, y: y})
 
+                setTurnIndex(turnIndex + 1)
                 decks[playerId].splice(turnIndex, 1)
 
                 if (results.status === 200) {
