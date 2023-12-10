@@ -25,7 +25,7 @@ export default function Admin() {
 
     const handleExport = async () => {
         setLoading(true)
-        const results = await (await fetch("/api/exportData", {
+        const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/exportData`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({tables: selectedTables}),
@@ -45,7 +45,7 @@ export default function Admin() {
 
     const handleClearDatabase = async () => {
         setLoading(true)
-        const results = await (await fetch("/api/clearDatabase", {
+        const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/clearDatabase`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
         }))
@@ -64,7 +64,7 @@ export default function Admin() {
         formData.append("file", uploadedFiles)
         formData.append("table", selectedTables)
 
-        const results = await fetch("/api/importData", {
+        const results = await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/importData`, {
             method: "POST",
             body: formData
         })

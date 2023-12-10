@@ -25,6 +25,7 @@ export default async function handle(req, res) {
                 id: uuidv4(),
                 username: req.body.username,
                 roundsWon: 0,
+                winner: false,
                 game: undefined
             }
         })

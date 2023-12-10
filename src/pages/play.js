@@ -60,7 +60,7 @@ export default function Home() {
 
     const handleDisplayModal = async () => {
         if (username.trim() !== "") {
-            const results = await (await fetch("/api/createPlayer", {
+            const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/createPlayer`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username: username}),
@@ -80,7 +80,7 @@ export default function Home() {
 
     const handleGameJoin = async (action) => {
         if (action === "create") {
-            const results = await (await fetch("/api/createGame", {
+            const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/createGame`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({playerId: playerId, roundsToReach: roundsToReach}),
@@ -96,7 +96,7 @@ export default function Home() {
                     .then(() => setIsGameCreated(true))
             }
         } else {
-            const results = await (await fetch("/api/getGame", {
+            const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/getGame`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({accessCode: accessCode, playerId: playerId}),
@@ -121,7 +121,7 @@ export default function Home() {
     }
 
     const handleNewRound = async () => {
-        const results = await (await fetch("/api/startRound", {
+        const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/startRound`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({gameId: gameId, players: players}),
@@ -135,7 +135,7 @@ export default function Home() {
 
     const addCard = async (x, y) => {
         if (playerTurn === playerId) {
-            const results = await (await fetch("/api/createCard", {
+            const results = await (await fetch(`/api${document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j" ? "/neo4j" : ""}/createCard`, {
                 method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({
                     roundId: roundId,
                     positionX: x,

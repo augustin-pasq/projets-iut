@@ -17,6 +17,7 @@ export default function Home() {
             <Button label="MySQL" onClick={() => handleDatabaseChoice("mysql")} />
             <Button label="MongoDB" onClick={() => handleDatabaseChoice("mongodb")} />
             <Button label="SQLite" onClick={() => handleDatabaseChoice("sqlite")} />
+            <Button label="Neo4j" onClick={() => handleDatabaseChoice("neo4j")} />
         </div>
     </div>)
 }
