@@ -93,8 +93,6 @@ export default async function handle(req, res) {
             }
         }
 
-        console.log(round)
-
         res.status(200).json({decks: decks, players: req.body.players, roundId: round.summary.query.parameters.id})
     } catch (err) {
         res.status(500).json(err)
