@@ -1,5 +1,4 @@
 import neo4j from "../../../../libs/neo4j.mjs"
-import {v4 as uuidv4} from "uuid"
 import {io} from "socket.io-client"
 
 const socket = io.connect("http://localhost:4000")
