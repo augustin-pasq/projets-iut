@@ -7,14 +7,14 @@ const colors = arrayShuffle(["#ED1D23", "#00B9F1", "#F9AE19", "#70BE44"])
 export default async function handle(req, res) {
     try {
         await neo4j.executeQuery(
-            `MATCH (game:Game {id: $id}) SET game.isOpen = false RETURN game;`,
+            `MATCH (g:Game {id: $id}) SET g.isOpen = false RETURN g;`,
             { id: req.body.gameId },
             { database: 'punto' }
         )
 
         const round = await neo4j.executeQuery(
-            `CREATE (r:Round {id: $id, game: $game})`,
-            { id: uuidv4(), game: req.body.gameId },
+            `MATCH (g:Game {id: $gameId}) CREATE (r:Round {id: $roundId})-[:is_from]->(g)`,
+            { gameId: req.body.gameId, roundId: uuidv4(), game: req.body.gameId },
             { database: 'punto' }
         )
 
@@ -95,6 +95,7 @@ export default async function handle(req, res) {
 
         res.status(200).json({decks: decks, players: req.body.players, roundId: round.summary.query.parameters.id})
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 }
