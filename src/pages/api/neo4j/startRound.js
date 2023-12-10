@@ -14,7 +14,7 @@ export default async function handle(req, res) {
 
         const round = await neo4j.executeQuery(
             `MATCH (g:Game {id: $gameId}) CREATE (r:Round {id: $roundId})-[:is_from]->(g)`,
-            { gameId: req.body.gameId, roundId: uuidv4(), game: req.body.gameId },
+            { gameId: req.body.gameId, roundId: uuidv4() },
             { database: 'punto' }
         )
 
@@ -93,9 +93,8 @@ export default async function handle(req, res) {
             }
         }
 
-        res.status(200).json({decks: decks, players: req.body.players, roundId: round.summary.query.parameters.id})
+        res.status(200).json({decks: decks, players: req.body.players, roundId: round.summary.query.parameters.roundId})
     } catch (err) {
-        console.log(err)
         res.status(500).json(err)
     }
 }
