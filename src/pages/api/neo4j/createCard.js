@@ -130,8 +130,6 @@ export default async function handle(req, res) {
             )
         }
 
-        console.log(winnerId)
-
         if (winnerId !== null) {
             const winner = await neo4j.executeQuery(
                 `MATCH (p:Player {id: $id}) RETURN p;`,
@@ -149,7 +147,7 @@ export default async function handle(req, res) {
             if (game.roundsToReach === winner.records[0]._fields[0].properties.roundsWon + 1) {
                 await neo4j.executeQuery(
                     `MATCH (p:Player {id: $id}) SET p.winner = $winner RETURN p`,
-                    { $winner: true },
+                    { id: winnerId.records[0]._fields[0].properties.id, winner: true },
                     { database: 'punto' }
                 )
 
