@@ -13,7 +13,6 @@ export default async function handle(req, res) {
 
         res.status(200).json(results.summary.query.parameters)
     } catch (err) {
-        console.log(err)
         res.status(500).json(err)
     }
 }

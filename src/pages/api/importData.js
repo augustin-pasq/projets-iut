@@ -144,7 +144,6 @@ export default async function handle(req, res) {
                                 for (const record of fileData) records.push(prisma.card.create({data: record}))
                                 await prisma.$transaction(records)
                             } catch (err) {
-                                console.log(err)
                                 res.status(409).json(err)
                             }
                         } else {

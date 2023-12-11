@@ -36,7 +36,6 @@ export default async function handle(req, res) {
 
         res.status(code).json()
     } catch (err) {
-        console.log(err)
         res.status(500).json(err)
     }
 }
