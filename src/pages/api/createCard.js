@@ -125,7 +125,7 @@ export default async function handle(req, res) {
         } else {
             let winColor = await findWinner(board)
 
-            winnerId = await prisma.player.findFirst({
+            winnerId = await prisma.card.findFirst({
                 select: {
                     Player: {
                         select: {
