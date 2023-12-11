@@ -134,7 +134,8 @@ export default async function handle(req, res) {
                     }
                 },
                 where: {
-                    color: winColor
+                    color: winColor,
+                    round: round.id
                 }
             })
         }
