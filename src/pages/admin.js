@@ -15,9 +15,12 @@ export default function Admin() {
     const [selectedTables, setSelectedTables] = useState([])
     const [uploadedFiles, setUploadedFiles] = useState(null)
     const tables = ["Joueurs", "Parties", "Manches", "Cartes"]
+    const [_document, set_document] = React.useState(null)
     const toast = useRef(null);
 
     useEffect(() => {
+        set_document(document)
+
         if(!importModal || !exportModal) {
             setSelectedTables( [])
         }
@@ -86,8 +89,8 @@ export default function Admin() {
         <h1>Administration</h1>
 
         <div className="buttons-container">
-            <Button label="Exporter des données" loading={loading} onClick={() => {setExportModal(true)}}/>
-            <Button label="Importer des données" loading={loading} onClick={() => {setImportModal(true)}}/>
+            <Button label="Exporter des données" disabled={_document && _document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j"} loading={loading} onClick={() => {setExportModal(true)}}/>
+            <Button label="Importer des données" disabled={_document && _document.cookie.split(';').find(cookie => cookie.trim().startsWith('database'))?.split('=')[1] === "neo4j"} loading={loading} onClick={() => {setImportModal(true)}}/>
             <Button label="Réinitialiser la base de données" loading={loading} onClick={() => {setClearModal(true)}}/>
         </div>
 
