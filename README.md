@@ -1,4 +1,4 @@
-# Application ToDo
+# Application ToDo Web
 
 Application ToDo de la ressource R4.10 - Complément web du BUT Informatique 2ème année.
 
