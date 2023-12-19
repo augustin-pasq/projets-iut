@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Application ToDo</string>
+    <string name="title">Titre</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="context">Contexte</string>
+    <string name="calendar">Calendrier</string>
+    <string name="add_task">Ajouter une tâche</string>
+    <string name="task_list">Liste des tâches</string>
+    <string name="cancel">Annuler</string>
+    <string name="edit_task">Modifier la tâche</string>
+    <string name="link">Lien</string>
+    <string name="close_webpage">Fermer la page web</string>
+    <string name="no_task">Vous n\'avez aucune tâche !</string>
+</resources>
