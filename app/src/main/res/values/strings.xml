@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TP1</string>
+    <string name="target_unit">Unité cible</string>
+    <string name="celsius">Celsius (°C)</string>
+    <string name="fahrenheit">Fahrenheit (°F)</string>
+    <string name="convertir">Convertir</string>
+    <string name="placeholder">Entrez une valeur à convertir</string>
+</resources>
