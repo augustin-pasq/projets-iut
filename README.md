@@ -1,6 +1,5 @@
 # Punto
-Projet #1 de la ressource R5.10 - Nouveaux paradigmes de base de données du parcours Réalisation d'applications : conception, développement, validation de la troisième année du BUT informatique à l'IUT de Vannes.
-
+Projet de la ressource R5.10 - Nouveaux paradigmes de base de données du BUT Informatique 3ème année.
 ## Description
 L'objectif du projet consiste en une implémentation du jeu de société Punto. Les données de jeu doivent pouvoir être stockées, au choix de l'utilisateur, sur une base de données MySQL, MongoDB, SQLite ou Neo4j.
 Un outil de gestion des données est également inclus pour procéder à de l'import/export/suppression/génération de données.
